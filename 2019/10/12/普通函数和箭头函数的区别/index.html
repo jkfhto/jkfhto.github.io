@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="1.箭头函数没有prototype(原型) 1234let a = () =&amp;gt;&amp;#123;&amp;#125;;console.log(a.prototype); // undefineda.__proto__===Function.prototype;// true 2.箭头函数的this指向它被创建时的上下文">
-<meta name="keywords" content="Javascript">
+  <meta name="description" content="1.箭头函数没有prototype(原型)1234let a = () =&amp;gt;&amp;#123;&amp;#125;;console.log(a.prototype); // undefineda.__proto__===Function.prototype;// true2.箭头函数的this指向它被创建时的上下文">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="普通函数和箭头函数的区别">
 <meta property="og:url" content="http://yoursite.com/2019/10/12/普通函数和箭头函数的区别/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="1.箭头函数没有prototype(原型) 1234let a = () =&amp;gt;&amp;#123;&amp;#125;;console.log(a.prototype); // undefineda.__proto__===Function.prototype;// true 2.箭头函数的this指向它被创建时的上下文">
+<meta property="og:description" content="1.箭头函数没有prototype(原型)1234let a = () =&amp;gt;&amp;#123;&amp;#125;;console.log(a.prototype); // undefineda.__proto__===Function.prototype;// true2.箭头函数的this指向它被创建时的上下文">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-12T09:04:28.445Z">
+<meta property="og:updated_time" content="2019-10-12T12:11:24.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="普通函数和箭头函数的区别">
-<meta name="twitter:description" content="1.箭头函数没有prototype(原型) 1234let a = () =&amp;gt;&amp;#123;&amp;#125;;console.log(a.prototype); // undefineda.__proto__===Function.prototype;// true 2.箭头函数的this指向它被创建时的上下文">
+<meta name="twitter:description" content="1.箭头函数没有prototype(原型)1234let a = () =&amp;gt;&amp;#123;&amp;#125;;console.log(a.prototype); // undefineda.__proto__===Function.prototype;// true2.箭头函数的this指向它被创建时的上下文">
   <link rel="canonical" href="http://yoursite.com/2019/10/12/普通函数和箭头函数的区别/">
 
 
@@ -256,7 +256,7 @@
                 
               
 
-              <time title="创建时间：2019-10-12 15:57:44 / 修改时间：17:04:28" itemprop="dateCreated datePublished" datetime="2019-10-12T15:57:44+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-12 15:57:44 / 修改时间：20:11:24" itemprop="dateCreated datePublished" datetime="2019-10-12T15:57:44+08:00">2019-10-12</time>
             </span>
           
             
@@ -275,60 +275,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ul>
-<li>1.箭头函数没有prototype(原型)</li>
-</ul><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="function"><span class="params">()</span> =&gt;</span>&#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(a.prototype); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">a.__proto__===<span class="built_in">Function</span>.prototype;<span class="comment">// true</span></span><br></pre></td></tr></table></figure><ul>
-<li>2.箭头函数的this指向它被创建时的上下文</li>
-</ul><a id="more"></a>
+        <p>1.箭头函数没有prototype(原型)</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="function"><span class="params">()</span> =&gt;</span>&#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(a.prototype); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">a.__proto__===<span class="built_in">Function</span>.prototype;<span class="comment">// true</span></span><br></pre></td></tr></table></figure><p>2.箭头函数的this指向它被创建时的上下文</p><a id="more"></a>
 
 
 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    id: <span class="number">22</span>,</span><br><span class="line">    print: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.id);</span><br><span class="line">    &#125;,</span><br><span class="line">    print2: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.id);</span><br><span class="line">    &#125;,</span><br><span class="line">    print3: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.id);</span><br><span class="line">        &#125;, <span class="number">500</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    print4: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.id);</span><br><span class="line">        &#125;, <span class="number">500</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.print(); <span class="comment">// undefined</span></span><br><span class="line">obj.print2(); <span class="comment">// 22</span></span><br><span class="line">obj.print3(); <span class="comment">// undefined</span></span><br><span class="line">obj.print4(); <span class="comment">// 22</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>3.在构造函数里使用箭头函数的主要优点是它的 this 只与箭头函数创建时的 this 保持一致，并且不会修改。所以，当用构造函数去创建一个新的对象的时候，箭头函数的 this 总是指向新创建的对象。正常函数的 this 是可以在执行过程中被改变的，而箭头函数的 this 则会一直保持一致。所以在使用箭头函数的时候，你就不需要担心它的上下文被改变了。</li>
-</ul>
+<p>3.在构造函数里使用箭头函数的主要优点是它的 this 只与箭头函数创建时的 this 保持一致，并且不会修改。所以，当用构造函数去创建一个新的对象的时候，箭头函数的 this 总是指向新创建的对象。正常函数的 this 是可以在执行过程中被改变的，而箭头函数的 this 则会一直保持一致。所以在使用箭头函数的时候，你就不需要担心它的上下文被改变了。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span> (<span class="params">firstName</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.firstName = firstName;</span><br><span class="line">    <span class="keyword">this</span>.sayName1 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="keyword">this</span>.firstName); &#125;;</span><br><span class="line">    <span class="keyword">this</span>.sayName2 = <span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="built_in">console</span>.log(<span class="keyword">this</span>.firstName); &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> john = <span class="keyword">new</span> Person(<span class="string">'John'</span>);</span><br><span class="line"><span class="keyword">const</span> dave = <span class="keyword">new</span> Person(<span class="string">'Dave'</span>);</span><br><span class="line"></span><br><span class="line">john.sayName1(); <span class="comment">// John</span></span><br><span class="line">john.sayName2(); <span class="comment">// John</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 普通函数的 this 可以被修改，而箭头函数则不会</span></span><br><span class="line">john.sayName1.call(dave); <span class="comment">// Dave (因为 "this" 现在指向了 dave 对象)</span></span><br><span class="line">john.sayName2.call(dave); <span class="comment">// John</span></span><br><span class="line"></span><br><span class="line">john.sayName1.apply(dave); <span class="comment">// Dave (因为 "this" 现在指向了 dave 对象)</span></span><br><span class="line">john.sayName2.apply(dave); <span class="comment">// John</span></span><br><span class="line"></span><br><span class="line">john.sayName1.bind(dave)(); <span class="comment">// Dave (因为 "this" 现在指向了 dave 对象)</span></span><br><span class="line">john.sayName2.bind(dave)(); <span class="comment">// John</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sayNameFromWindow1 = john.sayName1;</span><br><span class="line">sayNameFromWindow1(); <span class="comment">// undefined (因为 "this" 现在指向了 Window 对象)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sayNameFromWindow2 = john.sayName2;</span><br><span class="line">sayNameFromWindow2(); <span class="comment">// John</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>4.如果箭头函数外层没有普通函数，严格模式和非严格模式下它的this都会指向window(全局对象)</li>
-</ul>
+<p>4.如果箭头函数外层没有普通函数，严格模式和非严格模式下它的this都会指向window(全局对象)</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    print: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> obj.print(); <span class="comment">// Window</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>5.更简洁的语法</li>
-</ul>
+<p>5.更简洁的语法</p>
 <p>箭头函数</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>相当于普通函数</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>6.不能使用new</li>
-</ul>
+<p>6.不能使用new</p>
 <p>箭头函数作为匿名函数,是不能作为构造函数的,不能使用new</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> B = <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">  value:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B(); <span class="comment">//TypeError: B is not a constructor</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>7.不绑定arguments，用rest参数…解决</li>
-</ul>
+<p>7.不绑定arguments，用rest参数…解决</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*常规函数使用arguments*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test1</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);   <span class="comment">//1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*箭头函数不能使用arguments*/</span></span><br><span class="line"><span class="keyword">const</span> test2 = <span class="function">(<span class="params">a</span>)=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="built_in">arguments</span>)&#125;  <span class="comment">//ReferenceError: arguments is not defined</span></span><br><span class="line"><span class="comment">/*箭头函数使用reset参数...解决*/</span></span><br><span class="line"><span class="keyword">let</span> test3=<span class="function">(<span class="params">...a</span>)=&gt;</span>&#123;<span class="built_in">console</span>.log(a)&#125; <span class="comment">//22</span></span><br><span class="line"></span><br><span class="line">test1(<span class="number">1</span>);</span><br><span class="line">test2(<span class="number">2</span>);</span><br><span class="line">test3(<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>);</span><br></pre></td></tr></table></figure>
 
-<h2 id="箭头函数的注意事项："><a href="#箭头函数的注意事项：" class="headerlink" title="箭头函数的注意事项："></a>箭头函数的注意事项：</h2><ul>
-<li>1.不能简单返回对象字面量</li>
-</ul>
+<h2 id="箭头函数的注意事项："><a href="#箭头函数的注意事项：" class="headerlink" title="箭头函数的注意事项："></a>箭头函数的注意事项：</h2><p>1.不能简单返回对象字面量</p>
 <p>如果要返回对象时需要用小括号包起来，因为大括号被占用解释为代码块了，正确写法</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func1 = <span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="attr">foo</span>: <span class="number">1</span> &#125;;  <span class="comment">// undefined 想返回一个对象，大括号被占用解释为代码块，执行后返回undefined</span></span><br><span class="line"><span class="keyword">var</span> func2 = <span class="function"><span class="params">()</span> =&gt;</span> (&#123; <span class="attr">foo</span>: <span class="number">1</span> &#125;);  <span class="comment">// &#123; foo: 1 &#125;</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><p>2.箭头函数不能当做Generator函数，不能使用yield关键字</p>
-</li>
-<li><p>3.箭头函数不能换行</p>
+<p>2.箭头函数不能当做Generator函数，不能使用yield关键字</p>
+<p>3.箭头函数不能换行</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = ()</span><br><span class="line">          =&gt;<span class="number">1</span>; <span class="comment">//SyntaxError: Unexpected token =&gt;</span></span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
 
     </div>
 
@@ -344,7 +324,7 @@
           
           <div class="post-tags">
             
-              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
             
           </div>
         
@@ -431,7 +411,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -444,7 +424,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -516,6 +496,7 @@
   </div>
 
   
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js?v=3.1.0"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>

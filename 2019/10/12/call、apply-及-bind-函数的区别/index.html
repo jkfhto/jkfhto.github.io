@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。 123456function add(a, b) &amp;#123;  return a + b;&amp;#125;console.log(add.call(null, 1, 2)); // 3console.log(add.apply(nu">
-<meta name="keywords" content="Javascript">
+  <meta name="description" content="call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。123456function add(a, b) &amp;#123;  return a + b;&amp;#125;console.log(add.call(null, 1, 2)); // 3console.log(add.apply(nul">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="call、apply 及 bind 函数的区别">
 <meta property="og:url" content="http://yoursite.com/2019/10/12/call、apply-及-bind-函数的区别/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。 123456function add(a, b) &amp;#123;  return a + b;&amp;#125;console.log(add.call(null, 1, 2)); // 3console.log(add.apply(nu">
+<meta property="og:description" content="call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。123456function add(a, b) &amp;#123;  return a + b;&amp;#125;console.log(add.call(null, 1, 2)); // 3console.log(add.apply(nul">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-12T07:56:13.309Z">
+<meta property="og:updated_time" content="2019-10-12T12:11:35.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="call、apply 及 bind 函数的区别">
-<meta name="twitter:description" content="call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。 123456function add(a, b) &amp;#123;  return a + b;&amp;#125;console.log(add.call(null, 1, 2)); // 3console.log(add.apply(nu">
+<meta name="twitter:description" content="call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。123456function add(a, b) &amp;#123;  return a + b;&amp;#125;console.log(add.call(null, 1, 2)); // 3console.log(add.apply(nul">
   <link rel="canonical" href="http://yoursite.com/2019/10/12/call、apply-及-bind-函数的区别/">
 
 
@@ -256,7 +256,7 @@
                 
               
 
-              <time title="创建时间：2019-10-12 15:47:01 / 修改时间：15:56:13" itemprop="dateCreated datePublished" datetime="2019-10-12T15:47:01+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-12 15:47:01 / 修改时间：20:11:35" itemprop="dateCreated datePublished" datetime="2019-10-12T15:47:01+08:00">2019-10-12</time>
             </span>
           
             
@@ -275,8 +275,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add.call(<span class="literal">null</span>, <span class="number">1</span>, <span class="number">2</span>)); <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(add.apply(<span class="literal">null</span>, [<span class="number">1</span>, <span class="number">2</span>])); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+        <p>call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add.call(<span class="literal">null</span>, <span class="number">1</span>, <span class="number">2</span>)); <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(add.apply(<span class="literal">null</span>, [<span class="number">1</span>, <span class="number">2</span>])); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure><a id="more"></a>
+
 
 <p><code>bind()</code>方法返回一个新的函数, 新函数的<code>this</code>值指向传入的第一个参数，<code>this</code>被绑定了</p>
 
@@ -294,7 +294,7 @@
           
           <div class="post-tags">
             
-              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
             
           </div>
         
@@ -379,7 +379,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -392,7 +392,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -464,6 +464,7 @@
   </div>
 
   
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js?v=3.1.0"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
