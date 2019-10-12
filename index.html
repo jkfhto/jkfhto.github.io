@@ -253,7 +253,7 @@
                 
               
 
-              <time title="创建时间：2019-10-12 20:07:34 / 修改时间：20:10:09" itemprop="dateCreated datePublished" datetime="2019-10-12T20:07:34+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-12 20:07:34 / 修改时间：21:48:54" itemprop="dateCreated datePublished" datetime="2019-10-12T20:07:34+08:00">2019-10-12</time>
             </span>
           
             
@@ -270,10 +270,10 @@
       </span>
         
       
-      <span class="post-meta-item-text">Disqus：</span>
+      <span class="post-meta-item-text">Valine：</span>
     
-    <a title="disqus" href="/2019/10/12/JavaScript深入之继承的多种方式和优缺点/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/12/JavaScript深入之继承的多种方式和优缺点/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/12/JavaScript深入之继承的多种方式和优缺点/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/12/JavaScript深入之继承的多种方式和优缺点/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -366,10 +366,10 @@
       </span>
         
       
-      <span class="post-meta-item-text">Disqus：</span>
+      <span class="post-meta-item-text">Valine：</span>
     
-    <a title="disqus" href="/2019/10/12/和-的区别是什么？/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/12/和-的区别是什么？/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/12/和-的区别是什么？/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/12/和-的区别是什么？/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -462,10 +462,10 @@
       </span>
         
       
-      <span class="post-meta-item-text">Disqus：</span>
+      <span class="post-meta-item-text">Valine：</span>
     
-    <a title="disqus" href="/2019/10/12/JavaScript深入之new的模拟实现/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/12/JavaScript深入之new的模拟实现/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/12/JavaScript深入之new的模拟实现/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/12/JavaScript深入之new的模拟实现/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -562,10 +562,10 @@
       </span>
         
       
-      <span class="post-meta-item-text">Disqus：</span>
+      <span class="post-meta-item-text">Valine：</span>
     
-    <a title="disqus" href="/2019/10/12/bind的模拟实现/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/12/bind的模拟实现/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/12/bind的模拟实现/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/12/bind的模拟实现/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -663,10 +663,10 @@
       </span>
         
       
-      <span class="post-meta-item-text">Disqus：</span>
+      <span class="post-meta-item-text">Valine：</span>
     
-    <a title="disqus" href="/2019/10/12/call和apply的模拟实现/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/12/call和apply的模拟实现/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/12/call和apply的模拟实现/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/12/call和apply的模拟实现/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -909,15 +909,31 @@
 
   
 
+
 <script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://jkfhto.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'alQVMWPnOOe4lPVXKRWqDTsQ-gzGzoHsz',
+    appKey: 'RleUsHgziBnyz6c72sCfUduo',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
 
 </body>
