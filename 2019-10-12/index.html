@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="当你没有提前使用var、let或const声明变量，就为一个变量赋值时，该变量是未声明变量（undeclared variables）。未声明变量会脱离当前作用域，成为全局作用域下定义的变量。在严格模式下，给未声明的变量赋值，会抛出ReferenceError错误。和使用全局变量一样，使用未声明变量也是非常不好的做法，应当尽可能避免。要检查判断它们，需要将用到它们的代码放在try/catch语句中">
-<meta name="keywords" content="Web,HTML,Node,全栈,React,Webpack,Webgl,Three.js">
+  <meta name="description" content="粗略地讲，函数的调用方式决定了this的值，谁调用的函数，this就指向谁。this取值符合以下规则：1.如果函数作为构造函数用，那么其中的this就代表它即将new出来的对象。2.如果appl、call或bind方法用于调用、创建一个函数，this的值就取传入的对象的值。3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象。比如当obj.method()被">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？">
-<meta property="og:url" content="https://jkfhto.github.io/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/index.html">
+<meta property="og:title" content="简述JavaScript中的this">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-12/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="当你没有提前使用var、let或const声明变量，就为一个变量赋值时，该变量是未声明变量（undeclared variables）。未声明变量会脱离当前作用域，成为全局作用域下定义的变量。在严格模式下，给未声明的变量赋值，会抛出ReferenceError错误。和使用全局变量一样，使用未声明变量也是非常不好的做法，应当尽可能避免。要检查判断它们，需要将用到它们的代码放在try/catch语句中">
+<meta property="og:description" content="粗略地讲，函数的调用方式决定了this的值，谁调用的函数，this就指向谁。this取值符合以下规则：1.如果函数作为构造函数用，那么其中的this就代表它即将new出来的对象。2.如果appl、call或bind方法用于调用、创建一个函数，this的值就取传入的对象的值。3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象。比如当obj.method()被">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-12T09:17:28.319Z">
+<meta property="og:updated_time" content="2019-10-13T06:29:47.148Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？">
-<meta name="twitter:description" content="当你没有提前使用var、let或const声明变量，就为一个变量赋值时，该变量是未声明变量（undeclared variables）。未声明变量会脱离当前作用域，成为全局作用域下定义的变量。在严格模式下，给未声明的变量赋值，会抛出ReferenceError错误。和使用全局变量一样，使用未声明变量也是非常不好的做法，应当尽可能避免。要检查判断它们，需要将用到它们的代码放在try/catch语句中">
-  <link rel="canonical" href="https://jkfhto.github.io/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/">
+<meta name="twitter:title" content="简述JavaScript中的this">
+<meta name="twitter:description" content="粗略地讲，函数的调用方式决定了this的值，谁调用的函数，this就指向谁。this取值符合以下规则：1.如果函数作为构造函数用，那么其中的this就代表它即将new出来的对象。2.如果appl、call或bind方法用于调用、创建一个函数，this的值就取传入的对象的值。3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象。比如当obj.method()被">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-12/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？ | 个人博客</title>
+  <title>简述JavaScript中的this | 个人博客</title>
   
 
 
@@ -225,7 +225,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -239,7 +239,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？
+            简述JavaScript中的this
             
 
           
@@ -256,11 +256,19 @@
                 
               
 
-              <time title="创建时间：2019-10-12 17:10:30 / 修改时间：17:17:28" itemprop="dateCreated datePublished" datetime="2019-10-12T17:10:30+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-12 15:43:07" itemprop="dateCreated datePublished" datetime="2019-10-12T15:43:07+08:00">2019-10-12</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-13 14:29:47" itemprop="dateModified" datetime="2019-10-13T14:29:47+08:00">2019-10-13</time>
+              </span>
             
           
 
@@ -283,8 +291,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-12/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -299,38 +307,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>当你没有提前使用<strong><em>var</em></strong>、<strong><em>let</em></strong>或<strong><em>const</em></strong>声明变量，就为一个变量赋值时，该变量是未声明变量<strong><em>（undeclared variables）</em></strong>。未声明变量会脱离当前作用域，成为全局作用域下定义的变量。<strong><em>在严格模式下</em></strong>，给未声明的变量赋值，会抛出<strong><em>ReferenceError</em></strong>错误。和使用全局变量一样，使用未声明变量也是非常不好的做法，应当尽可能避免。要检查判断它们，需要将用到它们的代码放在<strong><em>try/catch</em></strong>语句中。</p><a id="more"></a>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  x = <span class="number">1</span>; <span class="comment">// 在严格模式下，抛出 ReferenceError 错误</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+        <p>粗略地讲，函数的调用方式决定了<code>this</code>的值，谁调用的函数，<code>this</code>就指向谁。<code>this</code>取值符合以下规则：</p><p>1.如果函数作为构造函数用，那么其中的<code>this</code>就代表它即将<code>new</code>出来的对象。</p><p>2.如果<code>appl</code>、<code>call</code>或<code>bind</code>方法用于调用、创建一个函数，this的值就取传入的对象的值。</p><p>3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的<code>this</code>指向该对象。比如当<code>obj.method()</code>被调用时，函数内的 <code>this</code> 将绑定到<code>obj</code>对象。</p><a id="more"></a>
 
-<p>当一个变量已经声明，但没有赋值时，该变量的值是<strong><em>undefined</em></strong>。如果一个函数的执行结果被赋值给一个变量，但是这个函数却没有返回任何值，那么该变量的值是<strong><em>undefined</em></strong>。要检查它，需要使用严格相等（===）；或者使用<strong><em>typeof</em></strong>，它会返回<strong><em>‘undefined’</em></strong>字符串。请注意，不能使用非严格相等（==）来检查，因为如果变量值为<strong><em>null</em></strong>，使用非严格相等也会返回<strong><em>true</em></strong>。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo;</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(foo === <span class="literal">undefined</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> foo === <span class="string">'undefined'</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(foo == <span class="literal">null</span>); <span class="comment">// true. 错误，不要使用非严格相等！</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> baz = bar();</span><br><span class="line"><span class="built_in">console</span>.log(baz); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
 
-<p><strong><em>null</em></strong> 只能被显式赋值给变量。它表示空值，与被显式赋值 <strong><em>undefined</em></strong> 的意义不同。要检查判断<strong><em>null</em></strong>值，需要使用严格相等运算符。请注意，和前面一样，不能使用非严格相等（==）来检查，因为如果变量值为<strong><em>undefined</em></strong>，使用非严格相等也会返回true。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(foo === <span class="literal">null</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(foo == <span class="literal">undefined</span>); <span class="comment">// true. 错误，不要使用非严格相等！</span></span><br></pre></td></tr></table></figure>
 
-<p>作为一种个人习惯，我从不使用未声明变量。如果定义了暂时没有用到的变量，我会在声明后明确地给它们赋值为<strong><em>null</em></strong>。</p>
-<ul>
-<li>null：表示一个值被定义了，定义为“空值”；</li>
-<li>undefined：表示根本不存在定义。</li>
-</ul>
-<p>所以设置一个值为 <strong><em>null</em></strong> 是合理的，如<br><strong><em>objA.valueA = null</em></strong>;</p>
-<p>但设置一个值为 <strong><em>undefined</em></strong> 是不合理的</p>
-<p><strong><em>null</em></strong> 表示”没有对象”，即该处不应该有值。典型用法是：</p>
-<ul>
-<li>1.作为函数的参数，表示该函数的参数不是对象。</li>
-<li>2.作为对象原型链的终点。</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">Object</span>.prototype)<span class="comment">// null</span></span><br></pre></td></tr></table></figure>
-
-<p><code>undefined</code> 表示”缺少值”，就是此处应该有一个值，但是还没有定义。典型用法是：</p>
-<ul>
-<li>1.变量被声明了，但没有赋值时，就等于undefined。</li>
-<li>2.调用函数时，应该提供的参数没有提供，该参数等于undefined。</li>
-<li>3.对象没有赋值的属性，该属性的值为undefined。</li>
-<li>4.函数没有返回值时，默认返回undefined。</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/yangshun/front-end-interview-handbook/blob/master/Translations/Chinese/questions/javascript-questions.md#nullundefined%E5%92%8C%E6%9C%AA%E5%A3%B0%E6%98%8E%E5%8F%98%E9%87%8F%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E5%A6%82%E4%BD%95%E6%A3%80%E6%9F%A5%E5%88%A4%E6%96%AD%E8%BF%99%E4%BA%9B%E7%8A%B6%E6%80%81%E5%80%BC" target="_blank" rel="noopener">https://github.com/yangshun/front-end-interview-handbook/blob/master/Translations/Chinese/questions/javascript-questions.md#nullundefined%E5%92%8C%E6%9C%AA%E5%A3%B0%E6%98%8E%E5%8F%98%E9%87%8F%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E5%A6%82%E4%BD%95%E6%A3%80%E6%9F%A5%E5%88%A4%E6%96%AD%E8%BF%99%E4%BA%9B%E7%8A%B6%E6%80%81%E5%80%BC</a></p>
-<p><a href="http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html</a></p>
+<p>4.如果调用函数不符合上述规则，那么<code>this</code>的值指向全局对象<code>（global object）</code>。浏览器环境下<code>this</code>的值指向<code>window</code>对象，但是在严格模式下<code>(&#39;use strict&#39;)</code>，<code>this</code>的值为<code>undefined</code>。</p>
+<p>5.如果符合上述多个规则，则较高的规则（1 号最高，4 号最低）将决定<code>this</code>的值。</p>
+<p>6.如果该函数是 ES2015 中的<code>箭头函数</code>，将忽略上面的所有规则，<code>this</code>被设置为它被<code>创建时的上下文</code>。</p>
 
     </div>
 
@@ -347,15 +330,20 @@
       
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+            
+          </div>
+        
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-              
-                <a href="/函数柯里化/" rel="next" title="函数柯里化">
-                  <i class="fa fa-chevron-left"></i> 函数柯里化
-                </a>
               
             </div>
 
@@ -363,8 +351,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/使用let、var和const创建变量有什么区别？/" rel="prev" title="使用let、var和const创建变量有什么区别？">
-                  使用let、var和const创建变量有什么区别？ <i class="fa fa-chevron-right"></i>
+                <a href="/2019-10-12/" rel="prev" title="call、apply 及 bind 函数的区别">
+                  call、apply 及 bind 函数的区别 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -414,8 +402,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li></ol></div>
-        
       </div>
       <!--/noindex-->
 
