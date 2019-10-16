@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="从前端的角度出发，主要包括以下几个方面： 浏览器的地址栏输入URL并按下回车。 浏览器查找当前URL是否存在缓存，并比较缓存是否过期。 通过 DNS（域名解析系统）将 URL 解析为对应的 IP 地址。 然后与这个 IP 地址确定的那台服务器建立起 TCP 网络连接（三次握手）。 随后我们向服务端抛出我们的 HTTP 请求。 服务端处理完我们的请求之后，把目标数据放在 HTTP 响应里返回给客户端">
-<meta name="keywords" content="Javascript,前端性能优化">
+  <meta name="description" content="new实例化 返回一个新的对象 新对象可以访问构造函数里的属性和方法 新对象可以访问 prototype 上的属性和方法 初步实现因为 new 是关键字，所以无法像 bind 函数一样直接覆盖，所以我们写一个函数，命名为 mockNew，来模拟 new 的效果。123456789101112function mockNew() &amp;#123;    // 需要返回的对象    var obj = n">
+<meta name="keywords" content="Javascript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从输入 URL 到页面加载完成，发生了什么？">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/index.html">
+<meta property="og:title" content="JavaScript深入之new的模拟实现">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-12/Javascript/JavaScript深入之new的模拟实现/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="从前端的角度出发，主要包括以下几个方面： 浏览器的地址栏输入URL并按下回车。 浏览器查找当前URL是否存在缓存，并比较缓存是否过期。 通过 DNS（域名解析系统）将 URL 解析为对应的 IP 地址。 然后与这个 IP 地址确定的那台服务器建立起 TCP 网络连接（三次握手）。 随后我们向服务端抛出我们的 HTTP 请求。 服务端处理完我们的请求之后，把目标数据放在 HTTP 响应里返回给客户端">
+<meta property="og:description" content="new实例化 返回一个新的对象 新对象可以访问构造函数里的属性和方法 新对象可以访问 prototype 上的属性和方法 初步实现因为 new 是关键字，所以无法像 bind 函数一样直接覆盖，所以我们写一个函数，命名为 mockNew，来模拟 new 的效果。123456789101112function mockNew() &amp;#123;    // 需要返回的对象    var obj = n">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-16T10:18:40.803Z">
+<meta property="og:updated_time" content="2019-10-16T10:22:39.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从输入 URL 到页面加载完成，发生了什么？">
-<meta name="twitter:description" content="从前端的角度出发，主要包括以下几个方面： 浏览器的地址栏输入URL并按下回车。 浏览器查找当前URL是否存在缓存，并比较缓存是否过期。 通过 DNS（域名解析系统）将 URL 解析为对应的 IP 地址。 然后与这个 IP 地址确定的那台服务器建立起 TCP 网络连接（三次握手）。 随后我们向服务端抛出我们的 HTTP 请求。 服务端处理完我们的请求之后，把目标数据放在 HTTP 响应里返回给客户端">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/">
+<meta name="twitter:title" content="JavaScript深入之new的模拟实现">
+<meta name="twitter:description" content="new实例化 返回一个新的对象 新对象可以访问构造函数里的属性和方法 新对象可以访问 prototype 上的属性和方法 初步实现因为 new 是关键字，所以无法像 bind 函数一样直接覆盖，所以我们写一个函数，命名为 mockNew，来模拟 new 的效果。123456789101112function mockNew() &amp;#123;    // 需要返回的对象    var obj = n">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-12/Javascript/JavaScript深入之new的模拟实现/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>从输入 URL 到页面加载完成，发生了什么？ | 个人博客</title>
+  <title>JavaScript深入之new的模拟实现 | 个人博客</title>
   
 
 
@@ -255,7 +255,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/JavaScript深入之new的模拟实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +269,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            从输入 URL 到页面加载完成，发生了什么？
+            JavaScript深入之new的模拟实现
             
 
           
@@ -286,11 +286,19 @@
                 
               
 
-              <time title="创建时间：2019-10-16 16:02:31 / 修改时间：18:18:40" itemprop="dateCreated datePublished" datetime="2019-10-16T16:02:31+08:00">2019-10-16</time>
+              <time title="创建时间：2019-10-12 20:01:17" itemprop="dateCreated datePublished" datetime="2019-10-12T20:01:17+08:00">2019-10-12</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+              </span>
             
           
 
@@ -313,8 +321,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-12/Javascript/JavaScript深入之new的模拟实现/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/JavaScript深入之new的模拟实现/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -329,32 +337,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>从前端的角度出发，主要包括以下几个方面：</p><ul>
-<li>浏览器的地址栏输入URL并按下回车。</li>
-<li>浏览器查找当前URL是否存在缓存，并比较缓存是否过期。</li>
-<li>通过 DNS（域名解析系统）将 URL 解析为对应的 IP 地址。</li>
-<li>然后与这个 IP 地址确定的那台服务器建立起 TCP 网络连接（三次握手）。</li>
-<li>随后我们向服务端抛出我们的 HTTP 请求。</li>
-<li>服务端处理完我们的请求之后，把目标数据放在 HTTP 响应里返回给客户端。</li>
-<li>拿到响应数据的浏览器就可以开始走一个渲染的流程。渲染完毕，页面便呈现给了用户，并时刻等待响应用户的操作。</li>
-<li>关闭TCP连接（四次挥手）。</li>
-</ul><a id="more"></a>
+        <h2 id="new实例化"><a href="#new实例化" class="headerlink" title="new实例化"></a>new实例化</h2><ul>
+<li>返回一个新的对象</li>
+<li>新对象可以访问构造函数里的属性和方法</li>
+<li>新对象可以访问 prototype 上的属性和方法</li>
+</ul><h2 id="初步实现"><a href="#初步实现" class="headerlink" title="初步实现"></a>初步实现</h2><p>因为 new 是关键字，所以无法像 bind 函数一样直接覆盖，所以我们写一个函数，命名为 mockNew，来模拟 new 的效果。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockNew</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 需要返回的对象</span></span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="comment">// 获取需要实例化的构造函数</span></span><br><span class="line">    <span class="comment">// shift 会返回构造函数，修改原数组，所以 arguments 会被去除第一个参数</span></span><br><span class="line">    <span class="keyword">var</span> Constructor = [].shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 继承原型上的属性和方法</span></span><br><span class="line">    obj.__proto__ = Constructor.prototype;</span><br><span class="line">    <span class="comment">//继承构造函数的属性和方法</span></span><br><span class="line">    Constructor.apply(obj, <span class="built_in">arguments</span>);</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><a id="more"></a>
 
-<h3 id="三次握手简单说明"><a href="#三次握手简单说明" class="headerlink" title="三次握手简单说明"></a>三次握手简单说明</h3><p> 所谓三次握手（Three-Way Handshake）即建立TCP连接，是指建立一个TCP连接时，需要客户端和服务端总共发送3个包以确认连接的建立。</p>
-<ul>
-<li>1.客户端–发送带有SYN标志的数据包–一次握手–服务端（客户端：我要连接你了，可以吗？）</li>
-<li>2.服务端–发送带有SYN/ACK标志的数据包–二次握手–客户端（服务端：嗯，我准备好了，连接我吧。）</li>
-<li>3.客户端–发送带有带有ACK标志的数据包–三次握手–服务端（客户端：那我连接你咯。）</li>
-</ul>
-<h3 id="四次挥手简单说明"><a href="#四次挥手简单说明" class="headerlink" title="四次挥手简单说明"></a>四次挥手简单说明</h3><ul>
-<li>客户端-发送一个FIN，用来关闭客户端到服务器的数据传送（客户端向服务器发送一个断开连接的请求）</li>
-<li>服务器-收到这个FIN，它发回一个ACK，确认序号为收到的序号加1 。和SYN一样，一个FIN将占用一个序号（服务器接到请求后发送确认收到请求的信号）</li>
-<li>服务器-关闭与客户端的连接，发送一个FIN给客户端（服务器向主机发送断开通知）</li>
-<li>客户端-发回ACK报文确认，并将确认序号设置为收到序号加1</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://www.iteye.com/blog/uule-2213562" target="_blank" rel="noopener">TCP协议的三次握手和四次挥手</a></li>
-</ul>
+
+
+<h2 id="兼容返回值类型"><a href="#兼容返回值类型" class="headerlink" title="兼容返回值类型"></a>兼容返回值类型</h2><p>我们还需要判断构造函数的返回值，如果构造函数的返回值是一个引用类型的对象，我们就返回构造函数的返回值，如果不是，我们该返回什么就返回什么。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockNew</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 需要返回的对象</span></span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="comment">// 获取需要实例化的构造函数</span></span><br><span class="line">    <span class="comment">// shift 会返回构造函数，修改原数组，所以 arguments 会被去除第一个参数</span></span><br><span class="line">    <span class="keyword">var</span> Constructor = [].shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 继承原型上的属性和方法</span></span><br><span class="line">    obj.__proto__ = Constructor.prototype;</span><br><span class="line">    <span class="comment">// 继承构造函数的属性和方法</span></span><br><span class="line">    <span class="keyword">var</span> result = Constructor.apply(obj, <span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 兼容返回值类型 </span></span><br><span class="line">    <span class="comment">// 如果构造函数的返回值是一个引用类型的对象，我们就返回构造函数的返回值，否则返回obj</span></span><br><span class="line">    <span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? result : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/13" target="_blank" rel="noopener">https://github.com/mqyqingfeng/Blog/issues/13</a></p>
 
     </div>
 
@@ -378,8 +372,6 @@
             
               <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
             
-              <a href="/tags/前端性能优化/" rel="tag"><i class="fa fa-tag"></i> 前端性能优化</a>
-            
           </div>
         
 
@@ -388,8 +380,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019-10-14/Javascript/Event-Loop-运行机制/" rel="next" title="Event Loop 运行机制">
-                  <i class="fa fa-chevron-left"></i> Event Loop 运行机制
+                <a href="/2019-10-12/Javascript/bind的模拟实现/" rel="next" title="bind的模拟实现">
+                  <i class="fa fa-chevron-left"></i> bind的模拟实现
                 </a>
               
             </div>
@@ -398,8 +390,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019-10-16/前端性能优化/前端性能优化/" rel="prev" title="前端性能优化">
-                  前端性能优化 <i class="fa fa-chevron-right"></i>
+                <a href="/2019-10-12/Javascript/和-的区别是什么？/" rel="prev" title="==和===的区别是什么？">
+                  ==和===的区别是什么？ <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -449,7 +441,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手简单说明"><span class="nav-number">1.</span> <span class="nav-text">三次握手简单说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手简单说明"><span class="nav-number">2.</span> <span class="nav-text">四次挥手简单说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#new实例化"><span class="nav-number">1.</span> <span class="nav-text">new实例化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初步实现"><span class="nav-number">2.</span> <span class="nav-text">初步实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兼容返回值类型"><span class="nav-number">3.</span> <span class="nav-text">兼容返回值类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

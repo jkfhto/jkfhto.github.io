@@ -55,19 +55,24 @@
   };
 </script>
 
-  <meta name="description" content="从前端的角度出发，主要包括以下几个方面： 浏览器的地址栏输入URL并按下回车。 浏览器查找当前URL是否存在缓存，并比较缓存是否过期。 通过 DNS（域名解析系统）将 URL 解析为对应的 IP 地址。 然后与这个 IP 地址确定的那台服务器建立起 TCP 网络连接（三次握手）。 随后我们向服务端抛出我们的 HTTP 请求。 服务端处理完我们的请求之后，把目标数据放在 HTTP 响应里返回给客户端">
+  <meta name="description" content="Performance API这个 API 是 HTML5 新增的特性。过去我们要统计脚本的运行时间，会使用 Date.getTime() 去获取对应的时间；如果要获取白屏时间是在 head 末尾插入一段获取时间戳的代码，然后用这个时间戳减去开始接收数据的那个时间戳，得出的结果为白屏时间。这样的方法无疑是笨重的，而且获取的时间无法更精确(只能到ms级别)，而且一些后台比较关注的时间根本无法获取。W">
 <meta name="keywords" content="Javascript,前端性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从输入 URL 到页面加载完成，发生了什么？">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/index.html">
+<meta property="og:title" content="前端性能优化衡量指标">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-16/前端性能优化/前端性能优化衡量指标/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="从前端的角度出发，主要包括以下几个方面： 浏览器的地址栏输入URL并按下回车。 浏览器查找当前URL是否存在缓存，并比较缓存是否过期。 通过 DNS（域名解析系统）将 URL 解析为对应的 IP 地址。 然后与这个 IP 地址确定的那台服务器建立起 TCP 网络连接（三次握手）。 随后我们向服务端抛出我们的 HTTP 请求。 服务端处理完我们的请求之后，把目标数据放在 HTTP 响应里返回给客户端">
+<meta property="og:description" content="Performance API这个 API 是 HTML5 新增的特性。过去我们要统计脚本的运行时间，会使用 Date.getTime() 去获取对应的时间；如果要获取白屏时间是在 head 末尾插入一段获取时间戳的代码，然后用这个时间戳减去开始接收数据的那个时间戳，得出的结果为白屏时间。这样的方法无疑是笨重的，而且获取的时间无法更精确(只能到ms级别)，而且一些后台比较关注的时间根本无法获取。W">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-16T10:18:40.803Z">
+<meta property="og:image" content="https://jkfhto.github.io/images/Performance1.png">
+<meta property="og:image" content="https://jkfhto.github.io/images/Performance2.jpg">
+<meta property="og:image" content="https://jkfhto.github.io/images/Performance3.jpg">
+<meta property="og:image" content="https://jkfhto.github.io/images/Performance4.png">
+<meta property="og:updated_time" content="2019-10-16T13:00:24.482Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从输入 URL 到页面加载完成，发生了什么？">
-<meta name="twitter:description" content="从前端的角度出发，主要包括以下几个方面： 浏览器的地址栏输入URL并按下回车。 浏览器查找当前URL是否存在缓存，并比较缓存是否过期。 通过 DNS（域名解析系统）将 URL 解析为对应的 IP 地址。 然后与这个 IP 地址确定的那台服务器建立起 TCP 网络连接（三次握手）。 随后我们向服务端抛出我们的 HTTP 请求。 服务端处理完我们的请求之后，把目标数据放在 HTTP 响应里返回给客户端">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/">
+<meta name="twitter:title" content="前端性能优化衡量指标">
+<meta name="twitter:description" content="Performance API这个 API 是 HTML5 新增的特性。过去我们要统计脚本的运行时间，会使用 Date.getTime() 去获取对应的时间；如果要获取白屏时间是在 head 末尾插入一段获取时间戳的代码，然后用这个时间戳减去开始接收数据的那个时间戳，得出的结果为白屏时间。这样的方法无疑是笨重的，而且获取的时间无法更精确(只能到ms级别)，而且一些后台比较关注的时间根本无法获取。W">
+<meta name="twitter:image" content="https://jkfhto.github.io/images/Performance1.png">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-16/前端性能优化/前端性能优化衡量指标/">
 
 
 <script id="page-configurations">
@@ -81,7 +86,7 @@
   };
 </script>
 
-  <title>从输入 URL 到页面加载完成，发生了什么？ | 个人博客</title>
+  <title>前端性能优化衡量指标 | 个人博客</title>
   
 
 
@@ -255,7 +260,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-16/前端性能优化/前端性能优化衡量指标/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +274,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            从输入 URL 到页面加载完成，发生了什么？
+            前端性能优化衡量指标
             
 
           
@@ -286,7 +291,7 @@
                 
               
 
-              <time title="创建时间：2019-10-16 16:02:31 / 修改时间：18:18:40" itemprop="dateCreated datePublished" datetime="2019-10-16T16:02:31+08:00">2019-10-16</time>
+              <time title="创建时间：2019-10-16 19:36:07 / 修改时间：21:00:24" itemprop="dateCreated datePublished" datetime="2019-10-16T19:36:07+08:00">2019-10-16</time>
             </span>
           
             
@@ -313,8 +318,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-16/前端性能优化/前端性能优化衡量指标/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-16/前端性能优化/前端性能优化衡量指标/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -329,32 +334,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>从前端的角度出发，主要包括以下几个方面：</p><ul>
-<li>浏览器的地址栏输入URL并按下回车。</li>
-<li>浏览器查找当前URL是否存在缓存，并比较缓存是否过期。</li>
-<li>通过 DNS（域名解析系统）将 URL 解析为对应的 IP 地址。</li>
-<li>然后与这个 IP 地址确定的那台服务器建立起 TCP 网络连接（三次握手）。</li>
-<li>随后我们向服务端抛出我们的 HTTP 请求。</li>
-<li>服务端处理完我们的请求之后，把目标数据放在 HTTP 响应里返回给客户端。</li>
-<li>拿到响应数据的浏览器就可以开始走一个渲染的流程。渲染完毕，页面便呈现给了用户，并时刻等待响应用户的操作。</li>
-<li>关闭TCP连接（四次挥手）。</li>
-</ul><a id="more"></a>
+        <h2 id="Performance-API"><a href="#Performance-API" class="headerlink" title="Performance API"></a>Performance API</h2><p>这个 API 是 HTML5 新增的特性。过去我们要统计脚本的运行时间，会使用 Date.getTime() 去获取对应的时间；如果要获取白屏时间是在 head 末尾插入一段获取时间戳的代码，然后用这个时间戳减去开始接收数据的那个时间戳，得出的结果为白屏时间。这样的方法无疑是笨重的，而且获取的时间无法更精确(只能到ms级别)，而且一些后台比较关注的时间根本无法获取。W3C 为了解决这个问题，在 HTML5 推出的时候，新增了这个 API 。</p><a id="more"></a>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance" target="_blank" rel="noopener">Performance</a> 接口可以获取到当前页面中与性能相关的信息。它是 High Resolution Time API 的一部分，同时也融合了 Performance Timeline API、<a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigation_timing_API" target="_blank" rel="noopener">Navigation Timing API</a>、 <a href="https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API" target="_blank" rel="noopener">User Timing API</a> 和 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Resource_Timing_API" target="_blank" rel="noopener">Resource Timing API</a>。该类型的对象可以通过调用只读属性 Window.performance 来获得。</p>
+<p>在控制台输入window.performance，能够获取到相关信息，如下图：</p>
+<p><img src="/images/Performance1.png" alt="Performance1"></p>
+<p><strong><em>performance</em></strong> 包括了五个属性，其中 <strong><em>timing</em></strong> 是我们需要重点关注的，<strong><em>timing</em></strong> 是一个对象，其中key值是性能优化指标，value值是对应的时间戳。其中这些时间戳与页面整个加载过程中的关键节点是有着一一对应的关系。</p>
+<p><img src="/images/Performance2.jpg" alt="Performance2"></p>
+<p>从图中可以看到很多指标都是成对出现，这里我们直接求差值，就可以求出对应页面加载过程中关键节点的耗时，这里我们介绍几个比较常用的，比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> timingInfo = <span class="built_in">window</span>.performance.timing;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DNS解析，DNS查询耗时</span></span><br><span class="line">timingInfo.domainLookupEnd - timingInfo.domainLookupStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// TCP连接耗时</span></span><br><span class="line">timingInfo.connectEnd - timingInfo.connectStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获得首字节耗费时间，也叫TTFB</span></span><br><span class="line">timingInfo.responseStart - timingInfo.navigationStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// domReady时间(与DomContentLoad事件对应)</span></span><br><span class="line">timingInfo.domContentLoadedEventStart - timingInfo.navigationStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DOM资源下载</span></span><br><span class="line">timingInfo.responseEnd - timingInfo.responseStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 准备新页面时间耗时</span></span><br><span class="line">timingInfo.fetchStart - timingInfo.navigationStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重定向耗时</span></span><br><span class="line">timingInfo.redirectEnd - timingInfo.redirectStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Appcache 耗时</span></span><br><span class="line">timingInfo.domainLookupStart - timingInfo.fetchStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// unload 前文档耗时</span></span><br><span class="line">timingInfo.unloadEventEnd - timingInfo.unloadEventStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// request请求耗时</span></span><br><span class="line">timingInfo.responseEnd - timingInfo.requestStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求完毕至DOM加载</span></span><br><span class="line">timingInfo.domInteractive - timingInfo.responseEnd;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解释dom树耗时</span></span><br><span class="line">timingInfo.domComplete - timingInfo.domInteractive;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从开始至load总耗时</span></span><br><span class="line">timingInfo.loadEventEnd - timingInfo.navigationStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 白屏时间</span></span><br><span class="line">timingInfo.responseStart - timingInfo.fetchStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 首屏时间</span></span><br><span class="line">timingInfo.domComplete - timingInfo.fetchStart;</span><br></pre></td></tr></table></figure>
 
-<h3 id="三次握手简单说明"><a href="#三次握手简单说明" class="headerlink" title="三次握手简单说明"></a>三次握手简单说明</h3><p> 所谓三次握手（Three-Way Handshake）即建立TCP连接，是指建立一个TCP连接时，需要客户端和服务端总共发送3个包以确认连接的建立。</p>
+<h2 id="感官性能优化指标"><a href="#感官性能优化指标" class="headerlink" title="感官性能优化指标"></a>感官性能优化指标</h2><p>普通用户感官体验联系更加紧密的一些指标：</p>
 <ul>
-<li>1.客户端–发送带有SYN标志的数据包–一次握手–服务端（客户端：我要连接你了，可以吗？）</li>
-<li>2.服务端–发送带有SYN/ACK标志的数据包–二次握手–客户端（服务端：嗯，我准备好了，连接我吧。）</li>
-<li>3.客户端–发送带有带有ACK标志的数据包–三次握手–服务端（客户端：那我连接你咯。）</li>
+<li>First Paint(简称FP)：表示文档中任一元素首次渲染时间。用于标记导航之后浏览器在屏幕上渲染像素的时间点。这个不难理解，就是浏览器开始请求网页到网页首帧绘制的时间点。这个指标表明了网页请求是否成功。</li>
+<li>First Contentful Paint(简称FCP)：当浏览器首次渲染任何文本，图像（包括背景图像），非白色画布或SVG时。这个指标就是我们日常说的白屏时间。</li>
+<li>First Meaningful Paint(简称FMP)：首次有意义的绘制，这个指标反映的是主要内容出现在页面上所需要的时间，如果FMP时间过长的话，这里就要考虑是不是静态文件阻塞了主线程。这是一个很主观的指标。根据业务的不同，每一个网站的有效内容都是不相同的，有效内容就是网页中”主角元素”。</li>
+<li>Time To Interactive(TTI):可交互时间，等到服务器通过HTTP协议将响应全部返回之后，便开始DOM Tree 的构建，完成之后，网页变成可交互状态，到此为止便是网页的可交互时间。用户可以进行正常的事件输入交互操作，这个指标是最重要的用户体验指标，用户最关心的就是什么时候可以进行交互，所以通常这个指标是我们优化的重点。</li>
 </ul>
-<h3 id="四次挥手简单说明"><a href="#四次挥手简单说明" class="headerlink" title="四次挥手简单说明"></a>四次挥手简单说明</h3><ul>
-<li>客户端-发送一个FIN，用来关闭客户端到服务器的数据传送（客户端向服务器发送一个断开连接的请求）</li>
-<li>服务器-收到这个FIN，它发回一个ACK，确认序号为收到的序号加1 。和SYN一样，一个FIN将占用一个序号（服务器接到请求后发送确认收到请求的信号）</li>
-<li>服务器-关闭与客户端的连接，发送一个FIN给客户端（服务器向主机发送断开通知）</li>
-<li>客户端-发回ACK报文确认，并将确认序号设置为收到序号加1</li>
+<p><img src="/images/Performance3.jpg" alt="感官性能优化指标"></p>
+<ul>
+<li>我们可以在控制台输入 <strong><em>window.performance.getEntriesByType(‘paint’)</em></strong> 获取，<strong><em>First Paint(简称FP)</em></strong>，<strong><em>First Contentful Paint(简称FCP)</em></strong>。</li>
+<li>另外2个指标我们可以通过性能优化工具 <a href="https://github.com/GoogleChrome/lighthouse" target="_blank" rel="noopener">Lighthouse</a> 实时测量进行获取。</li>
 </ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://www.iteye.com/blog/uule-2213562" target="_blank" rel="noopener">TCP协议的三次握手和四次挥手</a></li>
-</ul>
+<p><img src="/images/Performance4.png" alt="感官性能优化指标2"></p>
 
     </div>
 
@@ -388,8 +389,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019-10-14/Javascript/Event-Loop-运行机制/" rel="next" title="Event Loop 运行机制">
-                  <i class="fa fa-chevron-left"></i> Event Loop 运行机制
+                <a href="/2019-10-16/前端性能优化/前端性能优化/" rel="next" title="前端性能优化">
+                  <i class="fa fa-chevron-left"></i> 前端性能优化
                 </a>
               
             </div>
@@ -397,10 +398,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019-10-16/前端性能优化/前端性能优化/" rel="prev" title="前端性能优化">
-                  前端性能优化 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -449,7 +446,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手简单说明"><span class="nav-number">1.</span> <span class="nav-text">三次握手简单说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手简单说明"><span class="nav-number">2.</span> <span class="nav-text">四次挥手简单说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance-API"><span class="nav-number">1.</span> <span class="nav-text">Performance API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感官性能优化指标"><span class="nav-number">2.</span> <span class="nav-text">感官性能优化指标</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
