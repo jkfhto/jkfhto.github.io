@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Performance可以给我们提供非常多的信息，但Performance不够直观，需要开发者透过表面的这些参数去分析背后的性能问题。有了这个诉求之后，另一个性能优化工具就出现了，它就是LightHouse。简介LightHouse 是 Google 开源的一个自动化工具，用于改进网络应用的质量。你可以将其作为一个 Chrome 扩展程序运行，或从命令行运行。 当为 Lighthouse 提供一个">
+<meta name="keywords" content="Javascript,前端性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化工具-LightHouse">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="Performance可以给我们提供非常多的信息，但Performance不够直观，需要开发者透过表面的这些参数去分析背后的性能问题。有了这个诉求之后，另一个性能优化工具就出现了，它就是LightHouse。简介LightHouse 是 Google 开源的一个自动化工具，用于改进网络应用的质量。你可以将其作为一个 Chrome 扩展程序运行，或从命令行运行。 当为 Lighthouse 提供一个">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://jkfhto.github.io/images/LightHouse1.png">
+<meta property="og:image" content="https://jkfhto.github.io/images/LightHouse2.png">
+<meta property="og:image" content="https://jkfhto.github.io/images/LightHouse3.png">
+<meta property="og:image" content="https://jkfhto.github.io/images/LightHouse4.png">
+<meta property="og:updated_time" content="2019-10-16T17:07:47.851Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端性能优化工具-LightHouse">
+<meta name="twitter:description" content="Performance可以给我们提供非常多的信息，但Performance不够直观，需要开发者透过表面的这些参数去分析背后的性能问题。有了这个诉求之后，另一个性能优化工具就出现了，它就是LightHouse。简介LightHouse 是 Google 开源的一个自动化工具，用于改进网络应用的质量。你可以将其作为一个 Chrome 扩展程序运行，或从命令行运行。 当为 Lighthouse 提供一个">
+<meta name="twitter:image" content="https://jkfhto.github.io/images/LightHouse1.png">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>前端性能优化工具-LightHouse | 个人博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home  //首页"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags  //标签"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th  //分类"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive  //归档"></i>归档</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>
+        
+        搜索
+        </a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            前端性能优化工具-LightHouse
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-17 00:27:19 / 修改时间：01:07:47" itemprop="dateCreated datePublished" datetime="2019-10-17T00:27:19+08:00">2019-10-17</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Performance可以给我们提供非常多的信息，但Performance不够直观，需要开发者透过表面的这些参数去分析背后的性能问题。有了这个诉求之后，另一个性能优化工具就出现了，它就是LightHouse。</p><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>LightHouse 是 Google 开源的一个自动化工具，用于改进网络应用的质量。你可以将其作为一个 Chrome 扩展程序运行，或从命令行运行。 当为 Lighthouse 提供一个要审查的网址，它将针对此页面运行一连串的测试，然后生成一个有关页面性能的报告。可以参考失败的测试，看看可以采取哪些措施来改进应用。</p><a id="more"></a>
+
+<h2 id="三种使用方式"><a href="#三种使用方式" class="headerlink" title="三种使用方式"></a>三种使用方式</h2><p>可以到谷歌应用商店安装LightHouse，点击添加至Chrome即可。</p>
+<p>如果浏览器版本较新的话，可以直接打开 Chrome 开发者工具 (F12)，然后打开 Audits 面板即可。Audits面板集成了 LightHouse 功能，我们可以根据自己的需要，选择对应的限制条件，运行 Run audits，如下图：</p>
+<p><img src="/images/LightHouse1.png" alt="LightHouse1"></p>
+<p>作为命令行工具运行，命令行工具允许您将 <a href="https://github.com/GoogleChrome/lighthouse" target="_blank" rel="noopener">Lighthouse</a> 集成到持续集成系统。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局安装 lighthouse</span></span><br><span class="line">npm install -g lighthouse</span><br><span class="line"></span><br><span class="line"><span class="comment">// 然后输入你的页面</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 命令行支持导出HTML格式和JSON格式，我们使用如下命令分别导出：</span></span><br><span class="line"><span class="comment">//导出JSON格式</span></span><br><span class="line">lighthouse https:<span class="comment">//www.imooc.com/  --output json  </span></span><br><span class="line"><span class="comment">//导出HTML格式</span></span><br><span class="line">lighthouse https:<span class="comment">//www.imooc.com/  --output html</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自动化部分"><a href="#自动化部分" class="headerlink" title="自动化部分"></a>自动化部分</h2><p>可以利用 TravisCI 来自动分析修改后的代码的页面性能。</p>
+<p>你只需要在 .travis.yml 里面加入以下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">language: node_js</span><br><span class="line">script:</span><br><span class="line">  - npm run lint</span><br><span class="line">  - npm run build</span><br><span class="line">after_success:</span><br><span class="line">  - .<span class="string">"./travis/deploy_pr_gae.sh"</span></span><br><span class="line">  - <span class="keyword">export</span> LH_MIN_PASS_SCORE=<span class="number">96</span></span><br><span class="line">  - <span class="keyword">export</span> LH_TEST_URL=https:<span class="comment">//your.staging.server.com/</span></span><br><span class="line">  - node travis/runlighthouse.js $LH_TEST_URL $LH_MIN_PASS_SCORE</span><br></pre></td></tr></table></figure>
+
+<p>更多详情: <a href="https://github.com/GoogleChromeLabs/lighthousebot" target="_blank" rel="noopener">ebidel/lighthouse-ci</a></p>
+<h2 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h2><p>以本站为例，使用 <strong><em>chrome lighthouse</em></strong>生成性能优化测试的报告，直接点击Generate report，然后LightHouse就会自动帮我们生成性能优化报告，如下图：</p>
+<p><img src="/images/LightHouse2.png" alt="LightHouse2"></p>
+<p>性能优化测试的报告主要包括，Performance(页面性能)、Accessibility(可访性)、Best Practise(最佳实践)、SEO(搜索引擎优化)、Progressive Web App(渐进式应用)。我们点击其中的每一项都可以看到给出的具体优化建议，这里我们以Performance为例，如下图：</p>
+<p><img src="/images/LightHouse3.png" alt="LightHouse3"></p>
+<p>以第一项为例，点击展开可看到更加详细的信息，如下图：</p>
+<p><img src="/images/LightHouse4.png" alt="LightHouse4"></p>
+<p>这里推荐我们使用下一代图片格式化的技术，原因是JPEG 2000、JPEG XR和WebP等图像格式通常比PNG或JPEG提供更好的压缩，这意味着更快的下载速度和更少的数据消耗。下面还展示了需要替换的图片资源。点击 <strong><em>Learn more</em></strong>，可以跳转到指定的帮助文档。</p>
+<h2 id="相关的性能优化工具"><a href="#相关的性能优化工具" class="headerlink" title="相关的性能优化工具"></a>相关的性能优化工具</h2><ul>
+<li><strong><a href="https://github.com/treosh/exthouse" target="_blank" rel="noopener">Exthouse</a></strong> - Analyze the impact of a browser extension on web performance.</li>
+<li><strong><a href="https://github.com/boyney123/garie" target="_blank" rel="noopener">Garie</a></strong> - An open source tool for monitoring performance using Lighthouse,  PageSpeed Insights, <a href="https://prometheus.io/" target="_blank" rel="noopener">Prometheus</a>, <a href="https://grafana.com/" target="_blank" rel="noopener">Grafana</a> and <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>.</li>
+<li><strong><a href="https://labs.moduscreate.com/gimbal-web-performance-audit-budgeting" target="_blank" rel="noopener">Gimbal</a></strong> - An <a href="https://github.com/ModusCreateOrg/gimbal" target="_blank" rel="noopener">open source (MIT licensed)</a> tool used to measure, analyze, and budget aspects of a web application. Gimbal also integrates reports with GitHub pull requests.</li>
+<li><strong><a href="https://github.com/Cognifide/gradle-lighthouse-plugin" target="_blank" rel="noopener">Gradle Lighthouse Plugin</a></strong> - An open source Gradle plugin that runs Lighthouse tests on multiple URLs and asserts category score thresholds (useful in continuous integration).</li>
+<li><strong><a href="https://github.com/github/lightcrawler" target="_blank" rel="noopener">lightcrawler</a></strong> - Crawl a website and run each page found through Lighthouse.</li>
+<li><strong><a href="https://github.com/emazzotta/lighthouse-badges" target="_blank" rel="noopener">lighthouse-badges</a></strong> - Generate gh-badges (shields.io) based on Lighthouse performance.</li>
+<li><strong><a href="https://www.npmjs.com/package/lighthouse-batch" target="_blank" rel="noopener">lighthouse-batch</a></strong> - Run Lighthouse over a number of sites and generate a summary of their metrics/scores.</li>
+<li><strong><a href="https://github.com/foo-software/lighthouse-check-action" target="_blank" rel="noopener">lighthouse-check-action</a></strong> - A Github Action to run Lighthouse in a workflow, featuring Slack notifications and report upload to S3.</li>
+<li><strong><a href="https://circleci.com/orbs/registry/orb/foo-software/lighthouse-check" target="_blank" rel="noopener">lighthouse-check-orb</a></strong> - A CircleCI Orb to run Lighthouse in a workflow, featuring Slack notifications and report upload to S3.</li>
+<li><strong><a href="https://github.com/andreasonny83/lighthouse-ci" target="_blank" rel="noopener">lighthouse-ci</a></strong> - Run Lighthouse and assert scores satisfy your custom thresholds.</li>
+<li><strong><a href="https://github.com/treosh/lighthouse-ci-action" target="_blank" rel="noopener">lighthouse-ci-action</a></strong> - A Github Action that makes it easy to run Lighthouse in CI and keep your pages small using performance budgets.</li>
+<li><strong><a href="https://github.com/thearegee/lighthouse-cron" target="_blank" rel="noopener">lighthouse-cron</a></strong> - Cron multiple batch Lighthouse audits and emit results for sending to remote server.</li>
+<li><strong><a href="https://github.com/carlesnunez/lighthouse-gh-reporter" target="_blank" rel="noopener">lighthouse-gh-reporter</a></strong> - Run Lighthouse in CI and report back in a comment on your pull requests</li>
+<li><strong><a href="https://github.com/ebidel/lighthouse-hue" target="_blank" rel="noopener">lighthouse-hue</a></strong> - Set the color of Philips Hue lights based on a Lighthouse score</li>
+<li><strong><a href="https://github.com/justinribeiro/lighthouse-jest-example" target="_blank" rel="noopener">lighthouse-jest-example</a></strong> - Gather performance metrics via Lighthouse and assert results with Jest; uses Puppeteer to start Chrome with network emulation settings defined by WebPageTest.</li>
+<li><strong><a href="https://github.com/joytocode/lighthouse-lambda" target="_blank" rel="noopener">lighthouse-lambda</a></strong> - Run Lighthouse on AWS Lambda with prebuilt stable desktop Headless Chrome.</li>
+<li><strong><a href="https://github.com/manekinekko/lighthouse-magic-light" target="_blank" rel="noopener">lighthouse-magic-light</a></strong> - Set the color of the MagicLight Bluetooth Smart Light Bulb based on Lighthouse score</li>
+<li><strong><a href="https://github.com/rishichawda/lighthouse-mocha-example" target="_blank" rel="noopener">lighthouse-mocha-example</a></strong> - Run Lighthouse performance tests with Mocha and chrome-launcher.</li>
+<li><strong><a href="https://github.com/verivox/lighthouse-monitor" target="_blank" rel="noopener">lighthouse-monitor</a></strong> - Run Lighthouse against all your URLs. Send metrics to any backend you want, save all reports with automatic data retention, and compare any two results in a web UI.</li>
+<li><strong><a href="https://github.com/foo-software/lighthouse-persist" target="_blank" rel="noopener">lighthouse-persist</a></strong> - Run Lighthouse and upload HTML reports to an AWS S3 bucket.</li>
+<li><strong><a href="https://github.com/godaddy/lighthouse4u" target="_blank" rel="noopener">lighthouse4u</a></strong> - LH4U provides Google Lighthouse as a service, surfaced by both a friendly UI+API, and backed by Elastic Search for easy querying and visualization.</li>
+<li><strong><a href="https://performance-budgets.netlify.com/" target="_blank" rel="noopener">performance-budgets</a></strong> - Easily assert Lighthouse budgets with Docker.</li>
+<li><strong><a href="https://github.com/paulirish/pwmetrics/" target="_blank" rel="noopener">pwmetrics</a></strong> - Gather performance metrics</li>
+<li><strong><a href="https://www.npmjs.com/package/react-lighthouse-viewer" target="_blank" rel="noopener">react-lighthouse-viewer</a></strong> - Render a Lighthouse JSON report in a React Component.</li>
+<li><strong><a href="https://github.com/addyosmani/webpack-lighthouse-plugin" target="_blank" rel="noopener">webpack-lighthouse-plugin</a></strong> - Run Lighthouse from a Webpack build.</li>
+</ul>
+<p><a href="https://github.com/GoogleChrome/lighthouse" target="_blank" rel="noopener">了解更多</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a><br><a href="https://juejin.im/post/5ba73d1de51d450e551a0d08" target="_blank" rel="noopener">网站性能调优开发工具: Lighthouse, Puppeteer 以及进阶部分丨 Google 开发者大会 2018</a></p>
+
+    </div>
+
+    
+    
+    
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:16px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
+            
+              <a href="/tags/前端性能优化/" rel="tag"><i class="fa fa-tag"></i> 前端性能优化</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019-10-16/前端性能优化/前端性能优化工具-浏览器performance面板/" rel="next" title="前端性能优化工具-浏览器performance面板">
+                  <i class="fa fa-chevron-left"></i> 前端性能优化工具-浏览器performance面板
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三种使用方式"><span class="nav-number">2.</span> <span class="nav-text">三种使用方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动化部分"><span class="nav-number">3.</span> <span class="nav-text">自动化部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例分析"><span class="nav-number">4.</span> <span class="nav-text">案例分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关的性能优化工具"><span class="nav-number">5.</span> <span class="nav-text">相关的性能优化工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="jkfhto">
+  <p class="site-author-name" itemprop="name">jkfhto</p>
+  <div class="site-description" itemprop="description">ARE YOU READY TO DIE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/jkfhto" title="GitHub &rarr; https://github.com/jkfhto" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jkfhto</span>
+</div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.1
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'alQVMWPnOOe4lPVXKRWqDTsQ-gzGzoHsz',
+    appKey: 'RleUsHgziBnyz6c72sCfUduo',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
