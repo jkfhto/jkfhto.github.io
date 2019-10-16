@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。123456function add(a, b) &amp;#123;  return a + b;&amp;#125;console.log(add.call(null, 1, 2)); // 3console.log(add.apply(nul">
-<meta name="keywords" content="Javascript">
+  <meta name="description" content="什么是前端性能优化从用户访问资源到资源完整的展现在用户面前的过程中，通过技术手段和优化策略，缩短每个步骤的处理时间从而提升整个资源的访问和呈现速度。为什么要做前端性能优化在构建web站点的过程中，任何一个细节都有可能影响网站的访问速度，如果不了解性能优化知识，很多不利网站访问速度的因素会形成累加，从而严重影响网站的性能，导致网站访问速度变慢，用户体验低下，最终导致用户流失。">
+<meta name="keywords" content="Javascript,前端性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="call、apply 及 bind 函数的区别">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-12/call、apply-及-bind-函数的区别/index.html">
+<meta property="og:title" content="前端性能优化">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-16/前端性能优化/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。123456function add(a, b) &amp;#123;  return a + b;&amp;#125;console.log(add.call(null, 1, 2)); // 3console.log(add.apply(nul">
+<meta property="og:description" content="什么是前端性能优化从用户访问资源到资源完整的展现在用户面前的过程中，通过技术手段和优化策略，缩短每个步骤的处理时间从而提升整个资源的访问和呈现速度。为什么要做前端性能优化在构建web站点的过程中，任何一个细节都有可能影响网站的访问速度，如果不了解性能优化知识，很多不利网站访问速度的因素会形成累加，从而严重影响网站的性能，导致网站访问速度变慢，用户体验低下，最终导致用户流失。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-13T06:51:13.075Z">
+<meta property="og:updated_time" content="2019-10-16T09:43:59.965Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="call、apply 及 bind 函数的区别">
-<meta name="twitter:description" content="call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。123456function add(a, b) &amp;#123;  return a + b;&amp;#125;console.log(add.call(null, 1, 2)); // 3console.log(add.apply(nul">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-12/call、apply-及-bind-函数的区别/">
+<meta name="twitter:title" content="前端性能优化">
+<meta name="twitter:description" content="什么是前端性能优化从用户访问资源到资源完整的展现在用户面前的过程中，通过技术手段和优化策略，缩短每个步骤的处理时间从而提升整个资源的访问和呈现速度。为什么要做前端性能优化在构建web站点的过程中，任何一个细节都有可能影响网站的访问速度，如果不了解性能优化知识，很多不利网站访问速度的因素会形成累加，从而严重影响网站的性能，导致网站访问速度变慢，用户体验低下，最终导致用户流失。">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-16/前端性能优化/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>call、apply 及 bind 函数的区别 | 个人博客</title>
+  <title>前端性能优化 | 个人博客</title>
   
 
 
@@ -255,7 +255,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/call、apply-及-bind-函数的区别/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-16/前端性能优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +269,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            call、apply 及 bind 函数的区别
+            前端性能优化
             
 
           
@@ -286,19 +286,11 @@
                 
               
 
-              <time title="创建时间：2019-10-12 15:47:01" itemprop="dateCreated datePublished" datetime="2019-10-12T15:47:01+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-16 16:52:37 / 修改时间：17:43:59" itemprop="dateCreated datePublished" datetime="2019-10-16T16:52:37+08:00">2019-10-16</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-13 14:51:13" itemprop="dateModified" datetime="2019-10-13T14:51:13+08:00">2019-10-13</time>
-              </span>
             
           
 
@@ -321,8 +313,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/call、apply-及-bind-函数的区别/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/call、apply-及-bind-函数的区别/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-16/前端性能优化/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-16/前端性能优化/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -337,10 +329,59 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>call和apply都用于调用函数，第一个参数将用作函数内 this 的值。然而，call接受逗号分隔的参数作为后面的参数，而apply接受一个参数数组作为后面的参数。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add.call(<span class="literal">null</span>, <span class="number">1</span>, <span class="number">2</span>)); <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(add.apply(<span class="literal">null</span>, [<span class="number">1</span>, <span class="number">2</span>])); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure><a id="more"></a>
+        <h2 id="什么是前端性能优化"><a href="#什么是前端性能优化" class="headerlink" title="什么是前端性能优化"></a>什么是前端性能优化</h2><p>从用户访问资源到资源完整的展现在用户面前的过程中，通过技术手段和优化策略，缩短每个步骤的处理时间从而提升整个资源的访问和呈现速度。</p><h2 id="为什么要做前端性能优化"><a href="#为什么要做前端性能优化" class="headerlink" title="为什么要做前端性能优化"></a>为什么要做前端性能优化</h2><p>在构建web站点的过程中，任何一个细节都有可能影响网站的访问速度，如果不了解性能优化知识，很多不利网站访问速度的因素会形成累加，从而严重影响网站的性能，导致网站访问速度变慢，用户体验低下，最终导致用户流失。</p><a id="more"></a>
 
+<h2 id="从浏览器发起请求到页面能正常浏览都有哪些阶段"><a href="#从浏览器发起请求到页面能正常浏览都有哪些阶段" class="headerlink" title="从浏览器发起请求到页面能正常浏览都有哪些阶段"></a>从浏览器发起请求到页面能正常浏览都有哪些阶段</h2><ul>
+<li>DNS 解析</li>
+<li>TCP 连接</li>
+<li>HTTP 请求抛出</li>
+<li>服务端处理请求，HTTP 响应返回</li>
+<li>浏览器拿到响应数据，解析响应内容，把解析的结果展示给用户</li>
+</ul>
+<p>针对这五个过程进行分解，我们可以将前端性能优化划分为<strong><em>网络层面</em></strong>和<strong><em>渲染层面</em></strong>两个大的维度，并以此来进行扩展，学习。</p>
+<h2 id="性能优化的具体方法"><a href="#性能优化的具体方法" class="headerlink" title="性能优化的具体方法"></a>性能优化的具体方法</h2><h3 id="内容层面"><a href="#内容层面" class="headerlink" title="内容层面"></a>内容层面</h3><ul>
+<li>1、DNS解析优化（DNS缓存、减少DNS查找、keep-alive、适当的主机域名）</li>
+<li>2、避免重定向（/还是需要的）</li>
+<li>3、切分到多个域名</li>
+<li>4、杜绝404</li>
+</ul>
+<h3 id="网络传输阶段"><a href="#网络传输阶段" class="headerlink" title="网络传输阶段"></a>网络传输阶段</h3><ul>
+<li>1、减少传输过程中实体的大小<ul>
+<li>缓存</li>
+<li>cookie优化</li>
+<li>文件压缩（Accept-Encoding：g-zip）</li>
+</ul>
+</li>
+<li>2、减少请求的次数<ul>
+<li>文件适当的合并</li>
+<li>雪碧图</li>
+</ul>
+</li>
+<li>3、异步加载（并发）</li>
+<li>4、预加载、延后加载、按需加载</li>
+</ul>
+<h3 id="渲染阶段"><a href="#渲染阶段" class="headerlink" title="渲染阶段"></a>渲染阶段</h3><ul>
+<li>1、js放底部，css放顶部</li>
+<li>2、减少重绘和回流</li>
+<li>3、合理使用Viewport 等meta头部</li>
+<li>4、减少dom节点</li>
+</ul>
+<h3 id="脚本执行阶段"><a href="#脚本执行阶段" class="headerlink" title="脚本执行阶段"></a>脚本执行阶段</h3><ul>
+<li>1、缓存节点，尽量减少节点的查找</li>
+<li>2、减少节点的操作（innerHTML）</li>
+<li>3、避免无谓的循环，break、continue、return的适当使用</li>
+<li>4、事件委托</li>
+</ul>
+<h3 id="DNS-预解析"><a href="#DNS-预解析" class="headerlink" title="DNS 预解析"></a>DNS 预解析</h3><p>DNS 解析也是需要时间的，可以通过预解析的方式来预先获得域名所对应的 IP。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;dns-prefetch&quot; href=&quot;//jkfhto.github.io&quot; /&gt;</span><br></pre></td></tr></table></figure>
 
-<p><code>bind()</code>方法返回一个新的函数, 新函数的<code>this</code>值指向传入的第一个参数，<code>this</code>被绑定了</p>
+<h3 id="TCP连接"><a href="#TCP连接" class="headerlink" title="TCP连接"></a>TCP连接</h3><p>通过长连接、预连接、接入 SPDY 协议。优化TCP连接。</p>
+<h3 id="HTTP连接"><a href="#HTTP连接" class="headerlink" title="HTTP连接"></a>HTTP连接</h3><ul>
+<li>减少 HTTP请求数</li>
+<li>减小请求体积</li>
+</ul>
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>指的是一组分布在各个地区的服务器。这些服务器存储着数据的副本，因此服务器可以根据哪些服务器与用户距离最近，来满足数据的请求。 CDN 提供快速服务，较少受高流量影响。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/grandPang/article/details/51329289" target="_blank" rel="noopener">前端性能优化归纳总结篇</a></p>
 
     </div>
 
@@ -364,6 +405,8 @@
             
               <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
             
+              <a href="/tags/前端性能优化/" rel="tag"><i class="fa fa-tag"></i> 前端性能优化</a>
+            
           </div>
         
 
@@ -372,8 +415,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019-10-12/简述JavaScript中的this/" rel="next" title="简述JavaScript中的this">
-                  <i class="fa fa-chevron-left"></i> 简述JavaScript中的this
+                <a href="/2019-10-16/从输入-URL-到页面加载完成，发生了什么？/" rel="next" title="从输入 URL 到页面加载完成，发生了什么？">
+                  <i class="fa fa-chevron-left"></i> 从输入 URL 到页面加载完成，发生了什么？
                 </a>
               
             </div>
@@ -381,10 +424,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019-10-12/普通函数和箭头函数的区别/" rel="prev" title="普通函数和箭头函数的区别">
-                  普通函数和箭头函数的区别 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -433,6 +472,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是前端性能优化"><span class="nav-number">1.</span> <span class="nav-text">什么是前端性能优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要做前端性能优化"><span class="nav-number">2.</span> <span class="nav-text">为什么要做前端性能优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从浏览器发起请求到页面能正常浏览都有哪些阶段"><span class="nav-number">3.</span> <span class="nav-text">从浏览器发起请求到页面能正常浏览都有哪些阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能优化的具体方法"><span class="nav-number">4.</span> <span class="nav-text">性能优化的具体方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内容层面"><span class="nav-number">4.1.</span> <span class="nav-text">内容层面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络传输阶段"><span class="nav-number">4.2.</span> <span class="nav-text">网络传输阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染阶段"><span class="nav-number">4.3.</span> <span class="nav-text">渲染阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本执行阶段"><span class="nav-number">4.4.</span> <span class="nav-text">脚本执行阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-预解析"><span class="nav-number">4.5.</span> <span class="nav-text">DNS 预解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP连接"><span class="nav-number">4.6.</span> <span class="nav-text">TCP连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP连接"><span class="nav-number">4.7.</span> <span class="nav-text">HTTP连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN"><span class="nav-number">4.8.</span> <span class="nav-text">CDN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
