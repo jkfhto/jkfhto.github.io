@@ -43,8 +43,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -63,13 +63,13 @@
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="Event LoopEvent Loop即事件循环，是指浏览器或Node的一种解决javaScript单线程运行时不会阻塞的一种机制，也就是我们经常使用异步的原理。进程和线程基本概念拿出在教科书里的概念： 1、调度：线程作为调度和分配的基本单位，进程作为拥有资源的基本单位； 2、并发性：不仅进程之间可以并发执行，同一个进程的多个线程之间也可并发执行； 3、拥有资源：进程是拥有资源的一个独立单位，线">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://jkfhto.github.io/2019-10-14/Event-Loop-运行机制/EventLoop.jpg">
-<meta property="og:image" content="https://jkfhto.github.io/2019-10-14/Event-Loop-运行机制/EventLoop2.jpg">
-<meta property="og:updated_time" content="2019-10-15T08:17:54.496Z">
+<meta property="og:image" content="https://jkfhto.github.io/images/EventLoop.jpg">
+<meta property="og:image" content="https://jkfhto.github.io/images/EventLoop2.jpg">
+<meta property="og:updated_time" content="2019-10-15T15:38:26.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Event Loop 运行机制">
 <meta name="twitter:description" content="Event LoopEvent Loop即事件循环，是指浏览器或Node的一种解决javaScript单线程运行时不会阻塞的一种机制，也就是我们经常使用异步的原理。进程和线程基本概念拿出在教科书里的概念： 1、调度：线程作为调度和分配的基本单位，进程作为拥有资源的基本单位； 2、并发性：不仅进程之间可以并发执行，同一个进程的多个线程之间也可并发执行； 3、拥有资源：进程是拥有资源的一个独立单位，线">
-<meta name="twitter:image" content="https://jkfhto.github.io/2019-10-14/Event-Loop-运行机制/EventLoop.jpg">
+<meta name="twitter:image" content="https://jkfhto.github.io/images/EventLoop.jpg">
   <link rel="canonical" href="https://jkfhto.github.io/2019-10-14/Event-Loop-运行机制/">
 
 
@@ -202,9 +202,39 @@
   </li>
       
     
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>
+        
+        搜索
+        </a>
+      </li>
+    
   </ul>
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -270,7 +300,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-15 16:17:54" itemprop="dateModified" datetime="2019-10-15T16:17:54+08:00">2019-10-15</time>
+                <time title="修改时间：2019-10-15 23:38:26" itemprop="dateModified" datetime="2019-10-15T23:38:26+08:00">2019-10-15</time>
               </span>
             
           
@@ -365,9 +395,9 @@
 <p>全局上下文 <strong><em>（script 标签）</em></strong> 被推入调用栈，同步代码执行。打印 <strong><em>script start</em></strong>，遇到 <strong><em>setTimeout</em></strong>，推入到<strong><em>macro 队列</em></strong>。执行 <strong><em>async1</em></strong> ，打印 <strong><em>async1 start</em></strong> 。执行 <strong><em>await async2()</em></strong>，相当于先执行 <strong><em>async2</em></strong> 这个 <strong><em>Promise</em></strong> 函数，打印 <strong><em>async2 end</em></strong>，然后执行 <strong><em>then</em></strong>，<strong><em>micro</em></strong> 任务 <strong><em>console.log(‘async1 end’)</em></strong> 入队列。遇到 <strong><em>new Promise</em></strong>，同步任务，打印 <strong><em>Promise1</em></strong>，执行 <strong><em>resolve()</em></strong>，<strong><em>micro</em></strong> 任务 <strong><em>console.log(‘promise2’)</em></strong> 入队列。遇到同步任务，打印 <strong><em>script end</em></strong>；</p>
 <p><strong><em>micro 队列</em></strong> 执行出队列操作，打印 <strong><em>async1 end</em></strong>，然后打印 <strong><em>promise2</em></strong>，遇到 <strong><em>then</em></strong>，<strong><em>console.log(‘promise3’)</em></strong>，推入到<strong><em>macro 队列</em></strong>。<strong><em>micro 队列</em></strong> 执行出队列操作，打印 <strong><em>promise3</em></strong>。<strong><em>micro 队列</em></strong> 清空。</p>
 <p><strong><em>macro 队列</em></strong> 执行出队列操作，打印 <strong><em>setTimeout</em></strong>，<strong><em>macro 队列</em></strong> 清空。</p>
-<h2 id="NodeJS-Event-Loop-过程解析"><a href="#NodeJS-Event-Loop-过程解析" class="headerlink" title="NodeJS Event Loop 过程解析"></a>NodeJS Event Loop 过程解析</h2><p><img src="/2019-10-14/Event-Loop-运行机制/EventLoop.jpg" alt="Event Loop"></p>
+<h2 id="NodeJS-Event-Loop-过程解析"><a href="#NodeJS-Event-Loop-过程解析" class="headerlink" title="NodeJS Event Loop 过程解析"></a>NodeJS Event Loop 过程解析</h2><p><img src="/images/EventLoop.jpg" alt="Event Loop"></p>
 <p>Node.js采用V8作为js的解析引擎，而I/O处理方面使用了自己设计的libuv，libuv是一个基于事件驱动的跨平台抽象层，封装了不同操作系统一些底层特性，对外提供统一的API，事件循环机制也是它里面的实现。</p>
-<p><img src="/2019-10-14/Event-Loop-运行机制/EventLoop2.jpg" alt="Event Loop2"></p>
+<p><img src="/images/EventLoop2.jpg" alt="Event Loop2"></p>
 <p>Node的Event loop一共分为6个阶段，每个细节具体如下：</p>
 <ul>
 <li>timers: 执行setTimeout和setInterval中到期的callback。</li>
@@ -477,6 +507,10 @@
 
             <div class="post-nav-prev post-nav-item">
               
+                <a href="/2019-10-16/从输入-URL-到页面加载完成，发生了什么？/" rel="prev" title="从输入 URL 到页面加载完成，发生了什么？">
+                  从输入 URL 到页面加载完成，发生了什么？ <i class="fa fa-chevron-right"></i>
+                </a>
+              
             </div>
           </div>
         
@@ -543,7 +577,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -556,7 +590,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -680,6 +714,8 @@
 
 
 
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
 
 
 
