@@ -25,6 +25,7 @@
 <li>另外2个指标我们可以通过性能优化工具 <a href="https://github.com/GoogleChrome/lighthouse" target="_blank" rel="noopener">Lighthouse</a> 实时测量进行获取。</li>
 </ul>
 <p><img src="/images/Performance4.png" alt="感官性能优化指标2"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a><br><a href="https://github.com/ChenChenJoke/JokerWebFont/tree/master/Performance" target="_blank" rel="noopener">Web性能优化：Performance，数据搜集方法</a></p>
 ]]></content>
       <tags>
         <tag>Javascript</tag>
