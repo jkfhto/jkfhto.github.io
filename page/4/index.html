@@ -254,7 +254,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/使用let、var和const创建变量有什么区别？/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/前端性能优化/DNS-Prefetch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +269,7 @@
         <h2 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019-10-12/Javascript/使用let、var和const创建变量有什么区别？/" class="post-title-link" itemprop="url">使用let、var和const创建变量有什么区别？</a>
+            <a href="/2019-10-17/前端性能优化/DNS-Prefetch/" class="post-title-link" itemprop="url">DNS Prefetch</a>
           
         </h2>
 
@@ -284,20 +284,40 @@
                 
               
 
-              <time title="创建时间：2019-10-12 19:49:18" itemprop="dateCreated datePublished" datetime="2019-10-12T19:49:18+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-17 09:24:55 / 修改时间：16:09:13" itemprop="dateCreated datePublished" datetime="2019-10-17T09:24:55+08:00">2019-10-17</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
               </span>
-            
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -311,8 +331,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/使用let、var和const创建变量有什么区别？/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/使用let、var和const创建变量有什么区别？/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-17/前端性能优化/DNS-Prefetch/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/前端性能优化/DNS-Prefetch/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -327,11 +347,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>用<strong><em>var</em></strong>声明的变量的作用域是它当前的执行上下文，它可以是嵌套的函数，也可以是声明在任何函数外的变量。<strong><em>let</em></strong>和<strong><em>const</em></strong>是块级作用域，意味着它们只能在最近的一组花括号<strong><em>（function、if-else 代码块或 for 循环中）</em></strong>中访问。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 所有变量在函数中都可访问</span></span><br><span class="line">  <span class="keyword">var</span> bar = <span class="string">'bar'</span>;</span><br><span class="line">  <span class="keyword">let</span> baz = <span class="string">'baz'</span>;</span><br><span class="line">  <span class="keyword">const</span> qux = <span class="string">'qux'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(bar); <span class="comment">// bar</span></span><br><span class="line">  <span class="built_in">console</span>.log(baz); <span class="comment">// baz</span></span><br><span class="line">  <span class="built_in">console</span>.log(qux); <span class="comment">// qux</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(bar); <span class="comment">// ReferenceError: bar is not defined</span></span><br><span class="line"><span class="built_in">console</span>.log(baz); <span class="comment">// ReferenceError: baz is not defined</span></span><br><span class="line"><span class="built_in">console</span>.log(qux); <span class="comment">// ReferenceError: qux is not defined</span></span><br></pre></td></tr></table></figure>
+          <p><strong><em>DNS(Domain Name System)</em></strong>，翻译为域名解析系统，是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。</p><p>围绕DNS可做的性能优化非常的多，比如大家所熟知的全局负载均衡(GSLB)，用户可以访问到离自己最近服务器，从而获得最优的访问体验，这项优化更多需要服务端去完成。前端主要关注 <strong><em>DNS Prefetch</em></strong>。</p>
           <!--noindex-->
           
             <div class="post-button">
-              <a class="btn" href="/2019-10-12/Javascript/使用let、var和const创建变量有什么区别？/#more" rel="contents">
+              <a class="btn" href="/2019-10-17/前端性能优化/DNS-Prefetch/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -362,7 +382,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -377,7 +397,7 @@
         <h2 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019-10-12/Javascript/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/" class="post-title-link" itemprop="url">null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？</a>
+            <a href="/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/" class="post-title-link" itemprop="url">前端性能优化工具-LightHouse</a>
           
         </h2>
 
@@ -392,20 +412,40 @@
                 
               
 
-              <time title="创建时间：2019-10-12 17:10:30" itemprop="dateCreated datePublished" datetime="2019-10-12T17:10:30+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-17 00:27:19 / 修改时间：16:09:02" itemprop="dateCreated datePublished" datetime="2019-10-17T00:27:19+08:00">2019-10-17</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
               </span>
-            
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -419,8 +459,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -435,11 +475,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>当你没有提前使用<strong><em>var</em></strong>、<strong><em>let</em></strong>或<strong><em>const</em></strong>声明变量，就为一个变量赋值时，该变量是未声明变量<strong><em>（undeclared variables）</em></strong>。未声明变量会脱离当前作用域，成为全局作用域下定义的变量。<strong><em>在严格模式下</em></strong>，给未声明的变量赋值，会抛出<strong><em>ReferenceError</em></strong>错误。和使用全局变量一样，使用未声明变量也是非常不好的做法，应当尽可能避免。要检查判断它们，需要将用到它们的代码放在<strong><em>try/catch</em></strong>语句中。</p>
+          <p>Performance可以给我们提供非常多的信息，但Performance不够直观，需要开发者透过表面的这些参数去分析背后的性能问题。有了这个诉求之后，另一个性能优化工具就出现了，它就是LightHouse。</p><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>LightHouse 是 Google 开源的一个自动化工具，用于改进网络应用的质量。你可以将其作为一个 Chrome 扩展程序运行，或从命令行运行。 当为 Lighthouse 提供一个要审查的网址，它将针对此页面运行一连串的测试，然后生成一个有关页面性能的报告。可以参考失败的测试，看看可以采取哪些措施来改进应用。</p>
           <!--noindex-->
           
             <div class="post-button">
-              <a class="btn" href="/2019-10-12/Javascript/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/#more" rel="contents">
+              <a class="btn" href="/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -470,7 +510,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/函数柯里化/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-16/前端性能优化/前端性能优化工具-浏览器performance面板/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -485,7 +525,7 @@
         <h2 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019-10-12/Javascript/函数柯里化/" class="post-title-link" itemprop="url">函数柯里化</a>
+            <a href="/2019-10-16/前端性能优化/前端性能优化工具-浏览器performance面板/" class="post-title-link" itemprop="url">前端性能优化工具-浏览器performance面板</a>
           
         </h2>
 
@@ -500,7 +540,7 @@
                 
               
 
-              <time title="创建时间：2019-10-12 17:06:38" itemprop="dateCreated datePublished" datetime="2019-10-12T17:06:38+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-16 21:59:38" itemprop="dateCreated datePublished" datetime="2019-10-16T21:59:38+08:00">2019-10-16</time>
             </span>
           
             
@@ -511,9 +551,37 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+                <time title="修改时间：2019-10-17 16:09:00" itemprop="dateModified" datetime="2019-10-17T16:09:00+08:00">2019-10-17</time>
               </span>
             
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -527,8 +595,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/函数柯里化/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/函数柯里化/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-16/前端性能优化/前端性能优化工具-浏览器performance面板/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-16/前端性能优化/前端性能优化工具-浏览器performance面板/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -543,11 +611,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h2><p>把接收多个参数的函数变换成接收一个单一参数（最初函数的第一个参数）的函数，并返回接受剩余的参数而且返回结果的新函数的技术。</p><p>简单的说，柯里化函数持续地返回一个新函数直到所有的参数用尽为止。这些参数全部保持“活着”的状态（通过闭包），然后当柯里化链中的最后一个函数被返回和执行时会全部被用来执行。</p>
+          <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>1.首先我们需要打开新的无痕窗口，进入隐身模式，可以保证Chrome在一个相对干净的环境下运行。这里是为了避免相关的浏览器插件带来的干扰，这些插件可能会影响我们分析性能表现。使用快捷键 <strong><em>ctrl + shift + N</em></strong> 即可打开chrome新的无痕窗口</p><p><img src="/images/performance%E9%9D%A2%E6%9D%BF1.jpg" alt="performance面板1"></p><p>2.按F12进入开发者工具，打开performance面板。</p>
           <!--noindex-->
           
             <div class="post-button">
-              <a class="btn" href="/2019-10-12/Javascript/函数柯里化/#more" rel="contents">
+              <a class="btn" href="/2019-10-16/前端性能优化/前端性能优化工具-浏览器performance面板/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -578,7 +646,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/函数节流和防抖/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-16/前端性能优化/前端性能优化衡量指标/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -593,7 +661,7 @@
         <h2 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019-10-12/Javascript/函数节流和防抖/" class="post-title-link" itemprop="url">函数节流和防抖</a>
+            <a href="/2019-10-16/前端性能优化/前端性能优化衡量指标/" class="post-title-link" itemprop="url">前端性能优化衡量指标</a>
           
         </h2>
 
@@ -608,7 +676,7 @@
                 
               
 
-              <time title="创建时间：2019-10-12 16:50:40" itemprop="dateCreated datePublished" datetime="2019-10-12T16:50:40+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-16 19:36:07" itemprop="dateCreated datePublished" datetime="2019-10-16T19:36:07+08:00">2019-10-16</time>
             </span>
           
             
@@ -619,9 +687,37 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+                <time title="修改时间：2019-10-17 16:09:05" itemprop="dateModified" datetime="2019-10-17T16:09:05+08:00">2019-10-17</time>
               </span>
             
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -635,8 +731,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/函数节流和防抖/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/函数节流和防抖/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-16/前端性能优化/前端性能优化衡量指标/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-16/前端性能优化/前端性能优化衡量指标/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -651,11 +747,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="函数节流和防抖"><a href="#函数节流和防抖" class="headerlink" title="函数节流和防抖"></a>函数节流和防抖</h1><p>窗口的resize、scroll、输入框内容校验等操作时，如果这些操作处理函数是较为复杂或页面频繁重渲染等操作时，在这种情况下如果事件触发的频率无限制，会加重浏览器的负担，导致用户体验非常糟糕。此时我们可以采用<strong><em>debounce（防抖）</em></strong>和<strong><em>throttle（节流）</em></strong>的方式来<strong><em>减少触发的频率</em></strong>，同时又不影响实际效果。</p>
+          <h2 id="Performance-API"><a href="#Performance-API" class="headerlink" title="Performance API"></a>Performance API</h2><p>这个 API 是 HTML5 新增的特性。过去我们要统计脚本的运行时间，会使用 Date.getTime() 去获取对应的时间；如果要获取白屏时间是在 head 末尾插入一段获取时间戳的代码，然后用这个时间戳减去开始接收数据的那个时间戳，得出的结果为白屏时间。这样的方法无疑是笨重的，而且获取的时间无法更精确(只能到ms级别)，而且一些后台比较关注的时间根本无法获取。W3C 为了解决这个问题，在 HTML5 推出的时候，新增了这个 API 。</p>
           <!--noindex-->
           
             <div class="post-button">
-              <a class="btn" href="/2019-10-12/Javascript/函数节流和防抖/#more" rel="contents">
+              <a class="btn" href="/2019-10-16/前端性能优化/前端性能优化衡量指标/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -686,7 +782,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/普通函数和箭头函数的区别/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -701,7 +797,7 @@
         <h2 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019-10-12/Javascript/普通函数和箭头函数的区别/" class="post-title-link" itemprop="url">普通函数和箭头函数的区别</a>
+            <a href="/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/" class="post-title-link" itemprop="url">从输入 URL 到页面加载完成，发生了什么？</a>
           
         </h2>
 
@@ -716,7 +812,7 @@
                 
               
 
-              <time title="创建时间：2019-10-12 15:57:44" itemprop="dateCreated datePublished" datetime="2019-10-12T15:57:44+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-16 16:02:31" itemprop="dateCreated datePublished" datetime="2019-10-16T16:02:31+08:00">2019-10-16</time>
             </span>
           
             
@@ -727,9 +823,37 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+                <time title="修改时间：2019-10-17 16:08:55" itemprop="dateModified" datetime="2019-10-17T16:08:55+08:00">2019-10-17</time>
               </span>
             
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -743,8 +867,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/普通函数和箭头函数的区别/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/普通函数和箭头函数的区别/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -759,11 +883,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>1.箭头函数没有prototype(原型)</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="function"><span class="params">()</span> =&gt;</span>&#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(a.prototype); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">a.__proto__===<span class="built_in">Function</span>.prototype;<span class="comment">// true</span></span><br></pre></td></tr></table></figure><p>2.箭头函数的this指向它被创建时的上下文</p>
+          <p>从前端的角度出发，主要包括以下几个方面：</p><ul>
+<li>浏览器的地址栏输入URL并按下回车。</li>
+<li>浏览器查找当前URL是否存在缓存，并比较缓存是否过期。</li>
+<li>通过 DNS（域名解析系统）将 URL 解析为对应的 IP 地址。</li>
+<li>然后与这个 IP 地址确定的那台服务器建立起 TCP 网络连接（三次握手）。</li>
+<li>随后我们向服务端抛出我们的 HTTP 请求。</li>
+<li>服务端处理完我们的请求之后，把目标数据放在 HTTP 响应里返回给客户端。</li>
+<li>拿到响应数据的浏览器就可以开始走一个渲染的流程。渲染完毕，页面便呈现给了用户，并时刻等待响应用户的操作。</li>
+<li>关闭TCP连接（四次挥手）。</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button">
-              <a class="btn" href="/2019-10-12/Javascript/普通函数和箭头函数的区别/#more" rel="contents">
+              <a class="btn" href="/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -794,7 +927,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -842,8 +975,21 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
         </a>
       </div>
     
@@ -855,7 +1001,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

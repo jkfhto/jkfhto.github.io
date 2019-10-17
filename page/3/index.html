@@ -254,7 +254,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/JavaScript深入之继承的多种方式和优缺点/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/多进程-多实例构建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +269,7 @@
         <h2 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019-10-12/Javascript/JavaScript深入之继承的多种方式和优缺点/" class="post-title-link" itemprop="url">JavaScript深入之继承的多种方式和优缺点</a>
+            <a href="/2019-10-17/webpack/多进程-多实例构建/" class="post-title-link" itemprop="url">多进程/多实例构建</a>
           
         </h2>
 
@@ -284,20 +284,51 @@
                 
               
 
-              <time title="创建时间：2019-10-12 20:07:34" itemprop="dateCreated datePublished" datetime="2019-10-12T20:07:34+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-17 17:23:59 / 修改时间：17:54:16" itemprop="dateCreated datePublished" datetime="2019-10-17T17:23:59+08:00">2019-10-17</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
               </span>
-            
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">Webpack</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack构建速度和体积优化策略</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -311,8 +342,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/JavaScript深入之继承的多种方式和优缺点/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/JavaScript深入之继承的多种方式和优缺点/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-17/webpack/多进程-多实例构建/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/多进程-多实例构建/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -327,11 +358,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="1-原型链继承"><a href="#1-原型链继承" class="headerlink" title="1.原型链继承"></a>1.原型链继承</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'kevin'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Parent.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(child1.getName()) <span class="comment">// kevin</span></span><br></pre></td></tr></table></figure>
+          <h2 id="资源并行解析可选方案"><a href="#资源并行解析可选方案" class="headerlink" title="资源并行解析可选方案"></a>资源并行解析可选方案</h2><ul>
+<li><a href="https://github.com/amireh/happypack" target="_blank" rel="noopener">HappyPack</a></li>
+<li><a href="https://github.com/webpack-contrib/thread-loader" target="_blank" rel="noopener">thread-loader</a>：推荐使用</li>
+<li><a href="https://github.com/trivago/parallel-webpack" target="_blank" rel="noopener">parallel-webpack</a></li>
+</ul><h2 id="多进程-多实例：使用-HappyPack-解析资源"><a href="#多进程-多实例：使用-HappyPack-解析资源" class="headerlink" title="多进程/多实例：使用 HappyPack 解析资源"></a>多进程/多实例：使用 HappyPack 解析资源</h2><ul>
+<li><p>原理：</p>
+<ul>
+<li>每次 webapck 解析一个模块，HappyPack 会将它及它的依赖分配给 worker 线程中</li>
+</ul>
+</li>
+<li><p>代码演示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">exports.plugins = [</span><br><span class="line">  <span class="keyword">new</span> HappyPack(&#123;</span><br><span class="line">    id: <span class="string">'jsx'</span>,</span><br><span class="line">    threads: <span class="number">4</span>,</span><br><span class="line">    loaders: [ <span class="string">'babel-loader'</span> ]</span><br><span class="line">  &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="keyword">new</span> HappyPack(&#123;</span><br><span class="line">    id: <span class="string">'styles'</span>,</span><br><span class="line">    threads: <span class="number">2</span>,</span><br><span class="line">    loaders: [ <span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>, <span class="string">'less-loader'</span> ]</span><br><span class="line">  &#125;)</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">exports.module.rules = [</span><br><span class="line">  &#123;</span><br><span class="line">    test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">    use: <span class="string">'happypack/loader?id=jsx'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">    use: <span class="string">'happypack/loader?id=styles'</span></span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>工作流程：webpack compiler run方法执行后，到达HappyPack。HappyPack会做一些初始化，初始化工作之后，会创建一个线程池。线程池可能包括多个线程。线程池会将构建任务里面的模块进行分配。线程池里面的线程会去各自处理模块以及相关依赖，处理完成之后，会有一个通信的过程。会将处理好的资源传输给HappyPack的主进程。完成整个构建的过程。</p>
+<p><img src="/images/26.png" alt="工作流程"></p>
+</li>
+<li><p><a href="https://github.com/amireh/happypack" target="_blank" rel="noopener">了解更多</a></p>
+</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button">
-              <a class="btn" href="/2019-10-12/Javascript/JavaScript深入之继承的多种方式和优缺点/#more" rel="contents">
+              <a class="btn" href="/2019-10-17/webpack/多进程-多实例构建/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -362,7 +411,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/和-的区别是什么？/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/使用高版本的webpack和Node-js/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -377,7 +426,7 @@
         <h2 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019-10-12/Javascript/和-的区别是什么？/" class="post-title-link" itemprop="url">==和===的区别是什么？</a>
+            <a href="/2019-10-17/webpack/使用高版本的webpack和Node-js/" class="post-title-link" itemprop="url">使用高版本的webpack和Node.js</a>
           
         </h2>
 
@@ -392,20 +441,51 @@
                 
               
 
-              <time title="创建时间：2019-10-12 20:04:22" itemprop="dateCreated datePublished" datetime="2019-10-12T20:04:22+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-17 17:22:26 / 修改时间：17:54:41" itemprop="dateCreated datePublished" datetime="2019-10-17T17:22:26+08:00">2019-10-17</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
               </span>
-            
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">Webpack</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack构建速度和体积优化策略</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -419,8 +499,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/和-的区别是什么？/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/和-的区别是什么？/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-17/webpack/使用高版本的webpack和Node-js/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/使用高版本的webpack和Node-js/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -435,11 +515,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>==</strong>是抽象相等运算符，而<strong>===</strong>是严格相等运算符。<br><strong>==</strong>运算符是在进行必要的类型转换后，再比较。<br><strong>===</strong>运算符不会进行类型转换，所以如果两个值不是相同的类型，会直接返回false。<br>使用<strong>==</strong>时，可能发生一些特别的事情，例如：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> == <span class="string">'1'</span>; <span class="comment">// true</span></span><br><span class="line"><span class="number">1</span> == [<span class="number">1</span>]; <span class="comment">// true</span></span><br><span class="line"><span class="number">1</span> == <span class="literal">true</span>; <span class="comment">// true</span></span><br><span class="line"><span class="number">0</span> == <span class="string">''</span>; <span class="comment">// true</span></span><br><span class="line"><span class="number">0</span> == <span class="string">'0'</span>; <span class="comment">// true</span></span><br><span class="line"><span class="number">0</span> == <span class="literal">false</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+          <h2 id="使用高版本的webpack和Node-js"><a href="#使用高版本的webpack和Node-js" class="headerlink" title="使用高版本的webpack和Node.js"></a>使用高版本的webpack和Node.js</h2><ul>
+<li>V8 带来的优化（for of 替代 forEach、Map 和 Set 替代 Object、includes 替代 indexOf）</li>
+<li>默认使用更快的 md4 hash 算法，替代md5 hash</li>
+<li>webpacks AST 可以直接从 loader 传递给 AST，减少解析时间</li>
+<li>使用字符串方法替代正则表达式</li>
+<li>可以从webpack<a href="https://github.com/webpack/webpack/releases" target="_blank" rel="noopener">版本日志</a>，了解做了哪些性能优化</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button">
-              <a class="btn" href="/2019-10-12/Javascript/和-的区别是什么？/#more" rel="contents">
+              <a class="btn" href="/2019-10-17/webpack/使用高版本的webpack和Node-js/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -470,7 +556,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/JavaScript深入之new的模拟实现/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -485,7 +571,7 @@
         <h2 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019-10-12/Javascript/JavaScript深入之new的模拟实现/" class="post-title-link" itemprop="url">JavaScript深入之new的模拟实现</a>
+            <a href="/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer/" class="post-title-link" itemprop="url">体积分析：使用webpack-bundle-analyzer</a>
           
         </h2>
 
@@ -500,20 +586,51 @@
                 
               
 
-              <time title="创建时间：2019-10-12 20:01:17" itemprop="dateCreated datePublished" datetime="2019-10-12T20:01:17+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-17 17:19:10 / 修改时间：17:55:09" itemprop="dateCreated datePublished" datetime="2019-10-17T17:19:10+08:00">2019-10-17</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
               </span>
-            
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">Webpack</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack构建速度和体积优化策略</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -527,8 +644,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/JavaScript深入之new的模拟实现/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/JavaScript深入之new的模拟实现/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -543,15 +660,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="new实例化"><a href="#new实例化" class="headerlink" title="new实例化"></a>new实例化</h2><ul>
-<li>返回一个新的对象</li>
-<li>新对象可以访问构造函数里的属性和方法</li>
-<li>新对象可以访问 prototype 上的属性和方法</li>
-</ul><h2 id="初步实现"><a href="#初步实现" class="headerlink" title="初步实现"></a>初步实现</h2><p>因为 new 是关键字，所以无法像 bind 函数一样直接覆盖，所以我们写一个函数，命名为 mockNew，来模拟 new 的效果。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mockNew</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 需要返回的对象</span></span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="comment">// 获取需要实例化的构造函数</span></span><br><span class="line">    <span class="comment">// shift 会返回构造函数，修改原数组，所以 arguments 会被去除第一个参数</span></span><br><span class="line">    <span class="keyword">var</span> Constructor = [].shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 继承原型上的属性和方法</span></span><br><span class="line">    obj.__proto__ = Constructor.prototype;</span><br><span class="line">    <span class="comment">//继承构造函数的属性和方法</span></span><br><span class="line">    Constructor.apply(obj, <span class="built_in">arguments</span>);</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h2 id="体积分析：使用webpack-bundle-analyzer"><a href="#体积分析：使用webpack-bundle-analyzer" class="headerlink" title="体积分析：使用webpack-bundle-analyzer"></a>体积分析：使用webpack-bundle-analyzer</h2><ul>
+<li><p>代码示例：构建完成后会在 8888 端口展示大小</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; BundleAnalyzerPlugin &#125; = <span class="built_in">require</span>(<span class="string">'webpack-bundle-analyzer'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> BundleAnalyzerPlugin()</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://github.com/webpack-contrib/webpack-bundle-analyzer" target="_blank" rel="noopener">了解更多</a></p>
+</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button">
-              <a class="btn" href="/2019-10-12/Javascript/JavaScript深入之new的模拟实现/#more" rel="contents">
+              <a class="btn" href="/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -582,7 +701,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/bind的模拟实现/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -597,7 +716,7 @@
         <h2 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019-10-12/Javascript/bind的模拟实现/" class="post-title-link" itemprop="url">bind的模拟实现</a>
+            <a href="/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin/" class="post-title-link" itemprop="url">速度分析：使用speed-measure-webpack-plugin</a>
           
         </h2>
 
@@ -612,20 +731,51 @@
                 
               
 
-              <time title="创建时间：2019-10-12 19:56:40" itemprop="dateCreated datePublished" datetime="2019-10-12T19:56:40+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-17 16:39:07 / 修改时间：17:54:57" itemprop="dateCreated datePublished" datetime="2019-10-17T16:39:07+08:00">2019-10-17</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
               </span>
-            
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">Webpack</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack构建速度和体积优化策略</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -639,8 +789,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/bind的模拟实现/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/bind的模拟实现/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -655,16 +805,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="bind的作用"><a href="#bind的作用" class="headerlink" title="bind的作用"></a>bind的作用</h2><ul>
-<li>bind()方法返回一个新的函数,</li>
-<li>新函数的this值指向传入的第一个参数，this被绑定了</li>
-<li>bind 的时候可以传递参数，进行绑定</li>
-<li>bind 返回的函数作为构造函数的时候，bind 时指定的 this 值会失效，但传入的参数依然生效</li>
-</ul><h2 id="返回函数的模拟实现"><a href="#返回函数的模拟实现" class="headerlink" title="返回函数的模拟实现"></a>返回函数的模拟实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.bind = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> self.apply(context);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h2 id="速度分析：使用speed-measure-webpack-plugin"><a href="#速度分析：使用speed-measure-webpack-plugin" class="headerlink" title="速度分析：使用speed-measure-webpack-plugin"></a>速度分析：使用speed-measure-webpack-plugin</h2><ul>
+<li><p>使用：将默认配置文件包裹起来</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> SpeedMeasurePlugin = <span class="built_in">require</span>(<span class="string">"speed-measure-webpack-plugin"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> smp = <span class="keyword">new</span> SpeedMeasurePlugin();</span><br><span class="line"></span><br><span class="line"><span class="comment">//将默认的webpack配置文件包裹起来</span></span><br><span class="line"><span class="keyword">const</span> webpackConfig = smp.wrap(&#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> MyPlugin(),</span><br><span class="line">    <span class="keyword">new</span> MyOtherPlugin()</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://github.com/stephencookdev/speed-measure-webpack-plugin" target="_blank" rel="noopener">了解更多</a></p>
+</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button">
-              <a class="btn" href="/2019-10-12/Javascript/bind的模拟实现/#more" rel="contents">
+              <a class="btn" href="/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -695,7 +846,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/call和apply的模拟实现/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/初级分析：使用webpack内置的stats/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -710,7 +861,7 @@
         <h2 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019-10-12/Javascript/call和apply的模拟实现/" class="post-title-link" itemprop="url">call和apply的模拟实现</a>
+            <a href="/2019-10-17/webpack/初级分析：使用webpack内置的stats/" class="post-title-link" itemprop="url">初级分析：使用webpack内置的stats</a>
           
         </h2>
 
@@ -725,20 +876,51 @@
                 
               
 
-              <time title="创建时间：2019-10-12 19:54:35" itemprop="dateCreated datePublished" datetime="2019-10-12T19:54:35+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-17 16:13:30 / 修改时间：17:54:10" itemprop="dateCreated datePublished" datetime="2019-10-17T16:13:30+08:00">2019-10-17</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
               </span>
-            
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">Webpack</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack构建速度和体积优化策略</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -752,8 +934,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/call和apply的模拟实现/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/call和apply的模拟实现/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-17/webpack/初级分析：使用webpack内置的stats/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/初级分析：使用webpack内置的stats/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -768,14 +950,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="call的特点"><a href="#call的特点" class="headerlink" title="call的特点"></a>call的特点</h2><ul>
-<li>可以改变当前函数的this指向</li>
-<li>让当前函数执行</li>
-</ul><h2 id="call模拟实现"><a href="#call模拟实现" class="headerlink" title="call模拟实现"></a>call模拟实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.call = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> context = context ? <span class="built_in">Object</span>(context) : <span class="built_in">window</span>;<span class="comment">// 兼容context，Object(context)兼容context为string的情况</span></span><br><span class="line">    context.fn = <span class="keyword">this</span>; <span class="comment">// 将函数设为对象的属性</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> args = [];</span><br><span class="line">    <span class="comment">//获取参数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>, len = <span class="built_in">arguments</span>.length; i &lt; len; i++) &#123;</span><br><span class="line">        args.push(<span class="string">'arguments['</span> + i + <span class="string">']'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行函数</span></span><br><span class="line">    <span class="comment">// args 会自动调用 Array.toString() 这个方法</span></span><br><span class="line">    <span class="keyword">var</span> result = <span class="built_in">eval</span>(<span class="string">'context.fn('</span> + args +<span class="string">')'</span>);</span><br><span class="line">    <span class="comment">// 删除该函数</span></span><br><span class="line">    <span class="keyword">delete</span> context.fn;</span><br><span class="line">    <span class="comment">//返回结果</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h2 id="使用webpack内置的stats"><a href="#使用webpack内置的stats" class="headerlink" title="使用webpack内置的stats"></a>使用webpack内置的stats</h2><ul>
+<li>stats: 构建的统计信息</li>
+</ul><h2 id="package-json-中使用-stats"><a href="#package-json-中使用-stats" class="headerlink" title="package.json 中使用 stats"></a>package.json 中使用 stats</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;build:stats&quot;: &quot;webpack --config webpack.prod.js --json &gt; stats.json&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           
             <div class="post-button">
-              <a class="btn" href="/2019-10-12/Javascript/call和apply的模拟实现/#more" rel="contents">
+              <a class="btn" href="/2019-10-17/webpack/初级分析：使用webpack内置的stats/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -806,7 +987,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -854,8 +1035,21 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
         </a>
       </div>
     
@@ -867,7 +1061,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

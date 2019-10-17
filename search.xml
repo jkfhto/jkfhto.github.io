@@ -1,6 +1,558 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Tree Shaking的使用和原理分析</title>
+    <url>/2019-10-17/webpack/Tree-Shaking%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h2 id="tree-shaking-摇树优化"><a href="#tree-shaking-摇树优化" class="headerlink" title="tree shaking(摇树优化)"></a>tree shaking(摇树优化)</h2><ul>
+<li>概念：1 个模块可能有多个方法，只要其中的某个方法使用到了，则整个文件都会被打到bundle 里面去，tree shaking 就是只把用到的方法打入 bundle ，没用到的方法会在uglify 阶段被擦除掉</li>
+<li>使用：<ul>
+<li>webpack 默认支持，在 .babelrc 里设置 modules: false 即可</li>
+<li>production mode的情况下默认开启</li>
+</ul>
+</li>
+<li>要求：<ul>
+<li>必须是 ES6 的语法，CJS 的方式不支持</li>
+<li>需要tree shaking的模块代码是没有副作用的，否则tree shaking会失效</li>
+</ul>
+</li>
+</ul><a id="more"></a>
+<h2 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h2><ul>
+<li>副作用这个概念来源于函数式编程(FP)，纯函数是没有副作用的，也不依赖外界环境或者改变外界环境。纯函数的概念是：接受相同的输入，任何情况下输出都是一样的。</li>
+<li>非纯函数存在副作用，副作用就是：相同的输入，输出不一定相同。或者这个函数会影响到外部变量、外部环境。</li>
+<li>函数如果调用了全局对象或者改变函数外部变量，则说明这个函数有副作用</li>
+</ul>
+<h2 id="DCE-Dead-code-elimination"><a href="#DCE-Dead-code-elimination" class="headerlink" title="DCE (Dead code elimination)"></a>DCE (Dead code elimination)</h2><ul>
+<li><p>没有导入和使用</p>
+</li>
+<li><p>代码不会被执⾏，不可到达</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'false'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码执行的结果不会被用到</p>
+<ul>
+<li>执行函数返回结果，结果没有赋值给变量。</li>
+<li>执行函数返回结果，结果赋值给变量。但是变量没有被使用。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;func2&#125; <span class="keyword">from</span> <span class="string">'./functions'</span>;</span><br><span class="line">func2();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码只会影响死变量（只写不读）</p>
+<ul>
+<li>定义了一个变量，修改了它的值，但是并没有使用。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Tree-shaking-原理"><a href="#Tree-shaking-原理" class="headerlink" title="Tree-shaking 原理"></a>Tree-shaking 原理</h2><ul>
+<li>利用 ES6 模块的特点:<ul>
+<li>只能作为模块顶层的语句出现</li>
+<li>import 的模块名只能是字符串常量，不能动态引入模块</li>
+<li>import binding 是 immutable的，引入的模块不能再进行修改</li>
+</ul>
+</li>
+<li>代码擦除： uglify 阶段删除无用代码</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用动态Polyfill服务</title>
+    <url>/2019-10-17/webpack/%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81Polyfill%E6%9C%8D%E5%8A%A1/</url>
+    <content><![CDATA[<h2 id="构建体积优化：动态-Polyfill"><a href="#构建体积优化：动态-Polyfill" class="headerlink" title="构建体积优化：动态 Polyfill"></a>构建体积优化：动态 Polyfill</h2><p><img src="/images/25.png" alt="构建体积优化：动态 Polyfill"></p><h2 id="Polyfill-Service原理"><a href="#Polyfill-Service原理" class="headerlink" title="Polyfill Service原理"></a>Polyfill Service原理</h2><ul>
+<li><p>每次打开页面，浏览器都会向Polyfill Service发送请求，Polyfill Service识别 User Agent，下发不同的 Polyfill，做到按需加载Polyfill的效果。</p>
+<p><img src="/images/28.png" alt="Polyfill Service原理"></p>
+</li>
+</ul><h2 id="构建体积优化：如何使用动态-Polyfill-service"><a href="#构建体积优化：如何使用动态-Polyfill-service" class="headerlink" title="构建体积优化：如何使用动态 Polyfill service"></a>构建体积优化：如何使用动态 Polyfill service</h2><a id="more"></a>
+
+<ul>
+<li><p><a href="https://polyfill.io/v3/" target="_blank" rel="noopener">polyfill.io</a> 官方提供的服务</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//访问url，根据User Agent 直接返回浏览器所需的 polyfills</span><br><span class="line">https://polyfill.io/v3/polyfill.min.js</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于官方自建 polyfill 服务</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//huayang.qq.com/polyfill_service/v2/polyfill.min.js?unknown=polyfill&amp;features=Promise,Map,Set</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><a href="https://c7sky.com/polyfill-io.html" target="_blank" rel="noopener">其他</a></li>
+</ul>
+<h2 id="体积优化策略总结"><a href="#体积优化策略总结" class="headerlink" title="体积优化策略总结"></a>体积优化策略总结</h2><ul>
+<li>Scope Hoisting</li>
+<li>Tree-shaking</li>
+<li>公共资源分离</li>
+<li>图片压缩</li>
+<li>动态 Polyfill</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用webpack进行图片压缩</title>
+    <url>/2019-10-17/webpack/%E4%BD%BF%E7%94%A8webpack%E8%BF%9B%E8%A1%8C%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/</url>
+    <content><![CDATA[<h2 id="使用webpack进行图片压缩"><a href="#使用webpack进行图片压缩" class="headerlink" title="使用webpack进行图片压缩"></a>使用webpack进行图片压缩</h2><ul>
+<li>要求：基于 Node 库的 imagemin 或者 tinypng API</li>
+<li>使用：配置 image-webpack-loader</li>
+</ul><h2 id="Imagemin的优点分析"><a href="#Imagemin的优点分析" class="headerlink" title="Imagemin的优点分析"></a>Imagemin的优点分析</h2><ul>
+<li>有很多定制选项</li>
+<li>可以引入更多第三方优化插件，例如pngquant</li>
+<li>可以处理多种图片格式</li>
+</ul><h2 id="Imagemin的压缩原理"><a href="#Imagemin的压缩原理" class="headerlink" title="Imagemin的压缩原理"></a>Imagemin的压缩原理</h2><a id="more"></a>
+
+<ul>
+<li>pngquant: 是一款PNG压缩器，通过将图像转换为具有alpha通道（通常比24/32位PNG文件小60-80％）的更高效的8位PNG格式，可显著减小文件大小</li>
+<li>pngcrush：其主要目的是通过尝试不同的压缩级别和PNG过滤方法来降低PNG IDAT数据流的大小。</li>
+<li>optipng：其设计灵感来自于pngcrush。optipng可将图像文件重新压缩为更小尺寸，而不会丢失任何信息。</li>
+<li>tinypng：也是将24位png文件转化为更小有索引的8位图片，同时所有非必要的metadata也会被剥离掉</li>
+</ul>
+<h2 id="image-webpack-loader"><a href="#image-webpack-loader" class="headerlink" title="image-webpack-loader"></a>image-webpack-loader</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在你的webpack.config.js中，在file-loader之后使用image-webpack-loader</span></span><br><span class="line"><span class="comment">//对于要配置的每个优化程序，请在选项中指定相应的键</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">            test: <span class="regexp">/\.(gif|png|jpe?g|svg)$/i</span>,</span><br><span class="line">            use: [</span><br><span class="line">                <span class="string">'file-loader'</span>,</span><br><span class="line">                &#123;</span><br><span class="line">                    loader: <span class="string">'image-webpack-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        mozjpeg: &#123;</span><br><span class="line">                            progressive: <span class="literal">true</span>,</span><br><span class="line">                            quality: <span class="number">65</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        <span class="comment">// optipng.enabled: false will disable optipng</span></span><br><span class="line">                        optipng: &#123;</span><br><span class="line">                            enabled: <span class="literal">false</span>,</span><br><span class="line">                        &#125;,</span><br><span class="line">                        pngquant: &#123;</span><br><span class="line">                            quality: [<span class="number">0.65</span>, <span class="number">0.90</span>],</span><br><span class="line">                            speed: <span class="number">4</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        gifsicle: &#123;</span><br><span class="line">                            interlaced: <span class="literal">false</span>,</span><br><span class="line">                        &#125;,</span><br><span class="line">                        <span class="comment">// the webp option will enable WEBP</span></span><br><span class="line">                        webp: &#123;</span><br><span class="line">                            quality: <span class="number">75</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">            ],</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Tree Shaking擦除无用的JavaScript和CSS</title>
+    <url>/2019-10-17/webpack/%E4%BD%BF%E7%94%A8Tree-Shaking%E6%93%A6%E9%99%A4%E6%97%A0%E7%94%A8%E7%9A%84JavaScript%E5%92%8CCSS/</url>
+    <content><![CDATA[<h2 id="tree-shaking-摇树优化"><a href="#tree-shaking-摇树优化" class="headerlink" title="tree shaking(摇树优化)"></a>tree shaking(摇树优化)</h2><ul>
+<li>概念：1 个模块可能有多个方法，只要其中的某个方法使用到了，则整个文件都会被打到bundle 里面去，tree shaking 就是只把用到的方法打入 bundle ，没用到的方法会在uglify 阶段被擦除掉</li>
+<li>使用：<ul>
+<li>webpack 默认支持，在 .babelrc 里设置 modules: false 即可</li>
+<li>production mode的情况下默认开启</li>
+</ul>
+</li>
+<li>要求：<ul>
+<li>必须是 ES6 的语法，CJS 的方式不支持</li>
+<li>需要tree shaking的模块代码是没有副作用的，否则tree shaking会失效</li>
+</ul>
+</li>
+<li><a href="/2019-10-17/webpack/Tree-Shaking的使用和原理分析">Tree Shaking的使用和原理分析</a></li>
+</ul><a id="more"></a>
+<h2 id="无用的-CSS-如何删除掉？"><a href="#无用的-CSS-如何删除掉？" class="headerlink" title="无用的 CSS 如何删除掉？"></a>无用的 CSS 如何删除掉？</h2><ul>
+<li>PurifyCSS: 遍历代码，识别已经用到的 CSS class，没有用到的已经识别的就会做一个标记。</li>
+<li>uncss: HTML 需要通过 jsdom 加载，所有的样式通过PostCSS解析，通过document.querySelector 来识别在 html 文件里面不存在的选择器</li>
+</ul>
+<h2 id="在-webpack-中如何使用-PurifyCSS"><a href="#在-webpack-中如何使用-PurifyCSS" class="headerlink" title="在 webpack 中如何使用 PurifyCSS?"></a>在 webpack 中如何使用 PurifyCSS?</h2><ul>
+<li><p>purifycss-webpack以停止维护，建议使用purgecss-webpack-plugin</p>
+</li>
+<li><p>使用 <a href="https://github.com/FullHuman/purgecss-webpack-plugin" target="_blank" rel="noopener">purgecss-webpack-plugin</a>和 mini-css-extract-plugin 配合使用</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> glob = <span class="built_in">require</span>(<span class="string">'glob'</span>)</span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin = <span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>)</span><br><span class="line"><span class="keyword">const</span> PurgecssPlugin = <span class="built_in">require</span>(<span class="string">'purgecss-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//需要进行解析的文件目录 绝对路径</span></span><br><span class="line"><span class="keyword">const</span> PATHS = &#123;</span><br><span class="line">    src: path.join(__dirname, <span class="string">'src'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        path: path.join(__dirname, <span class="string">'dist'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    optimization: &#123;</span><br><span class="line">        splitChunks: &#123;</span><br><span class="line">            cacheGroups: &#123;</span><br><span class="line">                styles: &#123;</span><br><span class="line">                    name: <span class="string">'styles'</span>,</span><br><span class="line">                    test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                    chunks: <span class="string">'all'</span>,</span><br><span class="line">                    enforce: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    MiniCssExtractPlugin.loader,</span><br><span class="line">                    <span class="string">"css-loader"</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">            filename: <span class="string">"[name].css"</span>,</span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> PurgecssPlugin(&#123;</span><br><span class="line">            <span class="comment">//path：您可以使用文件数组指定purgecss应分析的内容。它可以是html，pug，blade，...文件。您可以使用glob或glob-all之类的模块轻松获取文件列表</span></span><br><span class="line">            paths: glob.sync(<span class="string">`<span class="subst">$&#123;PATHS.src&#125;</span>/**/*`</span>, &#123; <span class="attr">nodir</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>缩小构建目标</title>
+    <url>/2019-10-17/webpack/%E7%BC%A9%E5%B0%8F%E6%9E%84%E5%BB%BA%E7%9B%AE%E6%A0%87/</url>
+    <content><![CDATA[<h2 id="缩小构建目标"><a href="#缩小构建目标" class="headerlink" title="缩小构建目标"></a>缩小构建目标</h2><ul>
+<li><p>目的：尽可能的少构建模块</p>
+</li>
+<li><p>比如 exclude 不解析相应的模块，目录。include 只解析解析相应的模块，目录</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">        &#123;</span><br><span class="line">            test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">            <span class="comment">//?cacheDirectory=true 开启缓存</span></span><br><span class="line">            use: <span class="string">'babel-loader?cacheDirectory=true'</span>,<span class="comment">//使用babel-loader解析ES6  </span></span><br><span class="line">            exclude: <span class="string">'node_modules'</span>,</span><br><span class="line">            include: <span class="string">'src'</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul><a id="more"></a>
+<h2 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h2><p>resolve配置，设置模块如何被解析。通过resolve的配置，可以帮助Webpack快速查找依赖，也可以替换对应的依赖。<a href="https://webpack.js.org/configuration/resolve/" target="_blank" rel="noopener">了解更多</a></p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">```json</span><br><span class="line">resolve: &#123;</span><br><span class="line">  extensions: [&quot;.js&quot;,&quot;.jsx&quot;,&quot;.json&quot;,&quot;.css&quot;]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 每当引入bootstrap模块的时候，它会直接引入bootstrap,而不需要从node_modules文件夹中按模块的查找规则查找</span><br><span class="line"></span><br><span class="line">  ```javascript</span><br><span class="line">  const bootstrap = path.resolve(__dirname, &apos;node_modules/_bootstrap@3.3.7@bootstrap/dist/css/bootstrap.css&apos;);</span><br><span class="line">  resolve: &#123;</span><br><span class="line">      alias: &#123;</span><br><span class="line">          &quot;bootstrap&quot;: bootstrap</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>resolve.modules：告诉 webpack 解析模块时应该搜索的目录</p>
+</li>
+<li><p>resolve.mainFields：当从 npm 包中导入模块时（例如，import * as D3 from ‘d3’），此选项将决定在 package.json 中使用哪个字段导入模块。根据 webpack 配置中指定的 target 不同，默认值也会有所不同</p>
+</li>
+<li><p>resolve.mainFiles：解析目录时要使用的文件名，默认是index</p>
+</li>
+</ul>
+<h2 id="减少文件搜索范围"><a href="#减少文件搜索范围" class="headerlink" title="减少文件搜索范围"></a>减少文件搜索范围</h2><ul>
+<li><p>优化 resolve.modules 配置（减少模块搜索层级）</p>
+</li>
+<li><p>优化 resolve.mainFields 配置（优化入口文件分析，搜索过程）</p>
+</li>
+<li><p>优化 resolve.extensions 配置（缩小扩展名查找范围）</p>
+</li>
+<li><p>合理使用 alias</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">resolve: &#123;</span><br><span class="line">    alias: &#123;</span><br><span class="line">        <span class="string">'react'</span>: path.resolve(__dirname, <span class="string">'./node_modules/react/umd/react.production.min.js'</span>),</span><br><span class="line">        <span class="string">'react-dom'</span>: path.resolve(__dirname, <span class="string">'./node_modules/react-dom/umd/react-dom.production.min.js'</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">    extensions: [<span class="string">'.js'</span>],</span><br><span class="line">    mainFields: [<span class="string">'main'</span>]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>充分利用缓存提升二次构建速度</title>
+    <url>/2019-10-17/webpack/%E5%85%85%E5%88%86%E5%88%A9%E7%94%A8%E7%BC%93%E5%AD%98%E6%8F%90%E5%8D%87%E4%BA%8C%E6%AC%A1%E6%9E%84%E5%BB%BA%E9%80%9F%E5%BA%A6/</url>
+    <content><![CDATA[<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><ul>
+<li>目的：提升二次构建速度</li>
+<li>缓存思路：<ul>
+<li><a href="https://github.com/babel/babel-loader" target="_blank" rel="noopener">babel-loader</a> 开启缓存：提升二次解析速度</li>
+<li><a href="https://github.com/webpack-contrib/terser-webpack-plugin" target="_blank" rel="noopener">terser-webpack-plugin</a> 开启缓存：提升二次压缩速度</li>
+<li>使用 <a href="https://github.com/webpack-contrib/cache-loader" target="_blank" rel="noopener">cache-loader</a> 或者 <a href="https://github.com/mzgoddard/hard-source-webpack-plugin" target="_blank" rel="noopener">hard-source-webpack-plugin</a>：用于缓存 webpack 内部模块处理的中间结果，提升二次模块转换速度</li>
+</ul>
+</li>
+</ul><a id="more"></a>
+<p>如果开启了缓存，<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## babel-loader 开启缓存</span><br><span class="line"></span><br><span class="line">```javascript</span><br><span class="line">module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">        &#123;</span><br><span class="line">            test: /\.js$/,</span><br><span class="line">            //?cacheDirectory=true 开启缓存</span><br><span class="line">            use: &apos;babel-loader?cacheDirectory=true&apos;//使用babel-loader解析ES6  </span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="terser-webpack-plugin"><a href="#terser-webpack-plugin" class="headerlink" title="terser-webpack-plugin"></a>terser-webpack-plugin</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">optimization: &#123;</span><br><span class="line">    minimizer: [</span><br><span class="line">        <span class="keyword">new</span> TerserPlugin(&#123;</span><br><span class="line">            parallel: <span class="literal">true</span>,<span class="comment">//开启多进程并行压缩代码</span></span><br><span class="line">            cache: <span class="literal">true</span>,<span class="comment">//开启缓存</span></span><br><span class="line">        &#125;),</span><br><span class="line">    ],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-cache-loader-或者-hard-source-webpack-plugin"><a href="#使用-cache-loader-或者-hard-source-webpack-plugin" class="headerlink" title="使用 cache-loader 或者 hard-source-webpack-plugin"></a>使用 cache-loader 或者 hard-source-webpack-plugin</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//hard-source-webpack-plugin 开启缓存</span></span><br><span class="line"><span class="keyword">const</span> HardSourceWebpackPlugin = <span class="built_in">require</span>(<span class="string">'hard-source-webpack-plugin'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> HardSourceWebpackPlugin()</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>进一步分包：预编译资源模块 使用 DLLPlugin 进行分包</title>
+    <url>/2019-10-17/webpack/%E8%BF%9B%E4%B8%80%E6%AD%A5%E5%88%86%E5%8C%85%EF%BC%9A%E9%A2%84%E7%BC%96%E8%AF%91%E8%B5%84%E6%BA%90%E6%A8%A1%E5%9D%97-%E4%BD%BF%E7%94%A8-DLLPlugin-%E8%BF%9B%E8%A1%8C%E5%88%86%E5%8C%85/</url>
+    <content><![CDATA[<h2 id="分包：设置-Externals"><a href="#分包：设置-Externals" class="headerlink" title="分包：设置 Externals"></a>分包：设置 Externals</h2><ul>
+<li>思路：将 react、react-dom 基础包通过 cdn 引入，不打入 bundle 中</li>
+<li>方法：使用 html-webpack-externals-plugin</li>
+</ul><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在配置文件中添加HtmlWebpackExternalsPlugin插件</span></span><br><span class="line"><span class="keyword">new</span> HtmlWebpackExternalsPlugin(&#123;</span><br><span class="line">    externals: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">module</span>: <span class="string">'react'</span>,</span><br><span class="line">            entry: <span class="string">'https://cdn.bootcss.com/react/15.6.1/react.js'</span>,</span><br><span class="line">            global: <span class="string">'React'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">module</span>: <span class="string">'react-dom'</span>,</span><br><span class="line">            entry: <span class="string">'https://cdn.bootcss.com/react/15.6.1/react-dom.js'</span>,</span><br><span class="line">            global: <span class="string">'ReactDOM'</span></span><br><span class="line">        &#125;,</span><br><span class="line">    ],</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>基础库分离 需要在html中引入基础库<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/react/15.6.1/react.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/react/15.6.1/react-dom.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="预编译资源模块-更好的分包策略"><a href="#预编译资源模块-更好的分包策略" class="headerlink" title="预编译资源模块 更好的分包策略"></a>预编译资源模块 更好的分包策略</h2><ul>
+<li>思路：<ul>
+<li>使用<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  - 同时也会生成manifest.json文件。manifest.json文件是对分离出来的包的描述。该manifest.json的作用是用来让 DllReferencePlugin 映射到相关的依赖上去。</span><br><span class="line">- 方法：使用 DLLPlugin 进行分包，DllReferencePlugin引用 manifest.json 包。引用后，就会自动关联DLLPlugin中的包。</span><br><span class="line">- 说明：</span><br><span class="line">  - DllPlugin 通常用于基础包（框架包、业务包）的分离。</span><br><span class="line">  - SplitChunks 虽然也可以做 DllPlugin 的事情，但是更加推荐使用 SplitChunks 去提取页面间的公共 js 文件。因为使用 SplitChunks 每次去提取基础包还是需要耗费构建时间的，如果是 DllPlugin 只需要预编译一次，后面的基础包时间都可以省略掉。</span><br><span class="line">- [DLLPlugin详情](https://www.webpackjs.com/plugins/dll-plugin/)</span><br><span class="line"></span><br><span class="line">## 使用 DLLPlugin 进行分包</span><br><span class="line"></span><br><span class="line">- 在一个额外的独立的 webpack.dll.js 配置中，使用 DLLPlugin 进行分包</span><br><span class="line">  </span><br><span class="line">  ```javascript</span><br><span class="line">  const path = require(&apos;path&apos;);</span><br><span class="line">  const webpack = require(&apos;webpack&apos;);</span><br><span class="line"></span><br><span class="line">  module.exports = &#123;</span><br><span class="line">      entry: &#123;</span><br><span class="line">          //指定需要进行分离的基础包 library：当前动态链接库的名称 [name] 代表当前动态链接库的名称</span><br><span class="line">          library: [</span><br><span class="line">              &apos;react&apos;,</span><br><span class="line">              &apos;react-dom&apos;</span><br><span class="line">          ]</span><br><span class="line">      &#125;,</span><br><span class="line">      output: &#123;</span><br><span class="line">          filename: &apos;[name].dll.js&apos;,//输出的动态链接库(dll)的文件名称，[name] 代表当前动态链接库的名称</span><br><span class="line">          path: path.join(__dirname, &apos;build/library&apos;),// 输出的文件目录</span><br><span class="line">          library: &apos;[name]&apos;//存放动态链接库的全局变量名称</span><br><span class="line">      &#125;,</span><br><span class="line">      plugins: [</span><br><span class="line">          new webpack.DllPlugin(&#123;</span><br><span class="line">              name: &apos;_dll_[name]&apos;,//该字段的值也就是输出的 manifest.json 文件 中 name 字段的值 例如 library.manifest.json 中就有 &quot;name&quot;: &quot;_dll_library&quot;</span><br><span class="line">              path: path.join(__dirname, &apos;build/library/[name].manifest.json&apos;)//</span><br><span class="line">          &#125;)</span><br><span class="line">      ]</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="使用-DllReferencePlugin-引用-manifest-json"><a href="#使用-DllReferencePlugin-引用-manifest-json" class="headerlink" title="使用  DllReferencePlugin 引用 manifest.json"></a>使用  DllReferencePlugin 引用 manifest.json</h2><ul>
+<li><p>在 webpack.config.js 引入</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> DllReferencePlugin = <span class="built_in">require</span>(<span class="string">'webpack/lib/DllReferencePlugin'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports =&#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> DllReferencePlugin(&#123;</span><br><span class="line">          context: path.join(__dirname, <span class="string">'build/library'</span>),<span class="comment">//(绝对路径) manifest (或者是内容属性)中请求的上下文 不设置会报错</span></span><br><span class="line">          manifest: <span class="built_in">require</span>(<span class="string">'./build/library/library.manifest.json'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多进程并行压缩代码</title>
+    <url>/2019-10-17/webpack/%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%B9%B6%E8%A1%8C%E5%8E%8B%E7%BC%A9%E4%BB%A3%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="多进程-多实例：并行压缩"><a href="#多进程-多实例：并行压缩" class="headerlink" title="多进程/多实例：并行压缩"></a>多进程/多实例：并行压缩</h2><ul>
+<li>使用 <a href="https://github.com/gdborton/webpack-parallel-uglify-plugin" target="_blank" rel="noopener">parallel-uglify-plugin</a> 插件</li>
+<li><a href="https://github.com/webpack-contrib/uglifyjs-webpack-plugin" target="_blank" rel="noopener">uglifyjs-webpack-plugin</a> 开启 parallel 参数</li>
+<li><a href="https://github.com/webpack-contrib/terser-webpack-plugin" target="_blank" rel="noopener">terser-webpack-plugin</a> 开启 parallel 参数：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## 使用 parallel-uglify-plugin 插件</span><br><span class="line"></span><br><span class="line">- 在通过 new ParallelUglifyPlugin() 实列化时，支持以下参数配置：</span><br><span class="line">  - test: 使用正则去匹配哪些文件需要被 ParallelUglifyPlugin 压缩，默认是 /.js$/.</span><br><span class="line">  - include: 使用正则去包含被 ParallelUglifyPlugin 压缩的文件，默认为 [].</span><br><span class="line">  - exclude: 使用正则去不包含被 ParallelUglifyPlugin 压缩的文件，默认为 [].</span><br><span class="line">  - cacheDir: 缓存压缩后的结果，下次遇到一样的输入时直接从缓存中获取压缩后的结果并返回，cacheDir 用于配置缓存存放的目录路径。默认不会缓存，想开启缓存请设置一个目录路径。</span><br><span class="line">  - workerCount：开启几个子进程去并发的执行压缩。默认是当前运行电脑的 CPU 核数减去1。</span><br><span class="line">  - sourceMap：是否为压缩后的代码生成对应的Source Map, 默认不生成，开启后耗时会大大增加，一般不会将压缩后的代码的</span><br><span class="line">  - sourceMap发送给网站用户的浏览器。</span><br><span class="line">  - uglifyJS：用于压缩 ES5 代码时的配置，Object 类型，直接透传给 UglifyJS 的参数。</span><br><span class="line">  - uglifyES：用于压缩 ES6 代码时的配置，Object 类型，直接透传给 UglifyES 的参数。</span><br><span class="line">- 代码演示：</span><br><span class="line"></span><br><span class="line">```javascript</span><br><span class="line">// 引入 ParallelUglifyPlugin 插件</span><br><span class="line">const ParallelUglifyPlugin = require(&apos;webpack-parallel-uglify-plugin&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        // 使用 ParallelUglifyPlugin 并行压缩输出JS代码</span><br><span class="line">        new ParallelUglifyPlugin(&#123;</span><br><span class="line">            // 传递给 UglifyJS的参数如下：</span><br><span class="line">            uglifyJS: &#123;</span><br><span class="line">                output: &#123;</span><br><span class="line">                    /*</span><br><span class="line">                     是否输出可读性较强的代码，即会保留空格和制表符，默认为输出，为了达到更好的压缩效果，</span><br><span class="line">                     可以设置为false</span><br><span class="line">                    */</span><br><span class="line">                    beautify: false,</span><br><span class="line">                    /*</span><br><span class="line">                     是否保留代码中的注释，默认为保留，为了达到更好的压缩效果，可以设置为false</span><br><span class="line">                    */</span><br><span class="line">                    comments: false</span><br><span class="line">                &#125;,</span><br><span class="line">                compress: &#123;</span><br><span class="line">                    /*</span><br><span class="line">                     是否在UglifyJS删除没有用到的代码时输出警告信息，默认为输出，可以设置为false关闭这些作用</span><br><span class="line">                     不大的警告</span><br><span class="line">                    */</span><br><span class="line">                    warnings: false,</span><br><span class="line"></span><br><span class="line">                    /*</span><br><span class="line">                     是否删除代码中所有的console语句，默认为不删除，开启后，会删除所有的console语句</span><br><span class="line">                    */</span><br><span class="line">                    drop_console: true,</span><br><span class="line"></span><br><span class="line">                    /*</span><br><span class="line">                     是否内嵌虽然已经定义了，但是只用到一次的变量，比如将 var x = 1; y = x, 转换成 y = 5, 默认为不</span><br><span class="line">                     转换，为了达到更好的压缩效果，可以设置为false</span><br><span class="line">                    */</span><br><span class="line">                    collapse_vars: true,</span><br><span class="line"></span><br><span class="line">                    /*</span><br><span class="line">                     是否提取出现了多次但是没有定义成变量去引用的静态值，比如将 x = &apos;xxx&apos;; y = &apos;xxx&apos;  转换成</span><br><span class="line">                     var a = &apos;xxxx&apos;; x = a; y = a; 默认为不转换，为了达到更好的压缩效果，可以设置为false</span><br><span class="line">                    */</span><br><span class="line">                    reduce_vars: true</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul><a id="more"></a>
+<h2 id="uglifyjs-webpack-plugin-开启-parallel-参数"><a href="#uglifyjs-webpack-plugin-开启-parallel-参数" class="headerlink" title="uglifyjs-webpack-plugin 开启 parallel 参数"></a>uglifyjs-webpack-plugin 开启 parallel 参数</h2><ul>
+<li><p>不支持ES6语法</p>
+</li>
+<li><p>代码演示：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> UglifyJsPlugin = <span class="built_in">require</span>(<span class="string">'uglifyjs-webpack-plugin'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    optimization: &#123;</span><br><span class="line">        minimizer: [</span><br><span class="line">            <span class="keyword">new</span> UglifyJsPlugin(&#123;</span><br><span class="line">                parallel: <span class="literal">true</span>,<span class="comment">//开启多进程</span></span><br><span class="line">            &#125;),</span><br><span class="line">        ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="terser-webpack-plugin-开启-parallel-参数"><a href="#terser-webpack-plugin-开启-parallel-参数" class="headerlink" title="terser-webpack-plugin 开启 parallel 参数"></a>terser-webpack-plugin 开启 parallel 参数</h2><ul>
+<li><p>代码演示：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> TerserPlugin = <span class="built_in">require</span>(<span class="string">'terser-webpack-plugin'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    optimization: &#123;</span><br><span class="line">        minimizer: [</span><br><span class="line">            <span class="keyword">new</span> TerserPlugin(&#123;</span><br><span class="line">                parallel: <span class="literal">true</span>,</span><br><span class="line">            &#125;),</span><br><span class="line">        ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多进程/多实例构建</title>
+    <url>/2019-10-17/webpack/%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%A4%9A%E5%AE%9E%E4%BE%8B%E6%9E%84%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="资源并行解析可选方案"><a href="#资源并行解析可选方案" class="headerlink" title="资源并行解析可选方案"></a>资源并行解析可选方案</h2><ul>
+<li><a href="https://github.com/amireh/happypack" target="_blank" rel="noopener">HappyPack</a></li>
+<li><a href="https://github.com/webpack-contrib/thread-loader" target="_blank" rel="noopener">thread-loader</a>：推荐使用</li>
+<li><a href="https://github.com/trivago/parallel-webpack" target="_blank" rel="noopener">parallel-webpack</a></li>
+</ul><h2 id="多进程-多实例：使用-HappyPack-解析资源"><a href="#多进程-多实例：使用-HappyPack-解析资源" class="headerlink" title="多进程/多实例：使用 HappyPack 解析资源"></a>多进程/多实例：使用 HappyPack 解析资源</h2><ul>
+<li><p>原理：</p>
+<ul>
+<li>每次 webapck 解析一个模块，HappyPack 会将它及它的依赖分配给 worker 线程中</li>
+</ul>
+</li>
+<li><p>代码演示：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">exports.plugins = [</span><br><span class="line">  <span class="keyword">new</span> HappyPack(&#123;</span><br><span class="line">    id: <span class="string">'jsx'</span>,</span><br><span class="line">    threads: <span class="number">4</span>,</span><br><span class="line">    loaders: [ <span class="string">'babel-loader'</span> ]</span><br><span class="line">  &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="keyword">new</span> HappyPack(&#123;</span><br><span class="line">    id: <span class="string">'styles'</span>,</span><br><span class="line">    threads: <span class="number">2</span>,</span><br><span class="line">    loaders: [ <span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>, <span class="string">'less-loader'</span> ]</span><br><span class="line">  &#125;)</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">exports.module.rules = [</span><br><span class="line">  &#123;</span><br><span class="line">    test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">    use: <span class="string">'happypack/loader?id=jsx'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">    use: <span class="string">'happypack/loader?id=styles'</span></span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>工作流程：webpack compiler run方法执行后，到达HappyPack。HappyPack会做一些初始化，初始化工作之后，会创建一个线程池。线程池可能包括多个线程。线程池会将构建任务里面的模块进行分配。线程池里面的线程会去各自处理模块以及相关依赖，处理完成之后，会有一个通信的过程。会将处理好的资源传输给HappyPack的主进程。完成整个构建的过程。</p>
+<p><img src="/images/26.png" alt="工作流程"></p>
+</li>
+<li><p><a href="https://github.com/amireh/happypack" target="_blank" rel="noopener">了解更多</a></p>
+</li>
+</ul><a id="more"></a>
+
+<h2 id="多进程-多实例：使用-thread-loader-解析资源"><a href="#多进程-多实例：使用-thread-loader-解析资源" class="headerlink" title="多进程/多实例：使用 thread-loader 解析资源"></a>多进程/多实例：使用 thread-loader 解析资源</h2><ul>
+<li><p>原理：</p>
+<ul>
+<li>每次 webpack 解析一个模块，thread-loader 会将它及它的依赖分配给 worker 线程中</li>
+<li>把这个 loader 放置在其他 loader 之前， 放置在这个 loader 之后的 loader 就会在一个单独的 worker 池(worker pool)中运行</li>
+</ul>
+</li>
+<li><p>在 worker 池(worker pool)中运行的 loader 是受到限制的。例如：</p>
+<ul>
+<li>这些 loader 不能产生新的文件。</li>
+<li>这些 loader 不能使用定制的 loader API（也就是说，通过插件）。</li>
+<li>这些 loader 无法获取 webpack 的选项设置。</li>
+</ul>
+</li>
+<li><p>每个 worker 都是一个单独的有 600ms 限制的 node.js 进程。同时跨进程的数据交换也会被限制。</p>
+</li>
+<li><p>请仅在耗时的 loader 上使用</p>
+</li>
+<li><p>代码演示：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        include: path.resolve(<span class="string">"src"</span>),</span><br><span class="line">        use: [</span><br><span class="line">          <span class="string">"thread-loader"</span>,</span><br><span class="line">          <span class="comment">// your expensive loader (e.g babel-loader)</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://www.webpackjs.com/loaders/thread-loader/" target="_blank" rel="noopener">了解更多</a></p>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用高版本的webpack和Node.js</title>
+    <url>/2019-10-17/webpack/%E4%BD%BF%E7%94%A8%E9%AB%98%E7%89%88%E6%9C%AC%E7%9A%84webpack%E5%92%8CNode-js/</url>
+    <content><![CDATA[<h2 id="使用高版本的webpack和Node-js"><a href="#使用高版本的webpack和Node-js" class="headerlink" title="使用高版本的webpack和Node.js"></a>使用高版本的webpack和Node.js</h2><ul>
+<li>V8 带来的优化（for of 替代 forEach、Map 和 Set 替代 Object、includes 替代 indexOf）</li>
+<li>默认使用更快的 md4 hash 算法，替代md5 hash</li>
+<li>webpacks AST 可以直接从 loader 传递给 AST，减少解析时间</li>
+<li>使用字符串方法替代正则表达式</li>
+<li>可以从webpack<a href="https://github.com/webpack/webpack/releases" target="_blank" rel="noopener">版本日志</a>，了解做了哪些性能优化</li>
+</ul><a id="more"></a>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>体积分析：使用webpack-bundle-analyzer</title>
+    <url>/2019-10-17/webpack/%E4%BD%93%E7%A7%AF%E5%88%86%E6%9E%90%EF%BC%9A%E4%BD%BF%E7%94%A8webpack-bundle-analyzer/</url>
+    <content><![CDATA[<h2 id="体积分析：使用webpack-bundle-analyzer"><a href="#体积分析：使用webpack-bundle-analyzer" class="headerlink" title="体积分析：使用webpack-bundle-analyzer"></a>体积分析：使用webpack-bundle-analyzer</h2><ul>
+<li><p>代码示例：构建完成后会在 8888 端口展示大小</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; BundleAnalyzerPlugin &#125; = <span class="built_in">require</span>(<span class="string">'webpack-bundle-analyzer'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> BundleAnalyzerPlugin()</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://github.com/webpack-contrib/webpack-bundle-analyzer" target="_blank" rel="noopener">了解更多</a></p>
+</li>
+</ul><a id="more"></a>
+<h2 id="可以分析哪些问题？"><a href="#可以分析哪些问题？" class="headerlink" title="可以分析哪些问题？"></a>可以分析哪些问题？</h2><ul>
+<li>依赖的第三方模块文件大小</li>
+<li>业务里面的组件代码大小</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>速度分析：使用speed-measure-webpack-plugin</title>
+    <url>/2019-10-17/webpack/%E9%80%9F%E5%BA%A6%E5%88%86%E6%9E%90%EF%BC%9A%E4%BD%BF%E7%94%A8speed-measure-webpack-plugin/</url>
+    <content><![CDATA[<h2 id="速度分析：使用speed-measure-webpack-plugin"><a href="#速度分析：使用speed-measure-webpack-plugin" class="headerlink" title="速度分析：使用speed-measure-webpack-plugin"></a>速度分析：使用speed-measure-webpack-plugin</h2><ul>
+<li><p>使用：将默认配置文件包裹起来</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> SpeedMeasurePlugin = <span class="built_in">require</span>(<span class="string">"speed-measure-webpack-plugin"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> smp = <span class="keyword">new</span> SpeedMeasurePlugin();</span><br><span class="line"></span><br><span class="line"><span class="comment">//将默认的webpack配置文件包裹起来</span></span><br><span class="line"><span class="keyword">const</span> webpackConfig = smp.wrap(&#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> MyPlugin(),</span><br><span class="line">    <span class="keyword">new</span> MyOtherPlugin()</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://github.com/stephencookdev/speed-measure-webpack-plugin" target="_blank" rel="noopener">了解更多</a></p>
+</li>
+</ul><a id="more"></a>
+<h2 id="速度分析插件作用"><a href="#速度分析插件作用" class="headerlink" title="速度分析插件作用"></a>速度分析插件作用</h2><ul>
+<li>分析整个打包总耗时</li>
+<li>每个插件和loader的耗时情况</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>初级分析：使用webpack内置的stats</title>
+    <url>/2019-10-17/webpack/%E5%88%9D%E7%BA%A7%E5%88%86%E6%9E%90%EF%BC%9A%E4%BD%BF%E7%94%A8webpack%E5%86%85%E7%BD%AE%E7%9A%84stats/</url>
+    <content><![CDATA[<h2 id="使用webpack内置的stats"><a href="#使用webpack内置的stats" class="headerlink" title="使用webpack内置的stats"></a>使用webpack内置的stats</h2><ul>
+<li>stats: 构建的统计信息</li>
+</ul><h2 id="package-json-中使用-stats"><a href="#package-json-中使用-stats" class="headerlink" title="package.json 中使用 stats"></a>package.json 中使用 stats</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;build:stats&quot;: &quot;webpack --config webpack.prod.js --json &gt; stats.json&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure><a id="more"></a>
+  
+
+<h2 id="Node-js-中使用"><a href="#Node-js-中使用" class="headerlink" title="Node.js 中使用"></a>Node.js 中使用</h2><p><img src="/images/23.png" alt="Node.js 中使用"></p>
+<h2 id="上面的方法存在的问题"><a href="#上面的方法存在的问题" class="headerlink" title="上面的方法存在的问题"></a>上面的方法存在的问题</h2><p><img src="/images/24.png" alt="存在的问题"></p>
+<ul>
+<li>颗粒度太粗, 看不出问题所在</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Webpack 性能优化</title>
+    <url>/2019-10-17/webpack/Webpack-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="webpack-的性能瓶颈"><a href="#webpack-的性能瓶颈" class="headerlink" title="webpack 的性能瓶颈"></a>webpack 的性能瓶颈</h2><p>webpack 的优化瓶颈，主要是两个方面：</p>
+<ul>
+<li>webpack 的构建过程太花时间</li>
+<li>webpack 打包的结果体积太大</li>
+</ul>
+<h2 id="webpack构建速度和体积优化策略"><a href="#webpack构建速度和体积优化策略" class="headerlink" title="webpack构建速度和体积优化策略"></a>webpack构建速度和体积优化策略</h2><ul>
+<li><a href="/2019-10-17/webpack/初级分析：使用webpack内置的stats">01 | 初级分析：使用webpack内置的stats</a></li>
+<li><a href="/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin">02 | 速度分析：使用speed-measure-webpack-plugin</a></li>
+<li><a href="/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer">03 | 体积分析：使用webpack-bundle-analyzer</a></li>
+<li><a href="/2019-10-17/webpack/使用高版本的webpack和Node-js">04 | 使用高版本的webpack和Node.js</a></li>
+<li><a href="/2019-10-17/webpack/多进程-多实例构建">05 | 多进程/多实例构建</a></li>
+<li><a href="/2019-10-17/webpack/多进程并行压缩代码">06 | 多进程并行压缩代码</a></li>
+<li><a href="/2019-10-17/webpack/进一步分包：预编译资源模块-使用-DLLPlugin-进行分包">07 | 进一步分包：预编译资源模块 使用 DLLPlugin 进行分包</a></li>
+<li><a href="/2019-10-17/webpack/充分利用缓存提升二次构建速度">08 | 充分利用缓存提升二次构建速度</a></li>
+<li><a href="/2019-10-17/webpack/缩小构建目标">09 | 缩小构建目标</a></li>
+<li><a href="/2019-10-17/webpack/使用Tree-Shaking擦除无用的JavaScript和CSS">10 | 使用Tree Shaking擦除无用的JavaScript和CSS</a></li>
+<li><a href="/2019-10-17/webpack/使用webpack进行图片压缩">11 | 使用webpack进行图片压缩</a></li>
+<li><a href="/2019-10-17/webpack/使用动态Polyfill服务">12 | 使用动态Polyfill服务</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+        <category>webpack构建速度和体积优化策略</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DNS Prefetch</title>
     <url>/2019-10-17/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/DNS-Prefetch/</url>
     <content><![CDATA[<p><strong><em>DNS(Domain Name System)</em></strong>，翻译为域名解析系统，是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。</p><p>围绕DNS可做的性能优化非常的多，比如大家所熟知的全局负载均衡(GSLB)，用户可以访问到离自己最近服务器，从而获得最优的访问体验，这项优化更多需要服务端去完成。前端主要关注 <strong><em>DNS Prefetch</em></strong>。</p><a id="more"></a>
@@ -29,6 +581,10 @@
 <p>如果浏览器最近将一个域名解析为IP地址，所属的操作系统将会缓存，下一次DNS解析时间可以低至0-1ms。 如果结果不在系统本地缓存，则需要读取路由器的缓存，则解析时间的最小值大约为15ms。如果路由器缓存也不存在，则需要读取ISP（运营商）DNS缓存，一般像taobao.com、baidu.com这些常见的域名，读取ISP（运营商）DNS缓存需要的时间在80-120ms，如果是不常见的域名，平均需要200-300ms。一般的网站在运营商这里都能查询的到，所以普遍来说DNS Prefetch可以给一个域名的DNS解析过程带来15-300ms的提升，尤其是一些大量引用很多其他域名资源的网站，提升效果就更加明显了。<br>Chromium对底层缓存进行了建模，当Chrome浏览器启动的时候，就会自动的快速解析浏览器最近一次启动时记录的前10个域名。所以你经常访问的网址就没有DNS解析的延迟，打开速度更快。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a><br><a href="https://github.com/barretlee/performance-column/issues/3" target="_blank" rel="noopener">性能优化之 DNS Prefetch</a></p>
 ]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
       <tags>
         <tag>Javascript</tag>
         <tag>前端性能优化</tag>
@@ -87,6 +643,10 @@
 <p><a href="https://github.com/GoogleChrome/lighthouse" target="_blank" rel="noopener">了解更多</a></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a><br><a href="https://juejin.im/post/5ba73d1de51d450e551a0d08" target="_blank" rel="noopener">网站性能调优开发工具: Lighthouse, Puppeteer 以及进阶部分丨 Google 开发者大会 2018</a></p>
 ]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
       <tags>
         <tag>Javascript</tag>
         <tag>前端性能优化</tag>
@@ -148,6 +708,10 @@
 <h3 id="Event-Log"><a href="#Event-Log" class="headerlink" title="Event Log"></a>Event Log</h3><p>事件日志</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a><br><a href="https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/" target="_blank" rel="noopener">Get Started With Analyzing Runtime Performance</a></p>
 ]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
       <tags>
         <tag>Javascript</tag>
         <tag>前端性能优化</tag>
@@ -180,6 +744,10 @@
 <p><img src="/images/Performance4.png" alt="感官性能优化指标2"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a><br><a href="https://github.com/ChenChenJoke/JokerWebFont/tree/master/Performance" target="_blank" rel="noopener">Web性能优化：Performance，数据搜集方法</a></p>
 ]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
       <tags>
         <tag>Javascript</tag>
         <tag>前端性能优化</tag>
@@ -242,6 +810,10 @@
 <h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>指的是一组分布在各个地区的服务器。这些服务器存储着数据的副本，因此服务器可以根据哪些服务器与用户距离最近，来满足数据的请求。 CDN 提供快速服务，较少受高流量影响。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/grandPang/article/details/51329289" target="_blank" rel="noopener">前端性能优化归纳总结篇</a></p>
 ]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
       <tags>
         <tag>Javascript</tag>
         <tag>前端性能优化</tag>
@@ -277,6 +849,10 @@
 <li><a href="https://www.iteye.com/blog/uule-2213562" target="_blank" rel="noopener">TCP协议的三次握手和四次挥手</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
       <tags>
         <tag>Javascript</tag>
         <tag>前端性能优化</tag>
