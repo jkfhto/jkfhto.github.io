@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>前端性能优化-缓存</title>
+    <url>/2019-10-17/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>缓存可以减少网络 IO 消耗，提高访问速度。浏览器缓存是一种操作简单、效果显著的前端性能优化手段。对于这个操作的必要性，Chrome 官方给出的解释似乎更有说服力一些：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">通过网络获取内容既速度缓慢又开销巨大。较大的响应需要在客户端与服务器之间进行多次往返通信，这会延迟浏览器获得和处理内容的时间，还会增加访问者的流量费用。因此，缓存并重复利用之前获取的资源的能力成为性能优化的一个关键方面。</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+<h2 id="缓存的优点"><a href="#缓存的优点" class="headerlink" title="缓存的优点"></a>缓存的优点</h2><ul>
+<li>获得更快的读写能力：相比数据库I/O操作磁盘，缓存I/O操作内存速度更快。</li>
+<li>降低数据库压力：把常用的数据放在缓存中，请求直接读取缓存，可以减轻数据库的负担。</li>
+<li>减少冗余数据传输：很多的静态资源，基本上很少有改动，有了缓存之后，我们只用在有文件改动的时候，再重新从服务器拉取新的资源即可。</li>
+<li>节省流量：有了缓存，对于那些非常大的静态资源，我们无需每次进行请求，可以节省大量的流量，流量就是钱，对应的我们可以利用缓存为我们服务的公司节省一笔不小的开支。</li>
+<li>降低时延：对于已经缓存好的数据，我们就无需再发请求给服务器，这样就节省下很多HTTP请求的时间，降低时延。</li>
+</ul>
+<h2 id="缓存的分类"><a href="#缓存的分类" class="headerlink" title="缓存的分类"></a>缓存的分类</h2><h3 id="CDN缓存"><a href="#CDN缓存" class="headerlink" title="CDN缓存"></a>CDN缓存</h3><p>CDN是通过在多个节点部署来减少请求时间的，这样我们不需要每次都回源到源站服务器进行请求。CDN对于常见的HTTP请求都是支持的，但是并不是对所有请求方式都会进行缓存，进行缓存的只有GET请求，对于其它请求均不作缓存，仅仅起到转发作用，相当于proxy。</p>
+<p><img src="/images/cache1.jpg" alt="CDN缓存"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Tips:关于CDN站点部署最好使用动静分离的形式，将动态请求和静态请求的内容独立成两个站点，而 CDN 仅仅加速静态站点中的资源，现在的CDN服务商大多数也都支持这个功能。</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据库缓存"><a href="#数据库缓存" class="headerlink" title="数据库缓存"></a>数据库缓存</h3><p>数据库属于 I/O 操作密集型的应用，主要负责数据的管理及存储。数据库缓存是一类特殊的缓存，是数据库自身的缓存机制。大多数据库不需要配置就可以快速运行，但并没有为特定的需求进行优化。在数据库调优的时候，缓存优化是一项很重要的工作。</p>
+<p>数据库缓存就是我们把一些经常会被访问到资源直接放到内存当中，当数据没有变化我们并不会去让直接读写数据库，只有数据发生变化的时候我们才会去操作数据库。</p>
+<h3 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h3><p>浏览器缓存（Browser Caching）是为了节约网络的资源加速浏览，浏览器在用户磁盘上对最近请求过的文档进行存储，当访问者再次请求这个页面时，浏览器就可以从本地磁盘显示文档，这样就可以加速页面的阅览。</p>
+<p>浏览器缓存是根据一套与服务端约定好的规则来进行工作的。</p>
+<h3 id="本地缓存"><a href="#本地缓存" class="headerlink" title="本地缓存"></a>本地缓存</h3><p>本地存储主要有以下几种：LocalStorage、SessionStorage和Cookie、WebSql(废弃)和IndexDB，其中IndexDB主要用在前端有大容量存储需求的页面上，例如在线编辑或者网页邮箱。</p>
+<h3 id="接口缓存"><a href="#接口缓存" class="headerlink" title="接口缓存"></a>接口缓存</h3><p>通过 AOP 面向切片编程，集合装饰器的使用，我们可以将一个接口请求的返回结果直接缓存起来。这样在调用这个接口的入参相同时，可以直接从缓存中读取数据，减少了请求，提高了相应速度。在此基础上，还可以对这个装饰器做进一步的优化，比如对存储对 key 做序列化并求 hash、给装饰器加锁防止并行操作等等。</p>
+<h3 id="Web应用层缓存"><a href="#Web应用层缓存" class="headerlink" title="Web应用层缓存"></a>Web应用层缓存</h3><p>当平台级缓存不能满足系统性能要求的时候，就要考虑使用应用级缓存了。应用级缓存，需要开发者通过代码来实现缓存机制，这里主要使用NoSQL型数据库来进行相关实现。不管是Redis 还是MongoDB，以及Memcached 都可以作为应用级缓存的重要技术。一种典型的方式是每分钟或一段时间后统一生成某类页面存储在缓存中，或者可以在热数据变化时更新缓存。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a></p>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Tree Shaking的使用和原理分析</title>
     <url>/2019-10-17/webpack/Tree-Shaking%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<h2 id="tree-shaking-摇树优化"><a href="#tree-shaking-摇树优化" class="headerlink" title="tree shaking(摇树优化)"></a>tree shaking(摇树优化)</h2><ul>
