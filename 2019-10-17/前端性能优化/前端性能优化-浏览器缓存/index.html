@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="浏览器缓存浏览器缓存机制有四个方面，它们按照获取资源时请求的优先级依次排列如下： Memory Cache Service Worker Cache HTTP Cache Push Cache 其中，“from memory cache”对标到 Memory Cache 类型，“from ServiceWorker”对标到 Service Worker Cache 类型。至于 Push Cache">
+<meta name="keywords" content="Javascript,前端性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化-浏览器缓存">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化-浏览器缓存/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="浏览器缓存浏览器缓存机制有四个方面，它们按照获取资源时请求的优先级依次排列如下： Memory Cache Service Worker Cache HTTP Cache Push Cache 其中，“from memory cache”对标到 Memory Cache 类型，“from ServiceWorker”对标到 Service Worker Cache 类型。至于 Push Cache">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://jkfhto.github.io/images/cache3.jpg">
+<meta property="og:image" content="https://jkfhto.github.io/images/cache4.png">
+<meta property="og:image" content="https://jkfhto.github.io/images/cache5.jpg">
+<meta property="og:image" content="https://jkfhto.github.io/images/cache6.jpg">
+<meta property="og:image" content="https://jkfhto.github.io/images/cache7.png">
+<meta property="og:updated_time" content="2019-10-17T17:19:21.923Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端性能优化-浏览器缓存">
+<meta name="twitter:description" content="浏览器缓存浏览器缓存机制有四个方面，它们按照获取资源时请求的优先级依次排列如下： Memory Cache Service Worker Cache HTTP Cache Push Cache 其中，“from memory cache”对标到 Memory Cache 类型，“from ServiceWorker”对标到 Service Worker Cache 类型。至于 Push Cache">
+<meta name="twitter:image" content="https://jkfhto.github.io/images/cache3.jpg">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化-浏览器缓存/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>前端性能优化-浏览器缓存 | 个人博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home  //首页"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags  //标签"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th  //分类"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive  //归档"></i>归档</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>
+        
+        搜索
+        </a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化-浏览器缓存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            前端性能优化-浏览器缓存
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-17 23:54:47" itemprop="dateCreated datePublished" datetime="2019-10-17T23:54:47+08:00">2019-10-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-18 01:19:21" itemprop="dateModified" datetime="2019-10-18T01:19:21+08:00">2019-10-18</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019-10-17/前端性能优化/前端性能优化-浏览器缓存/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/前端性能优化/前端性能优化-浏览器缓存/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h2><p>浏览器缓存机制有四个方面，它们按照获取资源时请求的优先级依次排列如下：</p><ul>
+<li>Memory Cache</li>
+<li>Service Worker Cache</li>
+<li>HTTP Cache</li>
+<li>Push Cache</li>
+</ul><p><img src="/images/cache3.jpg" alt="浏览器缓存"></p><p>其中，“from memory cache”对标到 Memory Cache 类型，“from ServiceWorker”对标到 Service Worker Cache 类型。至于 Push Cache，这个比较特殊，是 HTTP2 的新特性。</p><a id="more"></a>
+
+
+
+<h2 id="HTTP缓存"><a href="#HTTP缓存" class="headerlink" title="HTTP缓存"></a>HTTP缓存</h2><p>它需要服务端和客户端配合才能完成，常见的服务器软件如：Apache、Nginx都可以为资源设置不同的HTTP缓存策略。HTTP缓存策略又细分为 <strong><em>强制缓存</em></strong> 和 <strong><em>协商缓存</em></strong> 。优先级较高的是强缓存，在命中强缓存失败的情况下，才会走协商缓存。</p>
+<h3 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h3><p>强缓存是利用 http 头中的 <strong><em>Expires</em></strong> 和 <strong><em>Cache-Control</em></strong> 两个字段来控制的。强缓存中，当请求再次发出时，浏览器会根据其中的 expires 和 cache-control 判断目标资源是否“命中”强缓存，若命中则直接从缓存中获取资源，不会再与服务端发生通信。</p>
+<p>命中强缓存的情况下，返回的 HTTP 状态码为 200 （如下图）:</p>
+<p><img src="/images/cache4.png" alt="HTTP 状态码 200"></p>
+<h3 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h3><p>expires是强制缓存策略的关键字段，expires是HTTP1.0的字段，是一个绝对时间值。当服务器返回响应时，在 Response Headers 中将过期时间写入 expires 字段。像这样：</p>
+<p><img src="/images/cache5.jpg" alt="Expires"></p>
+<p>expires 是一个时间戳，当再次向服务器请求资源，浏览器本地时间和 expires 的时间戳会进行对比，如果本地时间小于 expires 设定的过期时间，那么就直接去缓存中取这个资源。</p>
+<p>expires 最大的问题在于对“本地时间”的依赖。如果服务端和客户端的时间设置可能不同，或者我直接手动去把客户端的时间改掉，那么 expires 将无法达到我们的预期。可以通过 Cache-Control 解决这个问题。</p>
+<h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><p>HTTP1.1 新增了 Cache-Control 字段来完成 expires 的任务。Cache-Control 可以视作是 expires 的完全替代方案。Cache-Control设置的是一个相对时间，可以更加精准地控制资源缓存。</p>
+<p><img src="/images/cache6.jpg" alt="Cache-Control"></p>
+<h4 id="可缓存性"><a href="#可缓存性" class="headerlink" title="可缓存性"></a>可缓存性</h4><ul>
+<li>public<br>设置了该字段值的资源表示可以被任何对象（包括：发送请求的客户端、代理服务器等等）缓存。这个字段值不常用，一般还是使用<strong>max-age=</strong>来精确控制；</li>
+<li>private<br>设置了该字段值的资源只能被用户浏览器缓存，不能作为共享缓存，不允许任何代理服务器缓存。在实际开发当中，对于一些含有用户信息的HTML，通常都要设置这个字段值，避免代理服务器(CDN)缓存；</li>
+<li>no-cache<br>设置了该字段需要先和服务端确认返回的资源是否发生了变化，如果资源未发生变化，则直接使用缓存好的资源；</li>
+<li>no-store<br>设置了该字段表示禁止任何缓存，每次都会向服务端发起新的请求，拉取最新的资源；</li>
+</ul>
+<h3 id="到期时间"><a href="#到期时间" class="headerlink" title="到期时间"></a>到期时间</h3><ul>
+<li>max-age=<br>设置缓存的最大有效期，单位为秒；</li>
+<li>s-maxage=：<br>优先级高于max-age=，仅适用于共享缓存(CDN)，优先级高于max-age或者Expires头；</li>
+<li>max-stale[=]：<br>设置了该字段表明客户端愿意接收已经过期的资源，但是不能超过给定的时间限制。</li>
+</ul>
+<p>实际开发当中expires和Cache-Control一般都要进行设置，这是为了兼容不支持HTTP1.1的环境。两者同时存在，Cache-Control的优先级要高于expires。</p>
+<h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><p>没有命中强制缓存，如果设置了协商缓存，这个时候协商缓存就会发挥作用了</p>
+<h3 id="Last-Modified-If-Modified-Since"><a href="#Last-Modified-If-Modified-Since" class="headerlink" title="Last-Modified/If-Modified-Since"></a>Last-Modified/If-Modified-Since</h3><p><strong><em>Last-Modified</em></strong> 是一个时间戳，如果我们启用了协商缓存，它会在首次请求时随着 Response Headers 返回：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Last-Modified: Fri, 27 Oct 2019 06:35:57 GMT</span><br></pre></td></tr></table></figure>
+
+<p>随后我们每次请求时，会带上一个叫 <strong><em>If-Modified-Since</em></strong> 的时间戳字段，它的值正是上一次 response 返回给它的 last-modified 值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-Modified-Since: Fri, 27 Oct 2019 06:35:57 GMT</span><br></pre></td></tr></table></figure>
+
+<p>服务器接收到这个时间戳后，根据 <strong><em>If-Modified-Since</em></strong> 的字段值和服务端资源最后的修改时间是否一致来判断资源是否有修改。如果没有修改，则返回的状态码为304；如果有修改，则返回新的资源，状态码为200。</p>
+<h3 id="Last-Modified-弊端"><a href="#Last-Modified-弊端" class="headerlink" title="Last-Modified 弊端"></a>Last-Modified 弊端</h3><ul>
+<li>服务端对Last-Modified标注的最后修改时间只能精确到秒级，如果某些文件在1秒钟以内被修改多次的话，这个时候服务端无法准确标注文件的修改时间。</li>
+<li>服务端文件进行了编辑，但文件的内容没有改变，这个资源在再次被请求时，会被当做新资源，导致文件无法使用缓存。</li>
+</ul>
+<h3 id="Etag-If-None-Match"><a href="#Etag-If-None-Match" class="headerlink" title="Etag/If-None-Match"></a>Etag/If-None-Match</h3><p><strong><em>Etag</em></strong> 是由服务器为每个资源生成的唯一的标识字符串，这个标识字符串是基于文件内容编码的，只要文件内容不同，它们对应的 <strong><em>Etag</em></strong> 就是不同的，反之亦然。因此 <strong><em>Etag</em></strong> 能够精准地感知文件的变化。</p>
+<p><strong><em>Etag</em></strong> 和 <strong><em>Last-Modified</em></strong> 类似，当首次请求时，服务器响应头里返回一个最初的标识符字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ETag: W/&quot;2a3b-1602480f459&quot;</span><br></pre></td></tr></table></figure>
+
+<p>随后我们每次请求时，会带上一个叫 <strong><em>if-None-Match</em></strong> 的字符串，它的值正是上一次 response 返回给它的 <strong><em>Etag</em></strong> 值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-None-Match: W/&quot;2a3b-1602480f459&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Etag-弊端"><a href="#Etag-弊端" class="headerlink" title="Etag 弊端"></a>Etag 弊端</h3><p>Etag 的生成过程需要服务器额外付出开销，会影响服务端的性能，这是它的弊端。Etag 并不能替代 Last-Modified，它只能作为 Last-Modified 的补充和强化存在。 Etag 在感知文件变化上比 Last-Modified 更加准确，优先级也更高。当 Etag 和 Last-Modified 同时存在时，以 Etag 为准。</p>
+<h3 id="HTTP-缓存决策指南"><a href="#HTTP-缓存决策指南" class="headerlink" title="HTTP 缓存决策指南"></a>HTTP 缓存决策指南</h3><p><img src="/images/cache7.png" alt="HTTP 缓存决策指南"></p>
+<p>当资源内容不可复用时，直接为 Cache-Control 设置 no-store，拒绝一切形式的缓存；否则考虑是否每次都需要向服务器进行缓存有效确认，如果需要，那么设 Cache-Control 的值为 no-cache；否则考虑该资源是否可以被代理服务器缓存，根据其结果决定是设置为 private 还是 public；然后考虑该资源的过期时间，设置对应的 max-age 和 s-maxage 值；最后，配置协商缓存需要用到的 Etag、Last-Modified 等参数。</p>
+<h2 id="缓存字段的配置"><a href="#缓存字段的配置" class="headerlink" title="缓存字段的配置"></a>缓存字段的配置</h2><h3 id="expires和cache-control"><a href="#expires和cache-control" class="headerlink" title="expires和cache-control"></a>expires和cache-control</h3><p>如果使用的是 <strong><em>Nginx</em></strong>，那么打开Nginx的配置文件 <strong><em>nginx.conf</em></strong>，具体配置方法如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// expires:给图片设置过期时间30天，这里也可以设置其它类型文件</span></span><br><span class="line">location ~ \.(gif|jpg|jpeg|png)$ &#123;</span><br><span class="line">        root /<span class="keyword">var</span>/www/img/;</span><br><span class="line">        expires <span class="number">30</span>d;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// cache-control:给图片设置过期时间36秒，这里也可以设置其它类型文件</span></span><br><span class="line">location ~ \.(gif|jpg|jpeg|png)$ &#123;</span><br><span class="line">        root /<span class="keyword">var</span>/www/img/;</span><br><span class="line">        add_header    Cache-Control  max-age=<span class="number">3600</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果使用的是 <strong><em>Apache</em></strong>，那么打开Apache的配置文件 <strong><em>http.conf</em></strong>，具体的配置方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// expires</span><br><span class="line">&lt;IfModule expires_module&gt;</span><br><span class="line">      #打开缓存</span><br><span class="line">      ExpiresActive on </span><br><span class="line">      # 给图片设置过期时间30天，这里也可以设置其它类型文件</span><br><span class="line">      ExpiresByType image/gif access plus 30 days</span><br><span class="line">      ExpiresByType image/jpg access plus 30 days</span><br><span class="line">      ExpiresByType image/jpeg access plus 30 days</span><br><span class="line">      ExpiresByType image/png access plus 30 days</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line">// cache-control</span><br><span class="line">&lt;FilesMatch &quot;\.(gif/jpg/jpeg/png)$&quot;&gt;</span><br><span class="line">　  	 Header set Cache-Control &quot;max-age=604800, public&quot;</span><br><span class="line">&lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Last-Modified和Etag"><a href="#Last-Modified和Etag" class="headerlink" title="Last-Modified和Etag"></a>Last-Modified和Etag</h3><p>Last-Modified在Nginx和Apache当中都是默认启用的。</p>
+<p>如果我们使用的是 <strong><em>Apache</em></strong>，那么只需要在 <strong><em>.htaccess</em></strong> 文件当中添加如下配置，即可开启Etag：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FileETag MTime Size</span><br></pre></td></tr></table></figure>
+
+<p>如果我们使用的是 <strong><em>Nginx</em></strong>，需要先安装 <strong><em>Etag</em></strong> 模块；安装成功之后，仍然打开 <strong><em>nginx.conf</em></strong> 文件，确保当中没有出现 <strong><em>etgoff</em></strong>，然后添加如下配置，即可开启Etag：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location ~ .*\.(gif|jpg|jpeg|png)$ &#123;</span><br><span class="line">   FileETag on;</span><br><span class="line">   etag_format &quot;%X%X%X&quot;; //这里格式化规则可以修改</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Service-Worker-Cache"><a href="#Service-Worker-Cache" class="headerlink" title="Service Worker Cache"></a>Service Worker Cache</h2><p>Service Worker是运行在浏览器背后的独立线程。可能大家在看到Service Worker这个概念的时候发现它经常和PWA一起出现。可以这么说，PWA应用在开发的时候必会用到Service Worker，这得益于Service强大的缓存能力。使用Service Worker前提必须是HTTPS协议，因为Service Worker涉及到了HTTP的拦截，所以必须使用HTTPS协议来保证安全。<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank" rel="noopener">使用 Service Workers</a></p>
+<h2 id="Memory-Cache"><a href="#Memory-Cache" class="headerlink" title="Memory Cache"></a>Memory Cache</h2><p>Memory Cache指得是内存中的缓存，大家都知道内存的读取是非常快的，但是空间确有限，而且持续性很短，一旦我们关闭当前tab页面，Memory Cache也就随着消失了。Memory Cache缓存的大部分是preloader指令下的静态资源。我们发现，Base64 格式的图片，几乎永远可以被塞进 memory cache。</p>
+<h2 id="Disk-Cache"><a href="#Disk-Cache" class="headerlink" title="Disk Cache"></a>Disk Cache</h2><p>Disk Cache是存储在硬盘上的缓存，我们为静态资源设置的缓存一般都是缓存到Disk Cache当中，所以我们平时接触到最多的缓存就是Disk Cache。</p>
+<h2 id="Push-Cache"><a href="#Push-Cache" class="headerlink" title="Push Cache"></a>Push Cache</h2><ul>
+<li>Push Cache是推送缓存，它是HTTP2.0新增加的内容，目前实际的应用还偏少。</li>
+<li>Push Cache 是缓存的最后一道防线。浏览器只有在 Memory Cache、HTTP Cache 和 Service Worker Cache 均未命中的情况下才会去询问 Push Cache。</li>
+<li>Push Cache 是一种存在于会话阶段的缓存，当 session 终止时，缓存也随之释放。</li>
+<li>不同的页面只要共享了同一个 HTTP2 连接，那么它们就可以共享同一个 Push Cache。</li>
+<li><a href="https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/" target="_blank" rel="noopener">了解更多</a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a></li>
+<li><a href="https://juejin.im/book/5b936540f265da0a9624b04b" target="_blank" rel="noopener">前端性能优化原理与实践</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:16px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
+            
+              <a href="/tags/前端性能优化/" rel="tag"><i class="fa fa-tag"></i> 前端性能优化</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019-10-17/前端性能优化/前端性能优化-本地存储/" rel="next" title="前端性能优化-本地存储">
+                  <i class="fa fa-chevron-left"></i> 前端性能优化-本地存储
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器缓存"><span class="nav-number">1.</span> <span class="nav-text">浏览器缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP缓存"><span class="nav-number">2.</span> <span class="nav-text">HTTP缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强制缓存"><span class="nav-number">2.1.</span> <span class="nav-text">强制缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expires"><span class="nav-number">2.2.</span> <span class="nav-text">Expires</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Control"><span class="nav-number">2.3.</span> <span class="nav-text">Cache-Control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可缓存性"><span class="nav-number">2.3.1.</span> <span class="nav-text">可缓存性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#到期时间"><span class="nav-number">2.4.</span> <span class="nav-text">到期时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协商缓存"><span class="nav-number">2.5.</span> <span class="nav-text">协商缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Last-Modified-If-Modified-Since"><span class="nav-number">2.6.</span> <span class="nav-text">Last-Modified/If-Modified-Since</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Last-Modified-弊端"><span class="nav-number">2.7.</span> <span class="nav-text">Last-Modified 弊端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Etag-If-None-Match"><span class="nav-number">2.8.</span> <span class="nav-text">Etag/If-None-Match</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Etag-弊端"><span class="nav-number">2.9.</span> <span class="nav-text">Etag 弊端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-缓存决策指南"><span class="nav-number">2.10.</span> <span class="nav-text">HTTP 缓存决策指南</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存字段的配置"><span class="nav-number">3.</span> <span class="nav-text">缓存字段的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#expires和cache-control"><span class="nav-number">3.1.</span> <span class="nav-text">expires和cache-control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Last-Modified和Etag"><span class="nav-number">3.2.</span> <span class="nav-text">Last-Modified和Etag</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-Worker-Cache"><span class="nav-number">4.</span> <span class="nav-text">Service Worker Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-Cache"><span class="nav-number">5.</span> <span class="nav-text">Memory Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Disk-Cache"><span class="nav-number">6.</span> <span class="nav-text">Disk Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Push-Cache"><span class="nav-number">7.</span> <span class="nav-text">Push Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="jkfhto">
+  <p class="site-author-name" itemprop="name">jkfhto</p>
+  <div class="site-description" itemprop="description">ARE YOU READY TO DIE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/jkfhto" title="GitHub &rarr; https://github.com/jkfhto" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jkfhto</span>
+</div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.1
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'alQVMWPnOOe4lPVXKRWqDTsQ-gzGzoHsz',
+    appKey: 'RleUsHgziBnyz6c72sCfUduo',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
