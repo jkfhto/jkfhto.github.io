@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="用var声明的变量的作用域是它当前的执行上下文，它可以是嵌套的函数，也可以是声明在任何函数外的变量。let和const是块级作用域，意味着它们只能在最近的一组花括号（function、if-else 代码块或 for 循环中）中访问。1234567891011121314function foo() &amp;#123;  // 所有变量在函数中都可访问  var bar = &apos;bar&apos;;  let ba">
-<meta name="keywords" content="Javascript">
+  <meta name="description" content="DNS(Domain Name System)，翻译为域名解析系统，是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。围绕DNS可做的性能优化非常的多，比如大家所熟知的全局负载均衡(GSLB)，用户可以访问到离自己最近服务器，从而获得最优的访问体验，这项优化更多需要服务端去完成。前端主要关注 DNS Prefetch。">
+<meta name="keywords" content="Javascript,前端性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用let、var和const创建变量有什么区别？">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-12/Javascript/使用let、var和const创建变量有什么区别？/index.html">
+<meta property="og:title" content="DNS Prefetch">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-17/前端性能优化/DNS-Prefetch/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="用var声明的变量的作用域是它当前的执行上下文，它可以是嵌套的函数，也可以是声明在任何函数外的变量。let和const是块级作用域，意味着它们只能在最近的一组花括号（function、if-else 代码块或 for 循环中）中访问。1234567891011121314function foo() &amp;#123;  // 所有变量在函数中都可访问  var bar = &apos;bar&apos;;  let ba">
+<meta property="og:description" content="DNS(Domain Name System)，翻译为域名解析系统，是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。围绕DNS可做的性能优化非常的多，比如大家所熟知的全局负载均衡(GSLB)，用户可以访问到离自己最近服务器，从而获得最优的访问体验，这项优化更多需要服务端去完成。前端主要关注 DNS Prefetch。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-16T10:22:39.068Z">
+<meta property="og:updated_time" content="2019-10-17T02:25:36.168Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用let、var和const创建变量有什么区别？">
-<meta name="twitter:description" content="用var声明的变量的作用域是它当前的执行上下文，它可以是嵌套的函数，也可以是声明在任何函数外的变量。let和const是块级作用域，意味着它们只能在最近的一组花括号（function、if-else 代码块或 for 循环中）中访问。1234567891011121314function foo() &amp;#123;  // 所有变量在函数中都可访问  var bar = &apos;bar&apos;;  let ba">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-12/Javascript/使用let、var和const创建变量有什么区别？/">
+<meta name="twitter:title" content="DNS Prefetch">
+<meta name="twitter:description" content="DNS(Domain Name System)，翻译为域名解析系统，是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。围绕DNS可做的性能优化非常的多，比如大家所熟知的全局负载均衡(GSLB)，用户可以访问到离自己最近服务器，从而获得最优的访问体验，这项优化更多需要服务端去完成。前端主要关注 DNS Prefetch。">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-17/前端性能优化/DNS-Prefetch/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>使用let、var和const创建变量有什么区别？ | 个人博客</title>
+  <title>DNS Prefetch | 个人博客</title>
   
 
 
@@ -255,7 +255,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/使用let、var和const创建变量有什么区别？/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/前端性能优化/DNS-Prefetch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +269,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            使用let、var和const创建变量有什么区别？
+            DNS Prefetch
             
 
           
@@ -286,19 +286,11 @@
                 
               
 
-              <time title="创建时间：2019-10-12 19:49:18" itemprop="dateCreated datePublished" datetime="2019-10-12T19:49:18+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-17 09:24:55 / 修改时间：10:25:36" itemprop="dateCreated datePublished" datetime="2019-10-17T09:24:55+08:00">2019-10-17</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
-              </span>
             
           
 
@@ -321,8 +313,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/使用let、var和const创建变量有什么区别？/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/使用let、var和const创建变量有什么区别？/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-17/前端性能优化/DNS-Prefetch/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/前端性能优化/DNS-Prefetch/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -337,22 +329,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>用<strong><em>var</em></strong>声明的变量的作用域是它当前的执行上下文，它可以是嵌套的函数，也可以是声明在任何函数外的变量。<strong><em>let</em></strong>和<strong><em>const</em></strong>是块级作用域，意味着它们只能在最近的一组花括号<strong><em>（function、if-else 代码块或 for 循环中）</em></strong>中访问。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 所有变量在函数中都可访问</span></span><br><span class="line">  <span class="keyword">var</span> bar = <span class="string">'bar'</span>;</span><br><span class="line">  <span class="keyword">let</span> baz = <span class="string">'baz'</span>;</span><br><span class="line">  <span class="keyword">const</span> qux = <span class="string">'qux'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(bar); <span class="comment">// bar</span></span><br><span class="line">  <span class="built_in">console</span>.log(baz); <span class="comment">// baz</span></span><br><span class="line">  <span class="built_in">console</span>.log(qux); <span class="comment">// qux</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(bar); <span class="comment">// ReferenceError: bar is not defined</span></span><br><span class="line"><span class="built_in">console</span>.log(baz); <span class="comment">// ReferenceError: baz is not defined</span></span><br><span class="line"><span class="built_in">console</span>.log(qux); <span class="comment">// ReferenceError: qux is not defined</span></span><br></pre></td></tr></table></figure><a id="more"></a>
+        <p><strong><em>DNS(Domain Name System)</em></strong>，翻译为域名解析系统，是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。</p><p>围绕DNS可做的性能优化非常的多，比如大家所熟知的全局负载均衡(GSLB)，用户可以访问到离自己最近服务器，从而获得最优的访问体验，这项优化更多需要服务端去完成。前端主要关注 <strong><em>DNS Prefetch</em></strong>。</p><a id="more"></a>
 
+<h2 id="DNS-Prefetch原理"><a href="#DNS-Prefetch原理" class="headerlink" title="DNS Prefetch原理"></a>DNS Prefetch原理</h2><p>当浏览器访问一个域名的时候，需要解析一次DNS，获得对应域名的ip地址。在解析过程中，按照浏览器缓存、系统缓存、路由器缓存、ISP(运营商)DNS缓存、根域名服务器、顶级域名服务器、主域名服务器的顺序，逐步读取缓存，直到拿到IP地址。</p>
+<p>DNS Prefetch，即DNS预解析就是根据浏览器定义的规则，提前解析之后可能会用到的域名，使解析结果缓存到系统缓存中，缩短DNS解析时间，来提高网站的访问速度。</p>
+<p>如果页面之前访问了，我们可以从浏览器的DNS缓存当中直接读取。减少了解析时间，以及请求次数。</p>
+<p>打开DNS Prefetch之后，浏览器会在空闲时间提前将这些域名转化为对应的IP地址，这里为了防止DNS Prefetch阻塞页面渲染影响用户体验，Chrome浏览器的引擎并没有使用它的网络堆栈去进行预解析，而是单独开了8个完全异步的Worker线程专门负责DNS Prefetch。所以很多人认为的DNS Prefetch会影响首屏加载其实是错误的，两者并没有任何关系，所以我们可以大胆放心的使用DNS Prefetch。</p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="浏览器自动解析"><a href="#浏览器自动解析" class="headerlink" title="浏览器自动解析"></a>浏览器自动解析</h3><p>浏览器引擎在解析HTML页面的时候，会自动获取当前页面所有的a标签herf属性当中的域名，然后进行 <strong><em>DNS Prefetch</em></strong>。这个解析过程是与用户浏览网页并行处理的。但是为了确保安全性，在HTTPS页面中没有开启 <strong><em>DNS Prefetch</em></strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 开启DNS Prefetch</span><br><span class="line">&lt;meta http-equiv=&quot;x-dns-prefetch-control&quot; content=&quot;on&quot;&gt;</span><br><span class="line"></span><br><span class="line">// 关闭DNS Prefetch</span><br><span class="line">&lt;meta http-equiv=&quot;x-dns-prefetch-control&quot; content=&quot;off&quot;&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> bar = <span class="string">'bar'</span>;</span><br><span class="line">  <span class="keyword">let</span> baz = <span class="string">'baz'</span>;</span><br><span class="line">  <span class="keyword">const</span> qux = <span class="string">'qux'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 var 声明的变量在函数作用域上都可访问</span></span><br><span class="line"><span class="built_in">console</span>.log(bar); <span class="comment">// bar</span></span><br><span class="line"><span class="comment">// let 和 const 定义的变量在它们被定义的语句块之外不可访问</span></span><br><span class="line"><span class="built_in">console</span>.log(baz); <span class="comment">// ReferenceError: baz is not defined</span></span><br><span class="line"><span class="built_in">console</span>.log(qux); <span class="comment">// ReferenceError: qux is not defined</span></span><br></pre></td></tr></table></figure>
+<h3 id="手动解析"><a href="#手动解析" class="headerlink" title="手动解析"></a>手动解析</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;dns-prefetch&quot; href=&quot;//jkfhto.github.io&quot;&gt;</span><br></pre></td></tr></table></figure>
 
-<p><strong><em>var</em></strong>会使变量提升，这意味着变量可以在声明之前使用。<strong><em>let</em></strong>和<strong><em>const</em></strong>不会使变量提升，提前使用会报错。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = <span class="string">'foo'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(baz); <span class="comment">// ReferenceError: can't access lexical declaration 'baz' before initialization</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> baz = <span class="string">'baz'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(bar); <span class="comment">// ReferenceError: can't access lexical declaration 'bar' before initialization</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bar = <span class="string">'bar'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DNS Prefetch解析后的域名对应关系会缓存到本地，一般本地缓存的数量为50~200个</span><br></pre></td></tr></table></figure>
 
-<p>用<strong><em>var</em></strong>重复声明不会报错，但<strong><em>let</em></strong>和<strong><em>const</em></strong>会。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">'foo'</span>;</span><br><span class="line"><span class="keyword">var</span> foo = <span class="string">'bar'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// "bar"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> baz = <span class="string">'baz'</span>;</span><br><span class="line"><span class="keyword">let</span> baz = <span class="string">'qux'</span>; <span class="comment">// Uncaught SyntaxError: Identifier 'baz' has already been declared</span></span><br></pre></td></tr></table></figure>
+<h2 id="正确的使用姿势"><a href="#正确的使用姿势" class="headerlink" title="正确的使用姿势"></a>正确的使用姿势</h2><ul>
+<li>在整个站点的入口声明DNS预解析。通过在站点入口声明了后续其他子页面和子站点可能会访问的域名，浏览器提前进行了DNS预解析。这样用户在访问其他子站点的时候将会间接受益于入口的预解析，降低了DNS lookup所消耗的时间。</li>
+<li>根据实际情况配置当前页面的DNS预解析。声明后续操作可能会用到的域名，如发送的异步请求、动态加载图片等等。</li>
+<li>并不是DNS prefetch设置的越多越好，虽然是异步线程，实际上还是占用设备的带宽，造成资源竞争。</li>
+<li>借助开发者工具，对静态资源域名做手动dns prefetching。</li>
+<li>如果是HTTPS网页，考虑是否需要对超链接自动解析，如果需要，添加对应的meta标签。</li>
+<li>检查js中发起的跳转至其他域名的情况，对于这些域名，做手动dns prefetching。</li>
+<li>对重定向跳转的新域名做手动dns prefetching。比如：页面上有个A域名的链接，但访问A会重定向到B域名的链接，这么在当前页对B域名做手动dns prefetching是有意义的。</li>
+</ul>
+<h2 id="解决的问题及收益"><a href="#解决的问题及收益" class="headerlink" title="解决的问题及收益"></a>解决的问题及收益</h2><p>DNS Prefetch有效缩短了DNS的解析时间。</p>
+<p>如果浏览器最近将一个域名解析为IP地址，所属的操作系统将会缓存，下一次DNS解析时间可以低至0-1ms。 如果结果不在系统本地缓存，则需要读取路由器的缓存，则解析时间的最小值大约为15ms。如果路由器缓存也不存在，则需要读取ISP（运营商）DNS缓存，一般像taobao.com、baidu.com这些常见的域名，读取ISP（运营商）DNS缓存需要的时间在80-120ms，如果是不常见的域名，平均需要200-300ms。一般的网站在运营商这里都能查询的到，所以普遍来说DNS Prefetch可以给一个域名的DNS解析过程带来15-300ms的提升，尤其是一些大量引用很多其他域名资源的网站，提升效果就更加明显了。<br>Chromium对底层缓存进行了建模，当Chrome浏览器启动的时候，就会自动的快速解析浏览器最近一次启动时记录的前10个域名。所以你经常访问的网址就没有DNS解析的延迟，打开速度更快。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a><br><a href="https://github.com/barretlee/performance-column/issues/3" target="_blank" rel="noopener">性能优化之 DNS Prefetch</a></p>
 
-<p><strong><em>let</em></strong>和<strong><em>const</em></strong>的区别在于：<strong><em>let</em></strong>允许多次赋值，而<strong><em>const</em></strong>只允许一次。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这样不会报错。</span></span><br><span class="line"><span class="keyword">let</span> foo = <span class="string">'foo'</span>;</span><br><span class="line">foo = <span class="string">'bar'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这样会报错。</span></span><br><span class="line"><span class="keyword">const</span> baz = <span class="string">'baz'</span>;</span><br><span class="line">baz = <span class="string">'qux'</span>;</span><br></pre></td></tr></table></figure>
-
-<p>全局作用域下，使用<strong><em>var</em></strong>声明的变量会挂载到<strong><em>window</em></strong>对象上，使用<strong><em>let</em></strong>，<strong><em>const</em></strong>声明的变量不会挂载到<strong><em>window</em></strong>对象上</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> b = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> c =<span class="number">30</span>;</span><br><span class="line"><span class="built_in">window</span>.a; <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">window</span>.b; <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">window</span>.c; <span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -375,6 +377,8 @@
             
               <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
             
+              <a href="/tags/前端性能优化/" rel="tag"><i class="fa fa-tag"></i> 前端性能优化</a>
+            
           </div>
         
 
@@ -383,8 +387,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019-10-12/Javascript/null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？/" rel="next" title="null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？">
-                  <i class="fa fa-chevron-left"></i> null、undefined和未声明变量之间有什么区别？如何检查判断这些状态值？
+                <a href="/2019-10-17/前端性能优化/前端性能优化工具-LightHouse/" rel="next" title="前端性能优化工具-LightHouse">
+                  <i class="fa fa-chevron-left"></i> 前端性能优化工具-LightHouse
                 </a>
               
             </div>
@@ -392,10 +396,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019-10-12/Javascript/call和apply的模拟实现/" rel="prev" title="call和apply的模拟实现">
-                  call和apply的模拟实现 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -444,6 +444,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS-Prefetch原理"><span class="nav-number">1.</span> <span class="nav-text">DNS Prefetch原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number">2.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器自动解析"><span class="nav-number">2.1.</span> <span class="nav-text">浏览器自动解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动解析"><span class="nav-number">2.2.</span> <span class="nav-text">手动解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正确的使用姿势"><span class="nav-number">3.</span> <span class="nav-text">正确的使用姿势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决的问题及收益"><span class="nav-number">4.</span> <span class="nav-text">解决的问题及收益</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 

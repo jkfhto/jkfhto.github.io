@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>DNS Prefetch</title>
+    <url>/2019-10-17/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/DNS-Prefetch/</url>
+    <content><![CDATA[<p><strong><em>DNS(Domain Name System)</em></strong>，翻译为域名解析系统，是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。</p><p>围绕DNS可做的性能优化非常的多，比如大家所熟知的全局负载均衡(GSLB)，用户可以访问到离自己最近服务器，从而获得最优的访问体验，这项优化更多需要服务端去完成。前端主要关注 <strong><em>DNS Prefetch</em></strong>。</p><a id="more"></a>
+
+<h2 id="DNS-Prefetch原理"><a href="#DNS-Prefetch原理" class="headerlink" title="DNS Prefetch原理"></a>DNS Prefetch原理</h2><p>当浏览器访问一个域名的时候，需要解析一次DNS，获得对应域名的ip地址。在解析过程中，按照浏览器缓存、系统缓存、路由器缓存、ISP(运营商)DNS缓存、根域名服务器、顶级域名服务器、主域名服务器的顺序，逐步读取缓存，直到拿到IP地址。</p>
+<p>DNS Prefetch，即DNS预解析就是根据浏览器定义的规则，提前解析之后可能会用到的域名，使解析结果缓存到系统缓存中，缩短DNS解析时间，来提高网站的访问速度。</p>
+<p>如果页面之前访问了，我们可以从浏览器的DNS缓存当中直接读取。减少了解析时间，以及请求次数。</p>
+<p>打开DNS Prefetch之后，浏览器会在空闲时间提前将这些域名转化为对应的IP地址，这里为了防止DNS Prefetch阻塞页面渲染影响用户体验，Chrome浏览器的引擎并没有使用它的网络堆栈去进行预解析，而是单独开了8个完全异步的Worker线程专门负责DNS Prefetch。所以很多人认为的DNS Prefetch会影响首屏加载其实是错误的，两者并没有任何关系，所以我们可以大胆放心的使用DNS Prefetch。</p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="浏览器自动解析"><a href="#浏览器自动解析" class="headerlink" title="浏览器自动解析"></a>浏览器自动解析</h3><p>浏览器引擎在解析HTML页面的时候，会自动获取当前页面所有的a标签herf属性当中的域名，然后进行 <strong><em>DNS Prefetch</em></strong>。这个解析过程是与用户浏览网页并行处理的。但是为了确保安全性，在HTTPS页面中没有开启 <strong><em>DNS Prefetch</em></strong>。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 开启DNS Prefetch</span><br><span class="line">&lt;meta http-equiv=&quot;x-dns-prefetch-control&quot; content=&quot;on&quot;&gt;</span><br><span class="line"></span><br><span class="line">// 关闭DNS Prefetch</span><br><span class="line">&lt;meta http-equiv=&quot;x-dns-prefetch-control&quot; content=&quot;off&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="手动解析"><a href="#手动解析" class="headerlink" title="手动解析"></a>手动解析</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;link rel=&quot;dns-prefetch&quot; href=&quot;//jkfhto.github.io&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DNS Prefetch解析后的域名对应关系会缓存到本地，一般本地缓存的数量为50~200个</span><br></pre></td></tr></table></figure>
+
+<h2 id="正确的使用姿势"><a href="#正确的使用姿势" class="headerlink" title="正确的使用姿势"></a>正确的使用姿势</h2><ul>
+<li>在整个站点的入口声明DNS预解析。通过在站点入口声明了后续其他子页面和子站点可能会访问的域名，浏览器提前进行了DNS预解析。这样用户在访问其他子站点的时候将会间接受益于入口的预解析，降低了DNS lookup所消耗的时间。</li>
+<li>根据实际情况配置当前页面的DNS预解析。声明后续操作可能会用到的域名，如发送的异步请求、动态加载图片等等。</li>
+<li>并不是DNS prefetch设置的越多越好，虽然是异步线程，实际上还是占用设备的带宽，造成资源竞争。</li>
+<li>借助开发者工具，对静态资源域名做手动dns prefetching。</li>
+<li>如果是HTTPS网页，考虑是否需要对超链接自动解析，如果需要，添加对应的meta标签。</li>
+<li>检查js中发起的跳转至其他域名的情况，对于这些域名，做手动dns prefetching。</li>
+<li>对重定向跳转的新域名做手动dns prefetching。比如：页面上有个A域名的链接，但访问A会重定向到B域名的链接，这么在当前页对B域名做手动dns prefetching是有意义的。</li>
+</ul>
+<h2 id="解决的问题及收益"><a href="#解决的问题及收益" class="headerlink" title="解决的问题及收益"></a>解决的问题及收益</h2><p>DNS Prefetch有效缩短了DNS的解析时间。</p>
+<p>如果浏览器最近将一个域名解析为IP地址，所属的操作系统将会缓存，下一次DNS解析时间可以低至0-1ms。 如果结果不在系统本地缓存，则需要读取路由器的缓存，则解析时间的最小值大约为15ms。如果路由器缓存也不存在，则需要读取ISP（运营商）DNS缓存，一般像taobao.com、baidu.com这些常见的域名，读取ISP（运营商）DNS缓存需要的时间在80-120ms，如果是不常见的域名，平均需要200-300ms。一般的网站在运营商这里都能查询的到，所以普遍来说DNS Prefetch可以给一个域名的DNS解析过程带来15-300ms的提升，尤其是一些大量引用很多其他域名资源的网站，提升效果就更加明显了。<br>Chromium对底层缓存进行了建模，当Chrome浏览器启动的时候，就会自动的快速解析浏览器最近一次启动时记录的前10个域名。所以你经常访问的网址就没有DNS解析的延迟，打开速度更快。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a><br><a href="https://github.com/barretlee/performance-column/issues/3" target="_blank" rel="noopener">性能优化之 DNS Prefetch</a></p>
+]]></content>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前端性能优化工具-LightHouse</title>
     <url>/2019-10-17/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7-LightHouse/</url>
     <content><![CDATA[<p>Performance可以给我们提供非常多的信息，但Performance不够直观，需要开发者透过表面的这些参数去分析背后的性能问题。有了这个诉求之后，另一个性能优化工具就出现了，它就是LightHouse。</p><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>LightHouse 是 Google 开源的一个自动化工具，用于改进网络应用的质量。你可以将其作为一个 Chrome 扩展程序运行，或从命令行运行。 当为 Lighthouse 提供一个要审查的网址，它将针对此页面运行一连串的测试，然后生成一个有关页面性能的报告。可以参考失败的测试，看看可以采取哪些措施来改进应用。</p><a id="more"></a>
