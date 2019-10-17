@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="缩小构建目标 目的：尽可能的少构建模块  比如 exclude 不解析相应的模块，目录。include 只解析解析相应的模块，目录 1234567891011module: &amp;#123;    rules: [        &amp;#123;            test: /\.js$/,            //?cacheDirectory=true 开启缓存            use:">
-<meta name="keywords" content="Javascript,前端性能优化,Webpack">
+  <meta name="description" content="CDN 缓存CDN 的全称是 Content Delivery Network，即内容分发网络。CDN服务商将源站的资源缓存到遍布全国的高性能加速节点上，当用户访问相应的业务资源时，用户会被调度至最接近的节点最近的节点ip返回给用户，使内容能够传输的更快，更加稳定。可以提升首次请求的响应能力。CDN缓存 基本原理">
+<meta name="keywords" content="Javascript,前端性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="缩小构建目标">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-17/webpack/缩小构建目标/index.html">
+<meta property="og:title" content="前端性能优化-CDN 缓存">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化-CDN-缓存/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="缩小构建目标 目的：尽可能的少构建模块  比如 exclude 不解析相应的模块，目录。include 只解析解析相应的模块，目录 1234567891011module: &amp;#123;    rules: [        &amp;#123;            test: /\.js$/,            //?cacheDirectory=true 开启缓存            use:">
+<meta property="og:description" content="CDN 缓存CDN 的全称是 Content Delivery Network，即内容分发网络。CDN服务商将源站的资源缓存到遍布全国的高性能加速节点上，当用户访问相应的业务资源时，用户会被调度至最接近的节点最近的节点ip返回给用户，使内容能够传输的更快，更加稳定。可以提升首次请求的响应能力。CDN缓存 基本原理">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-17T09:55:43.544Z">
+<meta property="og:updated_time" content="2019-10-17T14:37:33.420Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="缩小构建目标">
-<meta name="twitter:description" content="缩小构建目标 目的：尽可能的少构建模块  比如 exclude 不解析相应的模块，目录。include 只解析解析相应的模块，目录 1234567891011module: &amp;#123;    rules: [        &amp;#123;            test: /\.js$/,            //?cacheDirectory=true 开启缓存            use:">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-17/webpack/缩小构建目标/">
+<meta name="twitter:title" content="前端性能优化-CDN 缓存">
+<meta name="twitter:description" content="CDN 缓存CDN 的全称是 Content Delivery Network，即内容分发网络。CDN服务商将源站的资源缓存到遍布全国的高性能加速节点上，当用户访问相应的业务资源时，用户会被调度至最接近的节点最近的节点ip返回给用户，使内容能够传输的更快，更加稳定。可以提升首次请求的响应能力。CDN缓存 基本原理">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化-CDN-缓存/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>缩小构建目标 | 个人博客</title>
+  <title>前端性能优化-CDN 缓存 | 个人博客</title>
   
 
 
@@ -255,7 +255,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/缩小构建目标/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化-CDN-缓存/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +269,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            缩小构建目标
+            前端性能优化-CDN 缓存
             
 
           
@@ -286,7 +286,7 @@
                 
               
 
-              <time title="创建时间：2019-10-17 17:33:54 / 修改时间：17:55:43" itemprop="dateCreated datePublished" datetime="2019-10-17T17:33:54+08:00">2019-10-17</time>
+              <time title="创建时间：2019-10-17 22:02:32 / 修改时间：22:37:33" itemprop="dateCreated datePublished" datetime="2019-10-17T22:02:32+08:00">2019-10-17</time>
             </span>
           
             
@@ -311,19 +311,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">Webpack</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack构建速度和体积优化策略</span>
+                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
                   </a>
                 </span>
 
@@ -352,8 +341,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-17/webpack/缩小构建目标/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/缩小构建目标/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-17/前端性能优化/前端性能优化-CDN-缓存/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/前端性能优化/前端性能优化-CDN-缓存/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -368,42 +357,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="缩小构建目标"><a href="#缩小构建目标" class="headerlink" title="缩小构建目标"></a>缩小构建目标</h2><ul>
-<li><p>目的：尽可能的少构建模块</p>
+        <h2 id="CDN-缓存"><a href="#CDN-缓存" class="headerlink" title="CDN 缓存"></a>CDN 缓存</h2><p><strong><em>CDN</em></strong> 的全称是 <strong><em>Content Delivery Network</em></strong>，即内容分发网络。CDN服务商将源站的资源缓存到遍布全国的高性能加速节点上，当用户访问相应的业务资源时，用户会被调度至最接近的节点最近的节点ip返回给用户，使内容能够传输的更快，更加稳定。可以提升首次请求的响应能力。</p><h2 id="CDN缓存-基本原理"><a href="#CDN缓存-基本原理" class="headerlink" title="CDN缓存 基本原理"></a>CDN缓存 基本原理</h2><a id="more"></a>
+<p><strong><em>CDN</em></strong> 的基本原理是广泛采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户请求。</p>
+<p><strong><em>CDN</em></strong> 的基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。</p>
+<h2 id="CDN的核心功能"><a href="#CDN的核心功能" class="headerlink" title="CDN的核心功能"></a>CDN的核心功能</h2><p>CDN 的核心点有两个，一个是缓存，一个是回源。</p>
+<p>这两个概念都非常好理解。对标到上面描述的过程，“缓存”就是说我们把资源 copy 一份到 CDN 服务器上这个过程，“回源”就是说 CDN 发现自己没有这个资源（一般是缓存的数据过期了），转头向根服务器（或者它的上层服务器）去要这个资源的过程。</p>
+<h2 id="CDN缓存应用场景"><a href="#CDN缓存应用场景" class="headerlink" title="CDN缓存应用场景"></a>CDN缓存应用场景</h2><ul>
+<li><p>使用第三方的CDN服务：前端开源项目的CDN加速服务，<a href="https://www.bootcdn.cn/" target="_blank" rel="noopener">第三方的CDN服务</a></p>
 </li>
-<li><p>比如 exclude 不解析相应的模块，目录。include 只解析解析相应的模块，目录</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">        &#123;</span><br><span class="line">            test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">            <span class="comment">//?cacheDirectory=true 开启缓存</span></span><br><span class="line">            use: <span class="string">'babel-loader?cacheDirectory=true'</span>,<span class="comment">//使用babel-loader解析ES6  </span></span><br><span class="line">            exclude: <span class="string">'node_modules'</span>,</span><br><span class="line">            include: <span class="string">'src'</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<li><p>CDN 往往被用来存放静态资源：所谓“静态资源”，就是像 JS、CSS、图片等不需要业务服务器进行计算即得的资源。而“动态资源”，顾名思义是需要后端实时动态生成的资源，较为常见的就是 JSP、ASP 或者依赖服务端渲染得到的 HTML 页面。而且我们可以写脚本结合Webpack将对应的静态资源直接放到CDN，完成一键自动部署整个项目。</p>
 </li>
-</ul><a id="more"></a>
-<h2 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h2><p>resolve配置，设置模块如何被解析。通过resolve的配置，可以帮助Webpack快速查找依赖，也可以替换对应的依赖。<a href="https://webpack.js.org/configuration/resolve/" target="_blank" rel="noopener">了解更多</a></p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```json</span><br><span class="line">resolve: &#123;</span><br><span class="line">  extensions: [&quot;.js&quot;,&quot;.jsx&quot;,&quot;.json&quot;,&quot;.css&quot;]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<li><p>把静态资源和业务服务器置于不同的域名下：静态服务器最好启用一个全新域名，避免每次请求都携带Cookie。</p>
 </li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- 每当引入bootstrap模块的时候，它会直接引入bootstrap,而不需要从node_modules文件夹中按模块的查找规则查找</span><br><span class="line"></span><br><span class="line">  ```javascript</span><br><span class="line">  const bootstrap = path.resolve(__dirname, &apos;node_modules/_bootstrap@3.3.7@bootstrap/dist/css/bootstrap.css&apos;);</span><br><span class="line">  resolve: &#123;</span><br><span class="line">      alias: &#123;</span><br><span class="line">          &quot;bootstrap&quot;: bootstrap</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>resolve.modules：告诉 webpack 解析模块时应该搜索的目录</p>
-</li>
-<li><p>resolve.mainFields：当从 npm 包中导入模块时（例如，import * as D3 from ‘d3’），此选项将决定在 package.json 中使用哪个字段导入模块。根据 webpack 配置中指定的 target 不同，默认值也会有所不同</p>
-</li>
-<li><p>resolve.mainFiles：解析目录时要使用的文件名，默认是index</p>
+<li><p>直播传送：直播本质上是使用流媒体进行传送，那么CDN也是支持流媒体传送的，所以直播完全可以使用CDN来提高访问速度。CDN在处理流媒体的时候与处理普通静态文件有所不同，普通文件如果在边缘节点没有找到的话，就会去上一层接着寻找，但是流媒体本身数据量就非常大，如果使用回源的方式，必然会带来性能问题，所以流媒体一般采用的都是主动推送的方式来进行。</p>
 </li>
 </ul>
-<h2 id="减少文件搜索范围"><a href="#减少文件搜索范围" class="headerlink" title="减少文件搜索范围"></a>减少文件搜索范围</h2><ul>
-<li><p>优化 resolve.modules 配置（减少模块搜索层级）</p>
-</li>
-<li><p>优化 resolve.mainFields 配置（优化入口文件分析，搜索过程）</p>
-</li>
-<li><p>优化 resolve.extensions 配置（缩小扩展名查找范围）</p>
-</li>
-<li><p>合理使用 alias</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">resolve: &#123;</span><br><span class="line">    alias: &#123;</span><br><span class="line">        <span class="string">'react'</span>: path.resolve(__dirname, <span class="string">'./node_modules/react/umd/react.production.min.js'</span>),</span><br><span class="line">        <span class="string">'react-dom'</span>: path.resolve(__dirname, <span class="string">'./node_modules/react-dom/umd/react-dom.production.min.js'</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">    extensions: [<span class="string">'.js'</span>],</span><br><span class="line">    mainFields: [<span class="string">'main'</span>]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
-</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a></p>
 
     </div>
 
@@ -429,8 +398,6 @@
             
               <a href="/tags/前端性能优化/" rel="tag"><i class="fa fa-tag"></i> 前端性能优化</a>
             
-              <a href="/tags/Webpack/" rel="tag"><i class="fa fa-tag"></i> Webpack</a>
-            
           </div>
         
 
@@ -439,8 +406,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019-10-17/webpack/充分利用缓存提升二次构建速度/" rel="next" title="充分利用缓存提升二次构建速度">
-                  <i class="fa fa-chevron-left"></i> 充分利用缓存提升二次构建速度
+                <a href="/2019-10-17/前端性能优化/前端性能优化-缓存/" rel="next" title="前端性能优化-缓存">
+                  <i class="fa fa-chevron-left"></i> 前端性能优化-缓存
                 </a>
               
             </div>
@@ -448,10 +415,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019-10-17/webpack/使用Tree-Shaking擦除无用的JavaScript和CSS/" rel="prev" title="使用Tree Shaking擦除无用的JavaScript和CSS">
-                  使用Tree Shaking擦除无用的JavaScript和CSS <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -500,7 +463,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缩小构建目标"><span class="nav-number">1.</span> <span class="nav-text">缩小构建目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resolve"><span class="nav-number">2.</span> <span class="nav-text">resolve</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少文件搜索范围"><span class="nav-number">3.</span> <span class="nav-text">减少文件搜索范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN-缓存"><span class="nav-number">1.</span> <span class="nav-text">CDN 缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN缓存-基本原理"><span class="nav-number">2.</span> <span class="nav-text">CDN缓存 基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN的核心功能"><span class="nav-number">3.</span> <span class="nav-text">CDN的核心功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN缓存应用场景"><span class="nav-number">4.</span> <span class="nav-text">CDN缓存应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

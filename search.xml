@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>前端性能优化-CDN 缓存</title>
+    <url>/2019-10-17/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-CDN-%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<h2 id="CDN-缓存"><a href="#CDN-缓存" class="headerlink" title="CDN 缓存"></a>CDN 缓存</h2><p><strong><em>CDN</em></strong> 的全称是 <strong><em>Content Delivery Network</em></strong>，即内容分发网络。CDN服务商将源站的资源缓存到遍布全国的高性能加速节点上，当用户访问相应的业务资源时，用户会被调度至最接近的节点最近的节点ip返回给用户，使内容能够传输的更快，更加稳定。可以提升首次请求的响应能力。</p><h2 id="CDN缓存-基本原理"><a href="#CDN缓存-基本原理" class="headerlink" title="CDN缓存 基本原理"></a>CDN缓存 基本原理</h2><a id="more"></a>
+<p><strong><em>CDN</em></strong> 的基本原理是广泛采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户请求。</p>
+<p><strong><em>CDN</em></strong> 的基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。</p>
+<h2 id="CDN的核心功能"><a href="#CDN的核心功能" class="headerlink" title="CDN的核心功能"></a>CDN的核心功能</h2><p>CDN 的核心点有两个，一个是缓存，一个是回源。</p>
+<p>这两个概念都非常好理解。对标到上面描述的过程，“缓存”就是说我们把资源 copy 一份到 CDN 服务器上这个过程，“回源”就是说 CDN 发现自己没有这个资源（一般是缓存的数据过期了），转头向根服务器（或者它的上层服务器）去要这个资源的过程。</p>
+<h2 id="CDN缓存应用场景"><a href="#CDN缓存应用场景" class="headerlink" title="CDN缓存应用场景"></a>CDN缓存应用场景</h2><ul>
+<li><p>使用第三方的CDN服务：前端开源项目的CDN加速服务，<a href="https://www.bootcdn.cn/" target="_blank" rel="noopener">第三方的CDN服务</a></p>
+</li>
+<li><p>CDN 往往被用来存放静态资源：所谓“静态资源”，就是像 JS、CSS、图片等不需要业务服务器进行计算即得的资源。而“动态资源”，顾名思义是需要后端实时动态生成的资源，较为常见的就是 JSP、ASP 或者依赖服务端渲染得到的 HTML 页面。而且我们可以写脚本结合Webpack将对应的静态资源直接放到CDN，完成一键自动部署整个项目。</p>
+</li>
+<li><p>把静态资源和业务服务器置于不同的域名下：静态服务器最好启用一个全新域名，避免每次请求都携带Cookie。</p>
+</li>
+<li><p>直播传送：直播本质上是使用流媒体进行传送，那么CDN也是支持流媒体传送的，所以直播完全可以使用CDN来提高访问速度。CDN在处理流媒体的时候与处理普通静态文件有所不同，普通文件如果在边缘节点没有找到的话，就会去上一层接着寻找，但是流媒体本身数据量就非常大，如果使用回源的方式，必然会带来性能问题，所以流媒体一般采用的都是主动推送的方式来进行。</p>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a></p>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前端性能优化-缓存</title>
     <url>/2019-10-17/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E7%BC%93%E5%AD%98/</url>
     <content><![CDATA[<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>缓存可以减少网络 IO 消耗，提高访问速度。浏览器缓存是一种操作简单、效果显著的前端性能优化手段。对于这个操作的必要性，Chrome 官方给出的解释似乎更有说服力一些：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">通过网络获取内容既速度缓慢又开销巨大。较大的响应需要在客户端与服务器之间进行多次往返通信，这会延迟浏览器获得和处理内容的时间，还会增加访问者的流量费用。因此，缓存并重复利用之前获取的资源的能力成为性能优化的一个关键方面。</span><br></pre></td></tr></table></figure><a id="more"></a>
