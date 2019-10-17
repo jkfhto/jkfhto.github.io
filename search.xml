@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>前端性能优化-本地存储</title>
+    <url>/2019-10-17/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8/</url>
+    <content><![CDATA[<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><ul>
+<li>HTTP1.0中协议是无状态的，但在WEB应用中，在多个请求之间共享会话是非常必要的，所以出现了Cookie</li>
+<li>cookie是为了辩别用户身份，进行会话跟踪而存储在客户端上的数据</li>
+</ul><h3 id="Cookie原理"><a href="#Cookie原理" class="headerlink" title="Cookie原理"></a>Cookie原理</h3><p><img src="/images/cookie1.jpg" alt="Cookie原理"></p><p>第一次访问网站的时候，浏览器发出请求，服务器响应请求后，会将cookie放入到响应请求中，在浏览器第二次发请求的时候，会把cookie带过去，服务端会辨别用户身份，当然服务器也可以修改cookie内容。</p><a id="more"></a>
+
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 服务器设置Cookie</span><br><span class="line">Set-Cookie:name=1111; Path=/</span><br></pre></td></tr></table></figure>
+
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>Cookie一旦创建成功，那么名字无法进行修改；</li>
+<li>Cookie不支持跨域，这是由Cookie隐私安全性所决定的，这样能够阻止非法获取其它网站的Cookie；</li>
+<li>每个单独的域名下面的Cookie数量不能超过20个。</li>
+<li>同一个域名下的所有请求，都会携带 Cookie。</li>
+<li>Cookie 是有体积上限的，它最大只能有 4KB。当 Cookie 超过 4KB 时，将被裁切。</li>
+</ul>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 读取cookie 返回字符串</span></span><br><span class="line"><span class="keyword">const</span> allCookies = <span class="built_in">document</span>.cookie;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加cookie  newCookie是一个键值对形式的字符串。需要注意的是，用这个方法一次只能对一个cookie进行设置或更新。</span></span><br><span class="line"><span class="built_in">document</span>.cookie = newCookie;</span><br></pre></td></tr></table></figure>
+
+<p>以下可选的cookie属性值可以跟在键值对后，用来具体化对cookie的设定/更新，使用分号以作分隔：</p>
+<ul>
+<li>path: 表示 cookie 影响到的路由，如 path=/。如果路径不能匹配时，浏览器则不发送这个Cookie</li>
+<li>httpOnly: 如果在Cookie中设置了HttpOnly属性值true，那么通过JavaScript脚本将无法读取到cookie信息，保证Cookie不会被泄露，这样能有效的防止XSS攻击；</li>
+<li>name: Cookie的名称，Cookie一旦创建，名称便不可更改；一个域名下绑定的cookie，name不能相同，相同的name的值会被覆盖掉。</li>
+<li>value: Cookie的值。如果值为Unicode字符，需要为字符编码；如果值为二进制数据，则需要使用BASE64编码；</li>
+<li>expires: 是一个绝对的过期时间，如果没有指定或为0表示当前会话有效；</li>
+<li>maxAge: 是以秒为单位的，是一个相对时间。正常情况下，max-age的优先级高于expires。Max-Age为正数时，cookie会在Max-Age秒之后，被删除，当Max-Age为负数时，表示的是临时储存，不会生出cookie文件，只会存在浏览器内存中，且只会在打开的浏览器窗口或者子窗口有效，一旦浏览器关闭，cookie就会消失，当Max-Age为0时，又会发生什么呢，删除cookie，因为cookie机制本身没有设置删除cookie，失效的cookie会被浏览器自动从内存中删除，所以，它实现的就是让cookie失效。</li>
+<li>domain: 可以访问该Cookie的域名，如果设置为“.immoc.com”，则所有以“immoc.com”结尾的域名都可以访问该Cookie。注意第一个字符必须为“.”；</li>
+<li>comment: Cookie的用处说明，浏览器显示Cookie信息的时候显示该说明。</li>
+<li>secure：当 secure 值为 true 时，cookie 在 HTTP 中是无效，在 HTTPS 中才有效。</li>
+</ul>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>Cookie和Session结合使用是最常见的使用场景。我们把session_id存储在Cookie当中，然后每次请求的时候携带这个session_id，这样我们就知道是谁发起的请求，从而返回对应的信息；</li>
+<li>统计页面的点击次数。</li>
+</ul>
+<h3 id="cookie使用注意事项"><a href="#cookie使用注意事项" class="headerlink" title="cookie使用注意事项"></a>cookie使用注意事项</h3><ul>
+<li>可能被客户端篡改，使用前验证合法性</li>
+<li>不要存储敏感数据，比如用户密码，账户余额</li>
+<li>使用httpOnly保证安全</li>
+<li>尽量减少cookie的体积</li>
+<li>设置正确的domain和path，减少数据传输</li>
+</ul>
+<h2 id="Local-Storage"><a href="#Local-Storage" class="headerlink" title="Local Storage"></a>Local Storage</h2><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
+<li>大小方面相比，LocalStorage突破了4KB大小体积限制，一般是5MB;</li>
+<li>LocalStorage 是持久化的本地存储，存储在其中的数据是永远不会过期的，使其消失的唯一办法是手动删除；</li>
+<li>仅位于浏览器端，不与服务端发生通信。，不会像Cookie那样，每次的HTTP请求都会携带。</li>
+</ul>
+<h3 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h3><ul>
+<li>浏览器兼容性问题，IE只有在IE8以上的版本才会支持；</li>
+<li>如果浏览器设置为隐私模式，那么我们无法读取LocalStorage；</li>
+<li>LocalStorage受同源策略的限制，即协议、端口、主机地址有任何一个不同，则无法访问。</li>
+</ul>
+<h3 id="Local-Storage-应用场景"><a href="#Local-Storage-应用场景" class="headerlink" title="Local Storage 应用场景"></a>Local Storage 应用场景</h3><p>可以存储一些全局状态，数据。比如：个人昵称、不常改动的图片信息等。对于换肤这个需求，我们完全可以把换肤的信息存储在LocalStorage当中，操作LocalStorage即可。</p>
+<h2 id="SessionStorage"><a href="#SessionStorage" class="headerlink" title="SessionStorage"></a>SessionStorage</h2><p>Session Storage 是临时性的本地存储，它是会话级别的存储，当会话结束（页面被关闭）时，存储内容也随之被释放。</p>
+<h3 id="SessionStorage-应用场景"><a href="#SessionStorage-应用场景" class="headerlink" title="SessionStorage 应用场景"></a>SessionStorage 应用场景</h3><p>由于SessionStorage具有时效性，常用的业务场景比如网站常见的游客登录，就可以存储在SessionStorage当中，还有网站的一些临时浏览记录都可以使用SessionStorage来进行记录。</p>
+<h2 id="Local-Storage-与-Session-Storage"><a href="#Local-Storage-与-Session-Storage" class="headerlink" title="Local Storage 与 Session Storage"></a>Local Storage 与 Session Storage</h2><ul>
+<li>SessionStorage和LocalStorage一样都是在本地进行数据存储；</li>
+<li>Local Storage、Session Storage 和 Cookie 都遵循同源策略。但 Session Storage 特别的一点在于，即便是相同域名下的两个页面，只要它们不在同一个浏览器窗口中打开，那么它们的 Session Storage 内容便无法共享。</li>
+<li>LocalStorage和SessionStorage都不能被爬虫爬取；</li>
+<li>LocalStorage和SessionStorage的API用法是非常相似的，具体的API使用方法如下：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 保存数据，以键值对的方式储存信息；</span></span><br><span class="line">setItem (key, value)</span><br><span class="line"><span class="comment">// 获取数据，将键值传入，即可获取到对应的value值；</span></span><br><span class="line">getItem (key)</span><br><span class="line"><span class="comment">// 删除单个数据，根据键值移除对应的信息</span></span><br><span class="line">removeItem (key)</span><br><span class="line"><span class="comment">// 删除所有的数据</span></span><br><span class="line">clear ()</span><br><span class="line"><span class="comment">// 获取某个索引的key</span></span><br><span class="line">key (index)</span><br></pre></td></tr></table></figure>
+
+<h2 id="IndexedDB"><a href="#IndexedDB" class="headerlink" title="IndexedDB"></a>IndexedDB</h2><p>IndexDB 是一个运行在浏览器上的非关系型数据库。理论上来说，IndexDB 是没有存储上限的（一般来说不会小于 250M）。它不仅可以存储字符串，还可以存储二进制数据。。<a href="https://www.zhangxinxu.com/wordpress/2017/07/html5-indexeddb-js-example/" target="_blank" rel="noopener">了解更多</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a></p>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前端性能优化-CDN 缓存</title>
     <url>/2019-10-17/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-CDN-%E7%BC%93%E5%AD%98/</url>
     <content><![CDATA[<h2 id="CDN-缓存"><a href="#CDN-缓存" class="headerlink" title="CDN 缓存"></a>CDN 缓存</h2><p><strong><em>CDN</em></strong> 的全称是 <strong><em>Content Delivery Network</em></strong>，即内容分发网络。CDN服务商将源站的资源缓存到遍布全国的高性能加速节点上，当用户访问相应的业务资源时，用户会被调度至最接近的节点最近的节点ip返回给用户，使内容能够传输的更快，更加稳定。可以提升首次请求的响应能力。</p><h2 id="CDN缓存-基本原理"><a href="#CDN缓存-基本原理" class="headerlink" title="CDN缓存 基本原理"></a>CDN缓存 基本原理</h2><a id="more"></a>
