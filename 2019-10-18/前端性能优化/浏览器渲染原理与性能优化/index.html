@@ -413,13 +413,13 @@
 </ul>
 <h3 id="JS的四种加载方式"><a href="#JS的四种加载方式" class="headerlink" title="JS的四种加载方式"></a>JS的四种加载方式</h3><ul>
 <li><p>正常模式：这种情况下 JS 会阻塞浏览器，浏览器必须等待 index.js 加载和执行完毕才能去做其它事情。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"index.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>async 模式：JS 不会阻塞浏览器做任何其它的事情。它的加载是异步的，当它加载结束，JS 脚本会立即执行。使用 async 模式引入的多个 script 的执行顺序是不确定的。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="keyword">async</span> src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="keyword">async</span> src=<span class="string">"index.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>defer 模式：JS 的加载是异步的，执行是被推迟的。等整个文档解析完成、会执行所有由 defer-script 加载的 JavaScript 代码，然后触发 DOMContentLoaded 事件。使用 defer 模式引入的多个 script 是从上往下顺序执行的。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script defer src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script defer src=<span class="string">"index.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>动态异步引入<br>使用 document.createElement 创建的 script 默认是异步的，示例如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.createElement(<span class="string">"script"</span>).async); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
@@ -474,6 +474,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019-10-18/前端性能优化/前端性能优化-DOM性能优化/" rel="prev" title="前端性能优化-DOM性能优化">
+                  前端性能优化-DOM性能优化 <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -541,7 +545,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
