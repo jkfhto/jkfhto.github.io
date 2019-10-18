@@ -45,6 +45,7 @@
 </ul>
 <h2 id="渲染优化"><a href="#渲染优化" class="headerlink" title="渲染优化"></a>渲染优化</h2><h3 id="CSS-的阻塞"><a href="#CSS-的阻塞" class="headerlink" title="CSS 的阻塞"></a>CSS 的阻塞</h3><p>CSS 解析和HTML解析是同步进行的，那么一个 HTML 文档首先解析的肯定是 HTML，然后才是 CSS，这就导致了 HTML 解析完成后，往往需要等待 CSS 解析。如果 CSS 没有解析完成，我们就需要一直等，这里就是 CSS 阻塞了相关的渲染。</p>
 <p>CSS 是阻塞渲染的资源。需要将它尽早、尽快地下载到客户端，以便缩短首次渲染的时间。</p>
+<p>CSS 会阻塞后面内联 JavaScript 的执行。</p>
 <p>我们往往把 CSS 样式表全部通过 <strong>&lt;style&gt;</strong> 标签内联到网页当中，或启用 CDN 实现静态资源加载速度的优化</p>
 <h3 id="JS-的阻塞"><a href="#JS-的阻塞" class="headerlink" title="JS 的阻塞"></a>JS 的阻塞</h3><p>JS 引擎是独立于渲染引擎存在的。JavaScript 既会阻塞 HTML 解析，也会阻塞 CSS 解析。因此我们可以改变 JavaScript 的加载方式或者加载时机来进行优化：</p>
 <ul>

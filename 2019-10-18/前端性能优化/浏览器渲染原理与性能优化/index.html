@@ -66,7 +66,7 @@
 <meta property="og:image" content="https://jkfhto.github.io/images/render2.png">
 <meta property="og:image" content="https://jkfhto.github.io/images/render1.jpg">
 <meta property="og:image" content="https://jkfhto.github.io/images/render3.jpg">
-<meta property="og:updated_time" content="2019-10-18T09:30:40.171Z">
+<meta property="og:updated_time" content="2019-10-18T09:50:31.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器渲染原理与性能优化">
 <meta name="twitter:description" content="浏览器的渲染引擎 IE（Trident） Chrome（Blink） Firefox（Gecko） Opera（Blink） Safari（Webkit） UC（U3） QQ浏览器微信（X5/Blink） Blink 渲染引擎占据了半壁江山，Blink 的前身都是由 Webkit 优化改造而来的。浏览器内核决定了浏览器解释网页语法的方式。不同的渲染引擎，从而也导致了浏览器的兼容性问题。">
@@ -290,7 +290,7 @@
                 
               
 
-              <time title="创建时间：2019-10-18 15:52:08 / 修改时间：17:30:40" itemprop="dateCreated datePublished" datetime="2019-10-18T15:52:08+08:00">2019-10-18</time>
+              <time title="创建时间：2019-10-18 15:52:08 / 修改时间：17:50:31" itemprop="dateCreated datePublished" datetime="2019-10-18T15:52:08+08:00">2019-10-18</time>
             </span>
           
             
@@ -403,6 +403,7 @@
 </ul>
 <h2 id="渲染优化"><a href="#渲染优化" class="headerlink" title="渲染优化"></a>渲染优化</h2><h3 id="CSS-的阻塞"><a href="#CSS-的阻塞" class="headerlink" title="CSS 的阻塞"></a>CSS 的阻塞</h3><p>CSS 解析和HTML解析是同步进行的，那么一个 HTML 文档首先解析的肯定是 HTML，然后才是 CSS，这就导致了 HTML 解析完成后，往往需要等待 CSS 解析。如果 CSS 没有解析完成，我们就需要一直等，这里就是 CSS 阻塞了相关的渲染。</p>
 <p>CSS 是阻塞渲染的资源。需要将它尽早、尽快地下载到客户端，以便缩短首次渲染的时间。</p>
+<p>CSS 会阻塞后面内联 JavaScript 的执行。</p>
 <p>我们往往把 CSS 样式表全部通过 <strong>&lt;style&gt;</strong> 标签内联到网页当中，或启用 CDN 实现静态资源加载速度的优化</p>
 <h3 id="JS-的阻塞"><a href="#JS-的阻塞" class="headerlink" title="JS 的阻塞"></a>JS 的阻塞</h3><p>JS 引擎是独立于渲染引擎存在的。JavaScript 既会阻塞 HTML 解析，也会阻塞 CSS 解析。因此我们可以改变 JavaScript 的加载方式或者加载时机来进行优化：</p>
 <ul>
