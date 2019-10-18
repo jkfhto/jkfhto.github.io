@@ -60,7 +60,7 @@
 <li><p>async 模式：JS 不会阻塞浏览器做任何其它的事情。它的加载是异步的，当它加载结束，JS 脚本会立即执行。使用 async 模式引入的多个 script 的执行顺序是不确定的。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script <span class="keyword">async</span> src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>defer 模式：JS 的加载是异步的，执行是被推迟的。等整个文档解析完成、DOMContentLoaded 事件即将被触发时，被标记了 defer 的 JS 文件才会开始依次执行。使用 defer 模式引入的多个 script 是从上往下顺序执行的。</p>
+<li><p>defer 模式：JS 的加载是异步的，执行是被推迟的。等整个文档解析完成、会执行所有由 defer-script 加载的 JavaScript 代码，然后触发 DOMContentLoaded 事件。使用 defer 模式引入的多个 script 是从上往下顺序执行的。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script defer src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>动态异步引入<br>使用 document.createElement 创建的 script 默认是异步的，示例如下：</p>
