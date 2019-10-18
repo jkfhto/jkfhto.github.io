@@ -55,19 +55,23 @@
   };
 </script>
 
-  <meta name="description" content="缩小构建目标 目的：尽可能的少构建模块  比如 exclude 不解析相应的模块，目录。include 只解析解析相应的模块，目录 1234567891011module: &amp;#123;    rules: [        &amp;#123;            test: /\.js$/,            //?cacheDirectory=true 开启缓存            use:">
-<meta name="keywords" content="Javascript,前端性能优化,Webpack">
+  <meta name="description" content="浏览器的渲染引擎 IE（Trident） Chrome（Blink） Firefox（Gecko） Opera（Blink） Safari（Webkit） UC（U3） QQ浏览器微信（X5/Blink） Blink 渲染引擎占据了半壁江山，Blink 的前身都是由 Webkit 优化改造而来的。浏览器内核决定了浏览器解释网页语法的方式。不同的渲染引擎，从而也导致了浏览器的兼容性问题。">
+<meta name="keywords" content="Javascript,前端性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="缩小构建目标">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-17/webpack/缩小构建目标/index.html">
+<meta property="og:title" content="浏览器渲染原理与性能优化">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-18/前端性能优化/浏览器渲染原理与性能优化/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="缩小构建目标 目的：尽可能的少构建模块  比如 exclude 不解析相应的模块，目录。include 只解析解析相应的模块，目录 1234567891011module: &amp;#123;    rules: [        &amp;#123;            test: /\.js$/,            //?cacheDirectory=true 开启缓存            use:">
+<meta property="og:description" content="浏览器的渲染引擎 IE（Trident） Chrome（Blink） Firefox（Gecko） Opera（Blink） Safari（Webkit） UC（U3） QQ浏览器微信（X5/Blink） Blink 渲染引擎占据了半壁江山，Blink 的前身都是由 Webkit 优化改造而来的。浏览器内核决定了浏览器解释网页语法的方式。不同的渲染引擎，从而也导致了浏览器的兼容性问题。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-17T09:55:43.544Z">
+<meta property="og:image" content="https://jkfhto.github.io/images/render2.png">
+<meta property="og:image" content="https://jkfhto.github.io/images/render1.jpg">
+<meta property="og:image" content="https://jkfhto.github.io/images/render3.jpg">
+<meta property="og:updated_time" content="2019-10-18T09:30:40.171Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="缩小构建目标">
-<meta name="twitter:description" content="缩小构建目标 目的：尽可能的少构建模块  比如 exclude 不解析相应的模块，目录。include 只解析解析相应的模块，目录 1234567891011module: &amp;#123;    rules: [        &amp;#123;            test: /\.js$/,            //?cacheDirectory=true 开启缓存            use:">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-17/webpack/缩小构建目标/">
+<meta name="twitter:title" content="浏览器渲染原理与性能优化">
+<meta name="twitter:description" content="浏览器的渲染引擎 IE（Trident） Chrome（Blink） Firefox（Gecko） Opera（Blink） Safari（Webkit） UC（U3） QQ浏览器微信（X5/Blink） Blink 渲染引擎占据了半壁江山，Blink 的前身都是由 Webkit 优化改造而来的。浏览器内核决定了浏览器解释网页语法的方式。不同的渲染引擎，从而也导致了浏览器的兼容性问题。">
+<meta name="twitter:image" content="https://jkfhto.github.io/images/render2.png">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-18/前端性能优化/浏览器渲染原理与性能优化/">
 
 
 <script id="page-configurations">
@@ -81,7 +85,7 @@
   };
 </script>
 
-  <title>缩小构建目标 | 个人博客</title>
+  <title>浏览器渲染原理与性能优化 | 个人博客</title>
   
 
 
@@ -255,7 +259,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/缩小构建目标/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-18/前端性能优化/浏览器渲染原理与性能优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +273,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            缩小构建目标
+            浏览器渲染原理与性能优化
             
 
           
@@ -286,7 +290,7 @@
                 
               
 
-              <time title="创建时间：2019-10-17 17:33:54 / 修改时间：17:55:43" itemprop="dateCreated datePublished" datetime="2019-10-17T17:33:54+08:00">2019-10-17</time>
+              <time title="创建时间：2019-10-18 15:52:08 / 修改时间：17:30:40" itemprop="dateCreated datePublished" datetime="2019-10-18T15:52:08+08:00">2019-10-18</time>
             </span>
           
             
@@ -311,19 +315,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">Webpack</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack构建速度和体积优化策略</span>
+                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
                   </a>
                 </span>
 
@@ -352,8 +345,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-17/webpack/缩小构建目标/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/缩小构建目标/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-18/前端性能优化/浏览器渲染原理与性能优化/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-18/前端性能优化/浏览器渲染原理与性能优化/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -368,41 +361,75 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="缩小构建目标"><a href="#缩小构建目标" class="headerlink" title="缩小构建目标"></a>缩小构建目标</h2><ul>
-<li><p>目的：尽可能的少构建模块</p>
-</li>
-<li><p>比如 exclude 不解析相应的模块，目录。include 只解析解析相应的模块，目录</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">        &#123;</span><br><span class="line">            test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">            <span class="comment">//?cacheDirectory=true 开启缓存</span></span><br><span class="line">            use: <span class="string">'babel-loader?cacheDirectory=true'</span>,<span class="comment">//使用babel-loader解析ES6  </span></span><br><span class="line">            exclude: <span class="string">'node_modules'</span>,</span><br><span class="line">            include: <span class="string">'src'</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="浏览器的渲染引擎"><a href="#浏览器的渲染引擎" class="headerlink" title="浏览器的渲染引擎"></a>浏览器的渲染引擎</h2><ul>
+<li>IE（Trident）</li>
+<li>Chrome（Blink）</li>
+<li>Firefox（Gecko）</li>
+<li>Opera（Blink）</li>
+<li>Safari（Webkit）</li>
+<li>UC（U3）</li>
+<li>QQ浏览器微信（X5/Blink）</li>
+</ul><p><strong><em>Blink</em></strong> 渲染引擎占据了半壁江山，<strong><em>Blink</em></strong> 的前身都是由 <strong><em>Webkit</em></strong> 优化改造而来的。浏览器内核决定了浏览器解释网页语法的方式。不同的渲染引擎，从而也导致了浏览器的兼容性问题。</p><a id="more"></a>
 
-</li>
-</ul><a id="more"></a>
-<h2 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h2><p>resolve配置，设置模块如何被解析。通过resolve的配置，可以帮助Webpack快速查找依赖，也可以替换对应的依赖。<a href="https://webpack.js.org/configuration/resolve/" target="_blank" rel="noopener">了解更多</a></p>
+<h2 id="浏览器渲染“黑盒”"><a href="#浏览器渲染“黑盒”" class="headerlink" title="浏览器渲染“黑盒”"></a>浏览器渲染“黑盒”</h2><p><img src="/images/render2.png" alt="浏览器渲染“黑盒”"></p>
+<p>浏览器呈现网页这个过程，宛如一个黑盒。在这个神秘的黑盒中，有许多功能模块，内核内部的实现正是这些功能模块相互配合协同工作进行的。其中我们最需要关注的，就是 <strong><em>HTML 解释器</em></strong>、<strong><em>CSS 解释器</em></strong>、<strong><em>图层布局计算模块</em></strong>、<strong><em>视图绘制模块</em></strong> 与 <strong><em>JavaScript 引擎</em></strong> 这几大模块：</p>
 <ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```json</span><br><span class="line">resolve: &#123;</span><br><span class="line">  extensions: [&quot;.js&quot;,&quot;.jsx&quot;,&quot;.json&quot;,&quot;.css&quot;]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<li><p>HTML 解释器：将 HTML 文档经过词法分析输出 DOM 树。</p>
 </li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- 每当引入bootstrap模块的时候，它会直接引入bootstrap,而不需要从node_modules文件夹中按模块的查找规则查找</span><br><span class="line"></span><br><span class="line">  ```javascript</span><br><span class="line">  const bootstrap = path.resolve(__dirname, &apos;node_modules/_bootstrap@3.3.7@bootstrap/dist/css/bootstrap.css&apos;);</span><br><span class="line">  resolve: &#123;</span><br><span class="line">      alias: &#123;</span><br><span class="line">          &quot;bootstrap&quot;: bootstrap</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<li><p>CSS 解释器：解析 CSS 文档, 生成样式规则。</p>
 </li>
-<li><p>resolve.modules：告诉 webpack 解析模块时应该搜索的目录</p>
+<li><p>图层布局计算模块：布局计算每个对象的精确位置和大小。</p>
 </li>
-<li><p>resolve.mainFields：当从 npm 包中导入模块时（例如，import * as D3 from ‘d3’），此选项将决定在 package.json 中使用哪个字段导入模块。根据 webpack 配置中指定的 target 不同，默认值也会有所不同</p>
+<li><p>视图绘制模块：进行具体节点的图像绘制，将像素渲染到屏幕上。</p>
 </li>
-<li><p>resolve.mainFiles：解析目录时要使用的文件名，默认是index</p>
+<li><p>JavaScript 引擎：编译执行 Javascript 代码。</p>
 </li>
 </ul>
-<h2 id="减少文件搜索范围"><a href="#减少文件搜索范围" class="headerlink" title="减少文件搜索范围"></a>减少文件搜索范围</h2><ul>
-<li><p>优化 resolve.modules 配置（减少模块搜索层级）</p>
+<h2 id="渲染原理解析"><a href="#渲染原理解析" class="headerlink" title="渲染原理解析"></a>渲染原理解析</h2><p><img src="/images/render1.jpg" alt="渲染原理"></p>
+<ul>
+<li>解析HTML<br>首先是解析HTML/SVG/XHTML，这个过程主要是把 HTML/SVG/XHTML 文档解析为 DOM 树的过程。<br>如果遇到 <strong>&lt;script&gt;</strong> 标签会停止解析，先执行标签当中 JavaScript；如果是外联方式，也需要等待下载并且执行完对应的 JavaScript 代码，然后才能够继续执行解析 HTML 的工作。HTML解析完成后触发 DOMContentLoaded 事件，这里我们就可以操作 DOM了。<br>在这一步浏览器执行了所有的加载解析逻辑，在解析 HTML 的过程中发出了页面渲染所需的各种外部资源请求。</li>
+<li>解析CSS<br>解析 HTML 和解析 CSS 是并行处理的。解析 CSS 遇到 <strong>&lt;script&gt;</strong> 标签，会阻塞 CSS 的解析。CSS 解析器将 CSS 解析成 CSSStyleSheet (也被叫做 CSSOM 树)，这里的 CSSOM 树与 DOM 树结构类似。解析对应关系如下：<br><img src="/images/render3.jpg" alt="解析对应关系"></li>
+<li>计算样式<br>CSSOM 与 DOM 树 结合，生成生成页面 render 树。</li>
+<li>计算图层布局<br>页面中所有元素的相对位置信息，大小等信息均在这一步得到计算。</li>
+<li>绘制图层<br>在这一步中浏览器会根据我们的 DOM 代码结果，把每一个页面图层转换为像素，并对所有的媒体文件进行解码。</li>
+<li>整合图层，得到页面<br>最后一步浏览器会合并各个图层，将数据由 CPU 输出给 GPU 最终绘制在屏幕上。（复杂的视图层会给这个阶段的 GPU 计算带来一些压力，在实际应用中为了优化动画性能，我们有时会手动区分不同的图层）。</li>
+</ul>
+<h3 id="渲染过程概括"><a href="#渲染过程概括" class="headerlink" title="渲染过程概括"></a>渲染过程概括</h3><ul>
+<li>当浏览器拿到一个网页后，首先浏览器会先解析HTML，如果遇到了外链的css，会一下载css，一边解析HTML。</li>
+<li>当css下载完成后，会继续解析css，生成css Rules tree,不会影响到HTML的解析。</li>
+<li>当遇到 <strong>&lt;script&gt;</strong> 标签时，一旦发现有对javascript的引用，就会立即下载脚本，同时阻断文档的解析，等脚本执行完成后，再开始文档的解析。</li>
+<li>当DOM树和CSS规则树已经生成完毕后，构造 Rendering Tree。</li>
+<li>调用系统渲染页面。</li>
+</ul>
+<h2 id="渲染优化"><a href="#渲染优化" class="headerlink" title="渲染优化"></a>渲染优化</h2><h3 id="CSS-的阻塞"><a href="#CSS-的阻塞" class="headerlink" title="CSS 的阻塞"></a>CSS 的阻塞</h3><p>CSS 解析和HTML解析是同步进行的，那么一个 HTML 文档首先解析的肯定是 HTML，然后才是 CSS，这就导致了 HTML 解析完成后，往往需要等待 CSS 解析。如果 CSS 没有解析完成，我们就需要一直等，这里就是 CSS 阻塞了相关的渲染。</p>
+<p>CSS 是阻塞渲染的资源。需要将它尽早、尽快地下载到客户端，以便缩短首次渲染的时间。</p>
+<p>我们往往把 CSS 样式表全部通过 <strong>&lt;style&gt;</strong> 标签内联到网页当中，或启用 CDN 实现静态资源加载速度的优化</p>
+<h3 id="JS-的阻塞"><a href="#JS-的阻塞" class="headerlink" title="JS 的阻塞"></a>JS 的阻塞</h3><p>JS 引擎是独立于渲染引擎存在的。JavaScript 既会阻塞 HTML 解析，也会阻塞 CSS 解析。因此我们可以改变 JavaScript 的加载方式或者加载时机来进行优化：</p>
+<ul>
+<li>尽量将 JavaScript 文件放在 body 的底部；</li>
+<li>body中间尽量不要写 <strong>&lt;script&gt;</strong> 标签；</li>
+<li>使用 defer 和 async 来避免不必要的阻塞</li>
+</ul>
+<h3 id="JS的四种加载方式"><a href="#JS的四种加载方式" class="headerlink" title="JS的四种加载方式"></a>JS的四种加载方式</h3><ul>
+<li><p>正常模式：这种情况下 JS 会阻塞浏览器，浏览器必须等待 index.js 加载和执行完毕才能去做其它事情。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>优化 resolve.mainFields 配置（优化入口文件分析，搜索过程）</p>
+<li><p>async 模式：JS 不会阻塞浏览器做任何其它的事情。它的加载是异步的，当它加载结束，JS 脚本会立即执行。使用 async 模式引入的多个 script 的执行顺序是不确定的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="keyword">async</span> src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>优化 resolve.extensions 配置（缩小扩展名查找范围）</p>
+<li><p>defer 模式：JS 的加载是异步的，执行是被推迟的。等整个文档解析完成、DOMContentLoaded 事件即将被触发时，被标记了 defer 的 JS 文件才会开始依次执行。使用 defer 模式引入的多个 script 是从上往下顺序执行的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script defer src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>合理使用 alias</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">resolve: &#123;</span><br><span class="line">    alias: &#123;</span><br><span class="line">        <span class="string">'react'</span>: path.resolve(__dirname, <span class="string">'./node_modules/react/umd/react.production.min.js'</span>),</span><br><span class="line">        <span class="string">'react-dom'</span>: path.resolve(__dirname, <span class="string">'./node_modules/react-dom/umd/react-dom.production.min.js'</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">    extensions: [<span class="string">'.js'</span>],</span><br><span class="line">    mainFields: [<span class="string">'main'</span>]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<li><p>动态异步引入<br>使用 document.createElement 创建的 script 默认是异步的，示例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.createElement(<span class="string">"script"</span>).async); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
+<p>从应用的角度来说，一般当我们的脚本与 DOM 元素和其它脚本之间的依赖关系不强时，我们会选用 async；当脚本依赖于 DOM 元素和其它脚本的执行结果时，我们会选用 defer。defer 一般用于业务代码。如第三方统计代码。</p>
+<p>注意 async 与 defer 属性对于 inline-script 都是无效的。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://time.geekbang.org/course/intro/190" target="_blank" rel="noopener">玩转webpack-全方位掌握webpack核心技能和优化策略</a></li>
+<li><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a></li>
+<li><a href="https://juejin.im/book/5b936540f265da0a9624b04b" target="_blank" rel="noopener">前端性能优化原理与实践</a></li>
 </ul>
 
     </div>
@@ -429,8 +456,6 @@
             
               <a href="/tags/前端性能优化/" rel="tag"><i class="fa fa-tag"></i> 前端性能优化</a>
             
-              <a href="/tags/Webpack/" rel="tag"><i class="fa fa-tag"></i> Webpack</a>
-            
           </div>
         
 
@@ -439,8 +464,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019-10-17/webpack/充分利用缓存提升二次构建速度/" rel="next" title="充分利用缓存提升二次构建速度">
-                  <i class="fa fa-chevron-left"></i> 充分利用缓存提升二次构建速度
+                <a href="/2019-10-18/webpack/webpack-文件指纹策略：chunkhash、contenthash和hash/" rel="next" title="webpack-文件指纹策略：chunkhash、contenthash和hash">
+                  <i class="fa fa-chevron-left"></i> webpack-文件指纹策略：chunkhash、contenthash和hash
                 </a>
               
             </div>
@@ -448,10 +473,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019-10-17/webpack/使用Tree-Shaking擦除无用的JavaScript和CSS/" rel="prev" title="使用Tree Shaking擦除无用的JavaScript和CSS">
-                  使用Tree Shaking擦除无用的JavaScript和CSS <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -500,7 +521,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缩小构建目标"><span class="nav-number">1.</span> <span class="nav-text">缩小构建目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resolve"><span class="nav-number">2.</span> <span class="nav-text">resolve</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少文件搜索范围"><span class="nav-number">3.</span> <span class="nav-text">减少文件搜索范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器的渲染引擎"><span class="nav-number">1.</span> <span class="nav-text">浏览器的渲染引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器渲染“黑盒”"><span class="nav-number">2.</span> <span class="nav-text">浏览器渲染“黑盒”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染原理解析"><span class="nav-number">3.</span> <span class="nav-text">渲染原理解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染过程概括"><span class="nav-number">3.1.</span> <span class="nav-text">渲染过程概括</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染优化"><span class="nav-number">4.</span> <span class="nav-text">渲染优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-的阻塞"><span class="nav-number">4.1.</span> <span class="nav-text">CSS 的阻塞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS-的阻塞"><span class="nav-number">4.2.</span> <span class="nav-text">JS 的阻塞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS的四种加载方式"><span class="nav-number">4.3.</span> <span class="nav-text">JS的四种加载方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

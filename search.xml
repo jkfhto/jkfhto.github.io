@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>浏览器渲染原理与性能优化</title>
+    <url>/2019-10-18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="浏览器的渲染引擎"><a href="#浏览器的渲染引擎" class="headerlink" title="浏览器的渲染引擎"></a>浏览器的渲染引擎</h2><ul>
+<li>IE（Trident）</li>
+<li>Chrome（Blink）</li>
+<li>Firefox（Gecko）</li>
+<li>Opera（Blink）</li>
+<li>Safari（Webkit）</li>
+<li>UC（U3）</li>
+<li>QQ浏览器微信（X5/Blink）</li>
+</ul><p><strong><em>Blink</em></strong> 渲染引擎占据了半壁江山，<strong><em>Blink</em></strong> 的前身都是由 <strong><em>Webkit</em></strong> 优化改造而来的。浏览器内核决定了浏览器解释网页语法的方式。不同的渲染引擎，从而也导致了浏览器的兼容性问题。</p><a id="more"></a>
+
+<h2 id="浏览器渲染“黑盒”"><a href="#浏览器渲染“黑盒”" class="headerlink" title="浏览器渲染“黑盒”"></a>浏览器渲染“黑盒”</h2><p><img src="/images/render2.png" alt="浏览器渲染“黑盒”"></p>
+<p>浏览器呈现网页这个过程，宛如一个黑盒。在这个神秘的黑盒中，有许多功能模块，内核内部的实现正是这些功能模块相互配合协同工作进行的。其中我们最需要关注的，就是 <strong><em>HTML 解释器</em></strong>、<strong><em>CSS 解释器</em></strong>、<strong><em>图层布局计算模块</em></strong>、<strong><em>视图绘制模块</em></strong> 与 <strong><em>JavaScript 引擎</em></strong> 这几大模块：</p>
+<ul>
+<li><p>HTML 解释器：将 HTML 文档经过词法分析输出 DOM 树。</p>
+</li>
+<li><p>CSS 解释器：解析 CSS 文档, 生成样式规则。</p>
+</li>
+<li><p>图层布局计算模块：布局计算每个对象的精确位置和大小。</p>
+</li>
+<li><p>视图绘制模块：进行具体节点的图像绘制，将像素渲染到屏幕上。</p>
+</li>
+<li><p>JavaScript 引擎：编译执行 Javascript 代码。</p>
+</li>
+</ul>
+<h2 id="渲染原理解析"><a href="#渲染原理解析" class="headerlink" title="渲染原理解析"></a>渲染原理解析</h2><p><img src="/images/render1.jpg" alt="渲染原理"></p>
+<ul>
+<li>解析HTML<br>首先是解析HTML/SVG/XHTML，这个过程主要是把 HTML/SVG/XHTML 文档解析为 DOM 树的过程。<br>如果遇到 <strong>&lt;script&gt;</strong> 标签会停止解析，先执行标签当中 JavaScript；如果是外联方式，也需要等待下载并且执行完对应的 JavaScript 代码，然后才能够继续执行解析 HTML 的工作。HTML解析完成后触发 DOMContentLoaded 事件，这里我们就可以操作 DOM了。<br>在这一步浏览器执行了所有的加载解析逻辑，在解析 HTML 的过程中发出了页面渲染所需的各种外部资源请求。</li>
+<li>解析CSS<br>解析 HTML 和解析 CSS 是并行处理的。解析 CSS 遇到 <strong>&lt;script&gt;</strong> 标签，会阻塞 CSS 的解析。CSS 解析器将 CSS 解析成 CSSStyleSheet (也被叫做 CSSOM 树)，这里的 CSSOM 树与 DOM 树结构类似。解析对应关系如下：<br><img src="/images/render3.jpg" alt="解析对应关系"></li>
+<li>计算样式<br>CSSOM 与 DOM 树 结合，生成生成页面 render 树。</li>
+<li>计算图层布局<br>页面中所有元素的相对位置信息，大小等信息均在这一步得到计算。</li>
+<li>绘制图层<br>在这一步中浏览器会根据我们的 DOM 代码结果，把每一个页面图层转换为像素，并对所有的媒体文件进行解码。</li>
+<li>整合图层，得到页面<br>最后一步浏览器会合并各个图层，将数据由 CPU 输出给 GPU 最终绘制在屏幕上。（复杂的视图层会给这个阶段的 GPU 计算带来一些压力，在实际应用中为了优化动画性能，我们有时会手动区分不同的图层）。</li>
+</ul>
+<h3 id="渲染过程概括"><a href="#渲染过程概括" class="headerlink" title="渲染过程概括"></a>渲染过程概括</h3><ul>
+<li>当浏览器拿到一个网页后，首先浏览器会先解析HTML，如果遇到了外链的css，会一下载css，一边解析HTML。</li>
+<li>当css下载完成后，会继续解析css，生成css Rules tree,不会影响到HTML的解析。</li>
+<li>当遇到 <strong>&lt;script&gt;</strong> 标签时，一旦发现有对javascript的引用，就会立即下载脚本，同时阻断文档的解析，等脚本执行完成后，再开始文档的解析。</li>
+<li>当DOM树和CSS规则树已经生成完毕后，构造 Rendering Tree。</li>
+<li>调用系统渲染页面。</li>
+</ul>
+<h2 id="渲染优化"><a href="#渲染优化" class="headerlink" title="渲染优化"></a>渲染优化</h2><h3 id="CSS-的阻塞"><a href="#CSS-的阻塞" class="headerlink" title="CSS 的阻塞"></a>CSS 的阻塞</h3><p>CSS 解析和HTML解析是同步进行的，那么一个 HTML 文档首先解析的肯定是 HTML，然后才是 CSS，这就导致了 HTML 解析完成后，往往需要等待 CSS 解析。如果 CSS 没有解析完成，我们就需要一直等，这里就是 CSS 阻塞了相关的渲染。</p>
+<p>CSS 是阻塞渲染的资源。需要将它尽早、尽快地下载到客户端，以便缩短首次渲染的时间。</p>
+<p>我们往往把 CSS 样式表全部通过 <strong>&lt;style&gt;</strong> 标签内联到网页当中，或启用 CDN 实现静态资源加载速度的优化</p>
+<h3 id="JS-的阻塞"><a href="#JS-的阻塞" class="headerlink" title="JS 的阻塞"></a>JS 的阻塞</h3><p>JS 引擎是独立于渲染引擎存在的。JavaScript 既会阻塞 HTML 解析，也会阻塞 CSS 解析。因此我们可以改变 JavaScript 的加载方式或者加载时机来进行优化：</p>
+<ul>
+<li>尽量将 JavaScript 文件放在 body 的底部；</li>
+<li>body中间尽量不要写 <strong>&lt;script&gt;</strong> 标签；</li>
+<li>使用 defer 和 async 来避免不必要的阻塞</li>
+</ul>
+<h3 id="JS的四种加载方式"><a href="#JS的四种加载方式" class="headerlink" title="JS的四种加载方式"></a>JS的四种加载方式</h3><ul>
+<li><p>正常模式：这种情况下 JS 会阻塞浏览器，浏览器必须等待 index.js 加载和执行完毕才能去做其它事情。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>async 模式：JS 不会阻塞浏览器做任何其它的事情。它的加载是异步的，当它加载结束，JS 脚本会立即执行。使用 async 模式引入的多个 script 的执行顺序是不确定的。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script <span class="keyword">async</span> src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>defer 模式：JS 的加载是异步的，执行是被推迟的。等整个文档解析完成、DOMContentLoaded 事件即将被触发时，被标记了 defer 的 JS 文件才会开始依次执行。使用 defer 模式引入的多个 script 是从上往下顺序执行的。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script defer src=<span class="string">"index.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态异步引入<br>使用 document.createElement 创建的 script 默认是异步的，示例如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.createElement(<span class="string">"script"</span>).async); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>从应用的角度来说，一般当我们的脚本与 DOM 元素和其它脚本之间的依赖关系不强时，我们会选用 async；当脚本依赖于 DOM 元素和其它脚本的执行结果时，我们会选用 defer。defer 一般用于业务代码。如第三方统计代码。</p>
+<p>注意 async 与 defer 属性对于 inline-script 都是无效的。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a></li>
+<li><a href="https://juejin.im/book/5b936540f265da0a9624b04b" target="_blank" rel="noopener">前端性能优化原理与实践</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>webpack-文件指纹策略：chunkhash、contenthash和hash</title>
     <url>/2019-10-18/webpack/webpack-%E6%96%87%E4%BB%B6%E6%8C%87%E7%BA%B9%E7%AD%96%E7%95%A5%EF%BC%9Achunkhash%E3%80%81contenthash%E5%92%8Chash/</url>
     <content><![CDATA[<h2 id="什么是文件指纹"><a href="#什么是文件指纹" class="headerlink" title="什么是文件指纹"></a>什么是文件指纹</h2><ul>
