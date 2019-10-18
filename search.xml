@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>前端性能优化-重绘与回流</title>
+    <url>/2019-10-18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E9%87%8D%E7%BB%98%E4%B8%8E%E5%9B%9E%E6%B5%81/</url>
+    <content><![CDATA[<h2 id="重绘与回流"><a href="#重绘与回流" class="headerlink" title="重绘与回流"></a>重绘与回流</h2><p>当 <strong><em>Render Tree</em></strong> 当中有元素的大小、布局、结构等发生改变时，就会触发回流，每个页面在首次加载的时候都需要进行至少一次回流；</p><p>当 <strong><em>Render Tree</em></strong> 有元素属性需要更新，这些属性只是影响元素的外观、风格，那么则会触发重绘。</p><p>重绘不一定导致回流，回流一定会导致重绘。</p><p>回流比重绘的代价要更高。</p><a id="more"></a>
+
+
+
+<h2 id="触发重绘"><a href="#触发重绘" class="headerlink" title="触发重绘"></a>触发重绘</h2><ul>
+<li>color、background 相关属性(如：background-color、background-image 等)</li>
+<li>outline 相关属性( outline-color、outline-width )、text-decoration</li>
+<li>border-radius、visibility、box-shadow</li>
+</ul>
+<h2 id="触发回流"><a href="#触发回流" class="headerlink" title="触发回流"></a>触发回流</h2><h3 id="触发页面重布局"><a href="#触发页面重布局" class="headerlink" title="触发页面重布局"></a>触发页面重布局</h3><ul>
+<li>盒子模型相关属性会触发重布局：width、height、padding、margin、display、border-width、border、min-height </li>
+<li>定位属性及浮动会触发重布局：top、bottom、left、right、position、float、clear</li>
+<li>改变节点内部文字结构也会触发重布局：text-align、font-weight、font-family、line-height、vertical-align、white-space、font-size、overflow、overflow-y</li>
+</ul>
+<h3 id="触发回流的操作"><a href="#触发回流的操作" class="headerlink" title="触发回流的操作"></a>触发回流的操作</h3><ul>
+<li>页面初次渲染</li>
+<li>元素大小发生变化</li>
+<li>元素的位置发生变化</li>
+<li>浏览器窗口大小变化</li>
+<li>添加或者删除 DOM 元素</li>
+<li>激活 CSS 伪类</li>
+<li>改变字体</li>
+<li>获取即时计算的属性：offsetTop、offsetLeft、 offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、clientTop、clientLeft、clientWidth、clientHeight、getComputedStyle、scrollIntoView()、scrollIntoViewIfNeeded()getBoundingClientRect()、scrollTo()</li>
+</ul>
+<h2 id="Flush-队列"><a href="#Flush-队列" class="headerlink" title="Flush 队列"></a>Flush 队列</h2><p>现代浏览器会对频繁的回流或重绘操作进行优化：</p>
+<p>浏览器会维护一个队列，把所有引起回流和重绘的操作放入队列中，如果队列中的任务数量或者时间间隔达到一个阈值的，浏览器就会将队列清空，进行一次批处理，这样可以把多次回流和重绘变成一次。</p>
+<p>当你访问以下属性或方法时，浏览器会立刻清空队列：</p>
+<ul>
+<li>clientWidth、clientHeight、clientTop、clientLeft</li>
+<li>offsetWidth、offsetHeight、offsetTop、offsetLeft</li>
+<li>scrollWidth、scrollHeight、scrollTop、scrollLeft</li>
+<li>width、height</li>
+<li>getComputedStyle()</li>
+<li>getBoundingClientRect()</li>
+</ul>
+<p>因为队列中可能会有影响到这些属性或方法返回值的操作，即使你希望获取的信息与队列中操作引发的改变无关，浏览器也会强行清空队列，确保你拿到的值是最精确的。</p>
+<p>基本上都是获取即时计算的属性。</p>
+<h2 id="减少重绘与回流"><a href="#减少重绘与回流" class="headerlink" title="减少重绘与回流"></a>减少重绘与回流</h2><h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><ul>
+<li>避免使用table布局。</li>
+<li>尽可能在DOM树的最末端改变class。</li>
+<li>避免设置多层内联样式。</li>
+<li>将动画效果应用到position属性为absolute或fixed的元素上。</li>
+<li>避免使用CSS表达式（例如：calc()）。</li>
+</ul>
+<h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><ul>
+<li>避免频繁操作样式，最好一次性重写style属性，或者将样式列表定义为class并一次性更改class属性。</li>
+<li>避免频繁操作DOM，创建一个documentFragment，在它上面应用所有DOM操作，最后再把它添加到文档中。</li>
+<li>也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。</li>
+<li>避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。</li>
+<li>对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。</li>
+</ul>
+<h2 id="扩展部分"><a href="#扩展部分" class="headerlink" title="扩展部分"></a>扩展部分</h2><p>更加完整的渲染流程</p>
+<p><img src="/images/render4.jpg" alt="更加完整的渲染流程"></p>
+<p>上面提到把 position 设置为absolute 或者 fixed，其实就是把 Render Tree 上面的这个元素提升到了 Render Layer，提升到 Render Layer 之后，这个时候就不会影响其他元素也进行回流操作，而只会自己进行回流操作，那么这就是背后真正的原因。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Tips:动画除了可以使用 position 设置为 absolute 或 fixed 优化之外，还可以使用启用硬件加速( GPU加速 )来进行优化，比如说一些移动元素的操作我们可以使用 translate3d() 方法来完成，使用这个方法之后，我们就触发了硬件加速，由于硬件加速使用的是 GPU 绘制，所以速度更快，而且不会引起回流和重绘，性能也可以得到较大的提升。</span><br></pre></td></tr></table></figure>
+
+<h2 id="Chrome创建-Render-Layer-图层的条件"><a href="#Chrome创建-Render-Layer-图层的条件" class="headerlink" title="Chrome创建 Render Layer 图层的条件"></a>Chrome创建 Render Layer 图层的条件</h2><ul>
+<li>3D和透视变换CSS属性(perspective transform)</li>
+<li>使用加速视频解码的 video 标签</li>
+<li>3D Webgl的上下文或加速2D上下文的 canvas 节点</li>
+<li>混合插件 (如Flash)</li>
+<li>css3硬件加速（GPU加速）transform，opacity，filters，Will-change</li>
+</ul>
+<h3 id="常用方法生成独立图层："><a href="#常用方法生成独立图层：" class="headerlink" title="常用方法生成独立图层："></a>常用方法生成独立图层：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">transform: translateZ(0);</span><br><span class="line"></span><br><span class="line">will-change: transform;</span><br></pre></td></tr></table></figure>
+
+<p>将频发触发重绘与回流的 Dom 元素，独立到一个独立的图层。但是 Composite Layers 合并图层也会消耗性能，过多的图层可能导致性能更差。</p>
+<h2 id="如何查看重绘与回流"><a href="#如何查看重绘与回流" class="headerlink" title="如何查看重绘与回流"></a>如何查看重绘与回流</h2><ul>
+<li><p>1.按F12进入开发者工具，打开performance面板。</p>
+</li>
+<li><p>2.点击最左侧的黑色圆就可以开始一个新的监测记录。</p>
+</li>
+</ul>
+<h3 id="案例说明"><a href="#案例说明" class="headerlink" title="案例说明"></a>案例说明</h3><p>以天猫手机端为例，获取顶部的滚动栏渲染信息。</p>
+<p><img src="/images/render5.png" alt="渲染信息"></p>
+<p>通过Main图表，Summary面板可以查看重绘与回流相关信息。</p>
+<p><img src="/images/render6.png" alt="重绘与回流信息"></p>
+<h2 id="如何查看Render-Layer"><a href="#如何查看Render-Layer" class="headerlink" title="如何查看Render Layer"></a>如何查看Render Layer</h2><p>如下图所示：</p>
+<p><img src="/images/render7.png" alt="Render Layer"></p>
+<p><img src="/images/render8.png" alt="Render Layer2"></p>
+<p>Layers 面板可以查看详细的 Render Layer 信息。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a></li>
+<li><a href="https://www.zhangxinxu.com/wordpress/2010/01/%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%98%EF%BC%9Acss%E6%80%A7%E8%83%BD%E8%AE%A9javascript%E5%8F%98%E6%85%A2%EF%BC%9F/" target="_blank" rel="noopener">回流与重绘：CSS性能让JavaScript变慢？</a></li>
+<li><a href="https://juejin.im/post/5a9923e9518825558251c96a" target="_blank" rel="noopener">浏览器的回流与重绘</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端性能优化</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前端性能优化-DOM性能优化</title>
     <url>/2019-10-18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-DOM%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前端需要频繁操作 DOM，为了提高网站性能，需要针对 DOM 操作进行相应优化。</p><h2 id="使用DOM的引用"><a href="#使用DOM的引用" class="headerlink" title="使用DOM的引用"></a>使用DOM的引用</h2><p>比如：我们需要对一组 li 标签进行遍历操作，我们可以用一个变量 length 把这组 li 标签的长度保存下来，然后基于length 进行遍历。</p><h2 id="使用事件代理批量处理事件"><a href="#使用事件代理批量处理事件" class="headerlink" title="使用事件代理批量处理事件"></a>使用事件代理批量处理事件</h2><p>比如：给一系列子元素 li 添加绑定事件，可以通过事件代理来进行优化。</p><a id="more"></a>
