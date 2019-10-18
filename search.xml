@@ -1,6 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>webpack-文件指纹策略：chunkhash、contenthash和hash</title>
+    <url>/2019-10-18/webpack/webpack-%E6%96%87%E4%BB%B6%E6%8C%87%E7%BA%B9%E7%AD%96%E7%95%A5%EF%BC%9Achunkhash%E3%80%81contenthash%E5%92%8Chash/</url>
+    <content><![CDATA[<h2 id="什么是文件指纹"><a href="#什么是文件指纹" class="headerlink" title="什么是文件指纹"></a>什么是文件指纹</h2><ul>
+<li>打包后输出文件名的后缀</li>
+<li>通常用于版本管理</li>
+<li>hash一般是结合CDN缓存来使用，通过webpack构建之后，生成对应文件名自动带上对应的MD5值。如果文件内容改变的话，那么对应文件哈希值也会改变，对应的HTML引用的URL地址也会改变，触发CDN服务器从源服务器上拉取对应数据，进而更新本地缓存</li>
+</ul><a id="more"></a>
+<h2 id="文件指纹如何生成"><a href="#文件指纹如何生成" class="headerlink" title="文件指纹如何生成"></a>文件指纹如何生成</h2><ul>
+<li>Hash：和整个项目的构建相关，webpack打包阶段会生成Compiler，Compilation。webpack启动那一次，会生成Compiler（初始化一次）。但是每一次只要项目文件有修改，，Compilation都会发生变化。Compilation变换就会影响Hash的变换，整个项目构建的 hash 值就会更改。如果css/js都是使用hash作为文件指纹的话，那么某一个js或者css发生改变，所有打包出来的css/js指纹都会变化。不利于缓存</li>
+<li>Chunkhash：采用hash计算的话，每一次构建后生成的哈希值都不一样，即使文件内容压根没有改变。这样子是没办法实现缓存效果，我们需要换另一种哈希值计算方式，即chunkhash,chunkhash和hash不一样，它根据不同的入口文件(Entry)进行依赖文件解析、构建对应的chunk，生成对应的哈希值。我们在生产环境里把一些公共库和程序入口文件区分开，单独打包构建，接着我们采用chunkhash的方式生成哈希值，那么只要我们不改动公共库的代码，就可以保证其哈希值不会受影响</li>
+<li>Contenthash：根据文件内容来定义 hash ，文件内容不变，则 contenthash 不变。某个页面既有js资源，又有css资源。如果css资源也使用Chunkhash。如果修改了js。由于css资源使用了Chunkhash，就会导致css内容没有变化，发布上线的文件却发生了变化。因此，通常对css资源使用Contenthash。这个时候可以使用mini-css-extract-plugin里的contenthash值，保证即使css文件所处的模块里就算其他文件内容改变，只要css文件内容不变，那么不会重复构建</li>
+</ul>
+<h2 id="JS-的文件指纹设置"><a href="#JS-的文件指纹设置" class="headerlink" title="JS 的文件指纹设置"></a>JS 的文件指纹设置</h2><ul>
+<li>设置 output 的 filename，使用 [chunkhash]，或[contenthash]</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        app: <span class="string">'./src/app.js'</span>,</span><br><span class="line">        search: <span class="string">'./src/search.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'[name][chunkhash:8].js'</span>,</span><br><span class="line">        path: __dirname + <span class="string">'/dist'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CSS-的文件指纹设置"><a href="#CSS-的文件指纹设置" class="headerlink" title="CSS 的文件指纹设置"></a>CSS 的文件指纹设置</h2><ul>
+<li>设置 MiniCssExtractPlugin 的 filename，使用 [contenthash]<ul>
+<li>MiniCssExtractPlugin：将css资源提取到一个独立的文件。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        app: <span class="string">'./src/app.js'</span>,</span><br><span class="line">        search: <span class="string">'./src/search.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'[name][chunkhash:8].js'</span>,</span><br><span class="line">        path: __dirname + <span class="string">'/dist'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">            filename: <span class="string">`[name][contenthash:8].css`</span></span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="图片，字体文件的文件指纹设置"><a href="#图片，字体文件的文件指纹设置" class="headerlink" title="图片，字体文件的文件指纹设置"></a>图片，字体文件的文件指纹设置</h2><ul>
+<li>设置 file-loader（或url-loader） 的 name，使用 [hash]</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符名称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[ext]</td>
+<td>资源后缀名</td>
+</tr>
+<tr>
+<td>[name]</td>
+<td>文件名称</td>
+</tr>
+<tr>
+<td>[path]</td>
+<td>文件的相对路径</td>
+</tr>
+<tr>
+<td>[floder]</td>
+<td>文件所在文件夹</td>
+</tr>
+<tr>
+<td>[contenthash]</td>
+<td>文件的内容hash，默认是md5生成</td>
+</tr>
+<tr>
+<td>[hash]</td>
+<td>文件内容hash，默认是md5生成。图片的hash和css/js资源的hash概念不一样，图片的hash是由图片内容决定的</td>
+</tr>
+<tr>
+<td>[emoji]</td>
+<td>一个随机的指代文件内容的emoji</td>
+</tr>
+</tbody></table>
+<p>注意：图片，字体文件的hash和css/js资源的hash概念不一样，图片，字体文件的hash是由内容决定的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(png|svg|jpg|gif)$/</span>,</span><br><span class="line">                use: [&#123;</span><br><span class="line">                    loader: <span class="string">'file-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        name: <span class="string">'img/[name][hash:8].[ext] '</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Webpack-具体配置信息"><a href="#Webpack-具体配置信息" class="headerlink" title="Webpack 具体配置信息"></a>Webpack 具体配置信息</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        index: <span class="string">'./test/test.js'</span>,</span><br><span class="line">        about: <span class="string">'./test/about.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        <span class="comment">//打包文件名称  chunkhash:8设置js资源的文件指纹</span></span><br><span class="line">        filename: <span class="string">'[name].[chunkhash:8].js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [&#123; <span class="attr">loader</span>: MiniCssExtractPlugin.loader &#125;, <span class="string">'css-loader'</span>]</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(png|jpe?g|gif|svg)(\?.*)?$/</span>,</span><br><span class="line">                loader: <span class="string">'file-loader'</span>,</span><br><span class="line">                query: &#123;</span><br><span class="line">                    <span class="comment">// 设置图片资源的文件指纹 使用hash</span></span><br><span class="line">                    name: <span class="string">'[name].[ext]?[hash]'</span>,</span><br><span class="line">                    outputPath: <span class="string">'static/img/'</span>,</span><br><span class="line">                    publicPath: <span class="string">'/dist/static/img/'</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(woff|woff2|eot|ttf|otf)$/</span>,<span class="comment">//解析字体</span></span><br><span class="line">                use: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'file-loader'</span>,</span><br><span class="line">                        options: &#123;</span><br><span class="line">                            name: <span class="string">'[name]_[hash:8].[ext]'</span>,<span class="comment">//设置字体资源的文件指纹 使用hash</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> CleanWebpackPlugin(),</span><br><span class="line">        <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">            <span class="comment">// 将css资源提取到一个独立的文件</span></span><br><span class="line">            <span class="comment">// 设置css资源的文件指纹 用contenthash</span></span><br><span class="line">            filename: <span class="string">'[name].[contenthash:8].css'</span>,</span><br><span class="line">            chunkFilename: <span class="string">'[id].css'</span></span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="通常的文件缓存策略"><a href="#通常的文件缓存策略" class="headerlink" title="通常的文件缓存策略"></a>通常的文件缓存策略</h2><ul>
+<li>html: header 头的 cache-control 会设置成 no-cache。也就是 html 文件不会走缓存</li>
+<li>css/js/img 等静态资源：header头的 cache-control 设置成强缓存，缓存时间通常是1年的样子。通过文件指纹控制缓存是否失效，文件指纹一变，请求就不会走旧文件了</li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端性能优化</tag>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前端性能优化-浏览器缓存</title>
     <url>/2019-10-17/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98/</url>
     <content><![CDATA[<h2 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h2><p>浏览器缓存机制有四个方面，它们按照获取资源时请求的优先级依次排列如下：</p><ul>
