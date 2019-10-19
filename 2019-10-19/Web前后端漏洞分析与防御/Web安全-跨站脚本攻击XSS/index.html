@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="跨站脚本攻击XSS跨站脚本攻击（XSS），是目前最普遍的Web应用安全漏洞。这类漏洞能够使得攻击者嵌入恶意脚本代码到正常用户会访问到的页面中，当正常用户访问该页面时，则可导致嵌入的恶意脚本代码的执行，从而达到恶意攻击用户的目的。跨站简单来说，如果有一个网站，希望网站中所有运行的逻辑都来自本站。如果运行了别的网站的脚本，就产生了跨站脚本攻击。">
+<meta name="keywords" content="Javascript,Web安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web安全-跨站脚本攻击XSS">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站脚本攻击XSS/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="跨站脚本攻击XSS跨站脚本攻击（XSS），是目前最普遍的Web应用安全漏洞。这类漏洞能够使得攻击者嵌入恶意脚本代码到正常用户会访问到的页面中，当正常用户访问该页面时，则可导致嵌入的恶意脚本代码的执行，从而达到恶意攻击用户的目的。跨站简单来说，如果有一个网站，希望网站中所有运行的逻辑都来自本站。如果运行了别的网站的脚本，就产生了跨站脚本攻击。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-19T12:17:47.915Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web安全-跨站脚本攻击XSS">
+<meta name="twitter:description" content="跨站脚本攻击XSS跨站脚本攻击（XSS），是目前最普遍的Web应用安全漏洞。这类漏洞能够使得攻击者嵌入恶意脚本代码到正常用户会访问到的页面中，当正常用户访问该页面时，则可导致嵌入的恶意脚本代码的执行，从而达到恶意攻击用户的目的。跨站简单来说，如果有一个网站，希望网站中所有运行的逻辑都来自本站。如果运行了别的网站的脚本，就产生了跨站脚本攻击。">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站脚本攻击XSS/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Web安全-跨站脚本攻击XSS | 个人博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home  //首页"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags  //标签"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th  //分类"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive  //归档"></i>归档</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>
+        
+        搜索
+        </a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站脚本攻击XSS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            Web安全-跨站脚本攻击XSS
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-19 16:21:38 / 修改时间：20:17:47" itemprop="dateCreated datePublished" datetime="2019-10-19T16:21:38+08:00">2019-10-19</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站脚本攻击XSS/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站脚本攻击XSS/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="跨站脚本攻击XSS"><a href="#跨站脚本攻击XSS" class="headerlink" title="跨站脚本攻击XSS"></a>跨站脚本攻击XSS</h2><p>跨站脚本攻击（XSS），是目前最普遍的Web应用安全漏洞。这类漏洞能够使得攻击者嵌入恶意脚本代码到正常用户会访问到的页面中，当正常用户访问该页面时，则可导致嵌入的恶意脚本代码的执行，从而达到恶意攻击用户的目的。</p><h2 id="跨站"><a href="#跨站" class="headerlink" title="跨站"></a>跨站</h2><p>简单来说，如果有一个网站，希望网站中所有运行的逻辑都来自本站。如果运行了别的网站的脚本，就产生了跨站脚本攻击。</p><a id="more"></a>
+
+<h2 id="XSS攻击原理"><a href="#XSS攻击原理" class="headerlink" title="XSS攻击原理"></a>XSS攻击原理</h2><p>攻击者向有XSS漏洞的网站中输入(传入)恶意的HTML代码，当用户浏览该网站时，这段HTML代码会自动执行，从而达到攻击的目的。如，盗取用户Cookie信息、破坏页面结构、重定向到其它网站等。</p>
+<h2 id="XSS能做什么"><a href="#XSS能做什么" class="headerlink" title="XSS能做什么"></a>XSS能做什么</h2><ul>
+<li>获取页面数据</li>
+<li>获取Cookie信息</li>
+<li>截取前端逻辑</li>
+<li>发送请求</li>
+<li>偷取网站任意数据</li>
+<li>偷取用户资料</li>
+<li>偷取用户密码和登录态</li>
+<li>欺骗用户</li>
+<li>等等…</li>
+</ul>
+<h2 id="XSS攻击类型"><a href="#XSS攻击类型" class="headerlink" title="XSS攻击类型"></a>XSS攻击类型</h2><ul>
+<li>反射型：攻击代码直接由url参数注入，页面直接执行了注入的代码<ul>
+<li>通过将攻击的url转为短网址，可以屏蔽脚本信息，攻击更加隐蔽</li>
+</ul>
+</li>
+<li>存储型：XSS代码会被保存到网站的数据中，如数据库，在其他用户访问到这条记录时，这条攻击代码会被读取出来，显示在页面上。（危害性更大）</li>
+</ul>
+<h2 id="XSS攻击注入点"><a href="#XSS攻击注入点" class="headerlink" title="XSS攻击注入点"></a>XSS攻击注入点</h2><ul>
+<li>HTML节点内容：节点内容是动态生成，包含用户输入的信息</li>
+<li>HTML属性：节点属性如果由用户输入信息组成</li>
+<li>Javascript代码：由用户输入信息组成</li>
+<li>富文本：由用户输入信息组成</li>
+</ul>
+<p>基本上页面内容，由用户输入信息动态生成，都可能存在XSS攻击。</p>
+<h3 id="HTML节点内容"><a href="#HTML节点内容" class="headerlink" title="HTML节点内容"></a>HTML节点内容</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    #&#123;content&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">//XSS攻击</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">       alert(1)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="HTML属性"><a href="#HTML属性" class="headerlink" title="HTML属性"></a>HTML属性</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"#&#123;image&#125;"</span>/&gt;</span></span><br><span class="line">//提前关闭src属性 注入攻击代码：1" onerror="alert(1)</span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"1"</span> <span class="attr">onerror</span>=<span class="string">"alert(1)"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Javascript代码"><a href="#Javascript代码" class="headerlink" title="Javascript代码"></a>Javascript代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> data = <span class="string">"#&#123;data&#125;"</span>;</span><br><span class="line">    <span class="comment">//提前关闭data变量 注入攻击代码：hello"; alert(1);"</span></span><br><span class="line">    <span class="keyword">var</span> data = <span class="string">"hello"</span>; alert(<span class="number">1</span>);<span class="string">""</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="富文本"><a href="#富文本" class="headerlink" title="富文本"></a>富文本</h3><ul>
+<li>富文本得保留HTML</li>
+<li>HTML有XSS攻击风险</li>
+</ul>
+<h2 id="浏览器自带防御"><a href="#浏览器自带防御" class="headerlink" title="浏览器自带防御"></a>浏览器自带防御</h2><ul>
+<li>X-XSS-Protection：通过设置响应头处理XSS攻击</li>
+<li>只能处理反射型攻击类型， url参数出现在HTML节点内容或HTML属性中</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy" target="_blank" rel="noopener">Content-Security-Policy</a>：允许站点管理者控制用户代理能够为指定的页面加载哪些资源。这将帮助防止跨站脚本攻击（Cross-Site Script）</li>
+</ul>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X-XSS-Protection: 0 // 表示关闭浏览器的XSS防护机制</span><br><span class="line">X-XSS-Protection: 1 // 启用XSS过滤（通常浏览器是默认的）。 如果检测到跨站脚本攻击，浏览器将清除页面（删除不安全的部分）</span><br><span class="line">X-XSS-Protection: 1; mode=block // 启用XSS过滤。 如果检测到攻击，浏览器将不会清除页面，而是阻止页面加载。</span><br><span class="line">X-XSS-Protection: 1; report=&lt;reporting-uri&gt; // 启用XSS过滤。 如果检测到跨站脚本攻击，浏览器将清除页面并使用CSP report-uri指令的功能发送违规报告。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认会拦截XSS攻击</span></span><br><span class="line">The XSS Auditor refused to execute a script <span class="keyword">in</span> <span class="string">'http://localhost/?from=%3Cscript%3Ealert(1)%3C/script%3E'</span> because its source code was found within the request. The auditor was enabled <span class="keyword">as</span> the server did not send an <span class="string">'X-XSS-Protection'</span> header.</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTML节点内容防御方法"><a href="#HTML节点内容防御方法" class="headerlink" title="HTML节点内容防御方法"></a>HTML节点内容防御方法</h2><p>将 &lt; &gt; 尖括号进行转义，替换成<a href="https://www.w3school.com.cn/html/html_entities.asp" target="_blank" rel="noopener">html字符实体</a>。</p>
+<ul>
+<li>将&lt; 转义为 &amp;lt;</li>
+<li>将 &gt; 转义为&amp;gt;</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    #&#123;content&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">//XSS攻击</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">       alert(1)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> escapeHtml = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!str) <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">    str = str.replace(<span class="regexp">/&lt;/g</span>, <span class="string">'&amp;lt;'</span>);<span class="comment">//处理 &lt;</span></span><br><span class="line">    str = str.replace(<span class="regexp">/&gt;/g</span>, <span class="string">'&amp;gt;'</span>);<span class="comment">//处理 &gt;</span></span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTML属性防御方法"><a href="#HTML属性防御方法" class="headerlink" title="HTML属性防御方法"></a>HTML属性防御方法</h2><p>由于引号，将属性提前关闭了，所以需要进行转义。</p>
+<ul>
+<li>将” 转义为&amp;quto;。</li>
+<li>将’ 转义为&amp;#39;。</li>
+<li>将  转义为&amp;nbsp;：属性没有引号情况下，转义空格。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"#&#123;image&#125;"</span>/&gt;</span></span><br><span class="line">//提前关闭src属性 注入攻击代码：1" onerror="alert(1)</span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"1"</span> <span class="attr">onerror</span>=<span class="string">"alert(1)"</span>/&gt;</span></span><br><span class="line">//属性没有引号</span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">1</span> <span class="attr">onerror</span>=<span class="string">alert(1)</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> escapeHtmlProperty = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!str) <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">    str = str.replace(<span class="regexp">/"/g</span>, <span class="string">'&amp;quto;'</span>);<span class="comment">//处理 "</span></span><br><span class="line">    str = str.replace(<span class="regexp">/'/g</span>, <span class="string">'&amp;#39;'</span>);<span class="comment">//处理 '</span></span><br><span class="line">    str = str.replace(<span class="regexp">/ /g</span>, <span class="string">'&amp;nbsp;'</span>);<span class="comment">//处理空格</span></span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTML节点内容，HTML属性防御方法"><a href="#HTML节点内容，HTML属性防御方法" class="headerlink" title="HTML节点内容，HTML属性防御方法"></a>HTML节点内容，HTML属性防御方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> escapeHtmlAndProperty = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!str) <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">    str = str.replace(<span class="regexp">/&amp;/g</span>, <span class="string">'&amp;amp;'</span>);<span class="comment">//处理 &amp; 需要放在最前面 一般不需要处理</span></span><br><span class="line">    str = str.replace(<span class="regexp">/&lt;/g</span>, <span class="string">'&amp;lt;'</span>);<span class="comment">//处理 &lt;</span></span><br><span class="line">    str = str.replace(<span class="regexp">/&gt;/g</span>, <span class="string">'&amp;gt;'</span>);<span class="comment">//处理 &gt;</span></span><br><span class="line">    str = str.replace(<span class="regexp">/"/g</span>, <span class="string">'&amp;quto;'</span>);<span class="comment">//处理 "</span></span><br><span class="line">    str = str.replace(<span class="regexp">/'/g</span>, <span class="string">'&amp;#39;'</span>);<span class="comment">//处理 '</span></span><br><span class="line">    <span class="comment">//处理空格 由于html内容中，多个连续的空格，在渲染时只会产生一个空格，将空格全部转为&amp;nbsp;（html实体）可能显示存在问题，一般情况下，空格不进行转义。基于这种情况，必须确保属性带上引号，否则不能处理属性没有引号情况下的XSS攻击</span></span><br><span class="line">    <span class="comment">// str = str.replace(/ /g, '&amp;nbsp;');</span></span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Javascript代码防御方法"><a href="#Javascript代码防御方法" class="headerlink" title="Javascript代码防御方法"></a>Javascript代码防御方法</h2><ul>
+<li>将 “ 转义为 \“</li>
+<li>转换成josn（推荐）</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> data = <span class="string">"#&#123;data&#125;"</span>;</span><br><span class="line">    <span class="comment">//提前关闭data变量 注入攻击代码：hello"; alert(1);"</span></span><br><span class="line">    <span class="keyword">var</span> data = <span class="string">"hello"</span>; alert(<span class="number">1</span>);<span class="string">""</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不完善的方法</span></span><br><span class="line"><span class="keyword">var</span> escapeForJs = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!str) <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">    str = str.replace(<span class="regexp">/\\/g</span>, <span class="string">'\\\\'</span>);<span class="comment">//将\ 转义为\\</span></span><br><span class="line">    str = str.replace(<span class="regexp">/"/g</span>, <span class="string">'\\"'</span>);<span class="comment">//将" 转义为\"</span></span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//转换成josn</span></span><br><span class="line"><span class="keyword">var</span> escapeForJsJson = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!str) <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">JSON</span>.stringify(str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="富文本防御方法"><a href="#富文本防御方法" class="headerlink" title="富文本防御方法"></a>富文本防御方法</h2><ul>
+<li>使用黑名单过滤，过滤不符合要求的标签和属性。实现相对简单，只需要按照正则表达式过滤。但是html是非常庞大，繁杂的，有太多的标签和属性，容易忽略，产生漏洞</li>
+<li>使用白名单，保留部分标签和属性。过滤比较彻底，只允许指定的标签，属性存在。但是实现比较麻烦，需要将html完全解析成树状结构，针对这个dom树，遍历它的元素，保留白名单中的标签和属性，其他的过滤掉。过滤完之后，再组装成html。</li>
+</ul>
+<h3 id="使用黑名单过滤"><a href="#使用黑名单过滤" class="headerlink" title="使用黑名单过滤"></a>使用黑名单过滤</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//需要过滤javascript</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:alert(1)"</span>&gt;</span>点击<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//需要过滤script</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    alert(2);sssss;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过黑名单过滤</span></span><br><span class="line"><span class="keyword">var</span> xssFilter = <span class="function"><span class="keyword">function</span> (<span class="params">html</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!html) <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">    html = html.replace(<span class="regexp">/&lt;\s*\/?script\s*&gt;/g</span>, <span class="string">''</span>);<span class="comment">//将script转义为空</span></span><br><span class="line">    html = html.replace(<span class="regexp">/javascript[^'"]*/g</span>, <span class="string">''</span>);<span class="comment">//将javascript转义为空</span></span><br><span class="line">    <span class="keyword">return</span> html</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用白名单过滤"><a href="#使用白名单过滤" class="headerlink" title="使用白名单过滤"></a>使用白名单过滤</h3><ul>
+<li>使用<a href="https://github.com/cheeriojs/cheerio" target="_blank" rel="noopener">cheerio</a>处理XSS攻击<ul>
+<li>解析html，对标签，属性进行过滤，最终返回html，需要自己维护，完善白名单列表</li>
+</ul>
+</li>
+<li>使用<a href="https://github.com/leizongmin/js-xss" target="_blank" rel="noopener">js-xss</a>处理XSS攻击</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用白名单处理富文本</span></span><br><span class="line"><span class="keyword">const</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>)</span><br><span class="line"><span class="keyword">var</span> xssFilter3 = <span class="function"><span class="keyword">function</span> (<span class="params">html</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!html) <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">	<span class="keyword">const</span> $ = cheerio.load(html)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//定义白名单 需要进行维护，完善该名单</span></span><br><span class="line">	<span class="keyword">const</span> whiteList = &#123;</span><br><span class="line">		<span class="string">'img'</span>: [<span class="string">'src'</span>],<span class="comment">//标签名：属性列表</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//过滤标签属性</span></span><br><span class="line">	$(<span class="string">'*'</span>).each(<span class="function">(<span class="params">index, elem</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="comment">//标签不存在白名单中 直接移除</span></span><br><span class="line">		<span class="keyword">if</span> (!whiteList[elem.name]) &#123;</span><br><span class="line">			$(elem).remove();</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// //标签在白名单中 处理属性</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">let</span> attr <span class="keyword">in</span> elem.attribs)&#123;</span><br><span class="line">			<span class="keyword">if</span>(whiteList[elem.name].indexOf(attr)===<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="comment">//移除属性</span></span><br><span class="line">				$(elem).attr(attr,<span class="literal">null</span>)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">//返回过滤后的标签属性</span></span><br><span class="line">	<span class="keyword">return</span> $.html()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="防御-XSS-攻击"><a href="#防御-XSS-攻击" class="headerlink" title="防御 XSS 攻击"></a>防御 XSS 攻击</h2><ul>
+<li>HttpOnly 防止劫取 Cookie</li>
+<li>用户的输入检查</li>
+<li>服务端的输出检查</li>
+<li>使用<a href="https://github.com/leizongmin/js-xss" target="_blank" rel="noopener">js-xss</a>处理XSS攻击</li>
+</ul>
+<h2 id="CSP"><a href="#CSP" class="headerlink" title="CSP"></a>CSP</h2><p>HTTP 响应头<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy" target="_blank" rel="noopener">Content-Security-Policy（内容安全策略）</a>允许站点管理者控制用户代理能够为指定的页面加载哪些资源，可以指定哪些内容可以执行。这将帮助防止跨站脚本攻击（Cross-Site Script）（XSS）。</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP" target="_blank" rel="noopener">内容安全策略CSP)</a> 是一个额外的安全层，用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。无论是数据盗取、网站内容污染还是散发恶意软件，这些攻击都是主要的手段。</p>
+<h3 id="启用CSP"><a href="#启用CSP" class="headerlink" title="启用CSP"></a>启用CSP</h3><ul>
+<li>服务器响应头添加 Content-Security-Policy 来指定规则</li>
+<li>HTML 中 &lt;meta&gt; 元素也可以被用来配置该策略</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Security-Policy"</span> <span class="attr">content</span>=<span class="string">"default-src 'self'; img-src https://*; child-src 'none';"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="制定策略"><a href="#制定策略" class="headerlink" title="制定策略"></a>制定策略</h3><p>你可以使用  Content-Security-Policy HTTP头部 来指定你的策略，像这样:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// policy参数是一个包含了各种描述你的CSP策略指令的字符串。</span><br><span class="line">Content-Security-Policy: policy</span><br></pre></td></tr></table></figure>
+
+<h3 id="更多策略指令"><a href="#更多策略指令" class="headerlink" title="更多策略指令"></a>更多策略指令</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy" target="_blank" rel="noopener">更多策略指令</a></p>
+<h3 id="描述策略"><a href="#描述策略" class="headerlink" title="描述策略"></a>描述策略</h3><p>一个策略由一系列策略指令所组成，每个策略指令都描述了一个针对某个特定类型资源以及生效范围的策略。你的策略应当包含一个<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy/default-src" target="_blank" rel="noopener">default-src</a>策略指令，在其他资源类型没有符合自己的策略时应用该策略。一个策略可以包含 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy/default-src" target="_blank" rel="noopener">default-src</a>  或者 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy/script-src" target="_blank" rel="noopener">script-src</a> 指令来防止内联脚本运行, 并杜绝eval()的使用。 一个策略也可包含一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy/default-src" target="_blank" rel="noopener">default-src</a> 或  <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy/style-src" target="_blank" rel="noopener">style-src</a> 指令去限制来自一个 &lt;style&gt; 元素或者style属性的內联样式。</p>
+<h3 id="常见用例"><a href="#常见用例" class="headerlink" title="常见用例"></a>常见用例</h3><ul>
+<li><p>示例 1：一个网站管理者想要所有内容均来自站点的同一个源 (不包括其子域名)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &apos;self&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>示例 2：一个网站管理者允许内容来自信任的域名及其子域名 (域名不必与CSP设置所在的域名相同)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &apos;self&apos; *.trusted.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>示例 3：</p>
+<ul>
+<li><p>一个网站管理者允许网页应用的用户在他们自己的内容中包含来自任何源的图片, 但是限制音频或视频需从信任的资源提供者(获得)，所有脚本必须从特定主机服务器获取可信的代码.</p>
+</li>
+<li><p>在这里，各种内容默认仅允许从文档所在的源获取, 但存在如下例外:</p>
+<ul>
+<li>图片可以从任何地方加载(注意 “*” 通配符)。</li>
+<li>多媒体文件仅允许从 media1.com 和 media2.com 加载(不允许从这些站点的子域名)。</li>
+<li>可运行脚本仅允许来自于userscripts.example.com。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &apos;self&apos;; img-src *; media-src media1.com media2.com; script-src userscripts.example.com</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>示例 4：</p>
+<ul>
+<li>一个线上银行网站的管理者想要确保网站的所有内容都要通过SSL方式获取，以避免攻击者窃听用户发出的请求。</li>
+<li>该服务器仅允许通过HTTPS方式并仅从onlinebanking.jumbobank.com域名来访问文档。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src https://onlinebanking.jumbobank.com</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>示例 5：</p>
+<ul>
+<li>一个在线邮箱的管理者想要允许在邮件里包含HTML，同样图片允许从任何地方加载，但不允许JavaScript或者其他潜在的危险内容(从任意位置加载)。</li>
+<li>注意这个示例并未指定script-src。在此CSP示例中，站点通过 default-src 指令的对其进行配置，这也同样意味着脚本文件仅允许从原始服务器获取。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &apos;self&apos; *.mailsite.com; img-src *</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="更多案例说明"><a href="#更多案例说明" class="headerlink" title="更多案例说明"></a>更多案例说明</h3><p><a href="https://infosec.mozilla.org/guidelines/web_security#Examples_5" target="_blank" rel="noopener">更多案例说明</a></p>
+<h3 id="对策略进行测试"><a href="#对策略进行测试" class="headerlink" title="对策略进行测试"></a>对策略进行测试</h3><p>为降低部署成本，CSP可以部署为报告(report-only)模式。在此模式下，CSP策略不是强制性的，但是任何违规行为将会报告给一个指定的URI地址。此外，一个报告模式的头部可以用来测试一个修订后的未来将应用的策略而不用实际部署它。</p>
+<p>你可以用<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only" target="_blank" rel="noopener">Content-Security-Policy-Report-Only</a> HTTP 头部来指定你的策略，像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy-Report-Only: policy</span><br></pre></td></tr></table></figure>
+
+<p>如果Content-Security-Policy-Report-Only 头部和 Content-Security-Policy 同时出现在一个响应中，两个策略均有效。在Content-Security-Policy 头部中指定的策略有强制性 ，而Content-Security-Policy-Report-Only中的策略仅产生报告而不具有强制性。</p>
+<p>支持CSP的浏览器将始终对于每个企图违反你所建立的策略都发送违规报告，如果策略里包含一个有效的report-uri 指令。</p>
+<h3 id="启用违例报告"><a href="#启用违例报告" class="headerlink" title="启用违例报告"></a>启用违例报告</h3><p>默认情况下，违规报告并不会发送。为启用发送违规报告，你需要指定 report-uri 策略指令，并提供至少一个URI地址去递交报告：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &apos;self&apos;; report-uri http://reportcollector.example.com/collector.cgi</span><br></pre></td></tr></table></figure>
+
+<p>然后你需要设置你的服务器能够接收报告，使其能够以你认为恰当的方式存储并处理这些报告。</p>
+<h3 id="违例报告的语法"><a href="#违例报告的语法" class="headerlink" title="违例报告的语法"></a>违例报告的语法</h3><p>作为报告的JSON对象报告包含了以下数据：</p>
+<ul>
+<li>document-uri：发生违规的文档的URI。</li>
+<li>referrer：违规发生处的文档引用（地址）。</li>
+<li>blocked-uri：被CSP阻止的资源URI。如果被阻止的URI来自不同的源而非文档URI，那么被阻止的资源URI会被删减，仅保留协议，主机和端口号。</li>
+<li>violated-directive：违反的策略名称。</li>
+<li>original-policy：在 Content-Security-Policy HTTP 头部中指明的原始策略。</li>
+</ul>
+<h3 id="违例报告样本"><a href="#违例报告样本" class="headerlink" title="违例报告样本"></a>违例报告样本</h3><p>我们假设页面位于 <strong><a href="http://example.com/signup.html" target="_blank" rel="noopener">http://example.com/signup.html</a></strong>。它使用如下策略，该策略禁止任何资源的加载，除了来自cdn.example.com的样式表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &apos;none&apos;; style-src cdn.example.com; report-uri /_/csp-reports</span><br></pre></td></tr></table></figure>
+
+<p>signup.html 的HTML像这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Sign Up<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"css/style.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    ... Content ...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>你能看出其中错误吗？样式表仅允许加载自cdn.example.com，然而该页面企图从自己的源 <strong>(<a href="http://example.com" target="_blank" rel="noopener">http://example.com</a>)</strong> 加载。当该文档被访问时，一个兼容CSP的浏览器将以POST请求的形式发送违规报告到 <strong><a href="http://example.com/_/csp-reports" target="_blank" rel="noopener">http://example.com/_/csp-reports</a></strong>，内容如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"csp-report"</span>: &#123;</span><br><span class="line">    <span class="attr">"document-uri"</span>: <span class="string">"http://example.com/signup.html"</span>,</span><br><span class="line">    <span class="attr">"referrer"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="attr">"blocked-uri"</span>: <span class="string">"http://example.com/css/style.css"</span>,</span><br><span class="line">    <span class="attr">"violated-directive"</span>: <span class="string">"style-src cdn.example.com"</span>,</span><br><span class="line">    <span class="attr">"original-policy"</span>: <span class="string">"default-src 'none'; style-src cdn.example.com; report-uri /_/csp-reports"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如你所见，该报告在blocked-uri字段中包含了违规资源的完整路径 ，但情况并非总是如此。比如，当signup.html试图从   <strong><a href="http://anothercdn.example.com/stylesheet.css" target="_blank" rel="noopener">http://anothercdn.example.com/stylesheet.css</a></strong> 加载CSS时，浏览器将不会包含完整路径，而只会保留源路径 <strong>(<a href="http://anothercdn.example.com" target="_blank" rel="noopener">http://anothercdn.example.com</a>)</strong>。CSP技术规范对此古怪行为<a href="https://www.w3.org/TR/CSP/#violation-reports" target="_blank" rel="noopener">给出了解释</a>。大体上说，这样是为了防止泄露跨域资源的敏感信息。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP" target="_blank" rel="noopener">内容安全策略</a></li>
+<li><a href="https://coding.imooc.com/class/104.html" target="_blank" rel="noopener">Web前后端漏洞分析与防御</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy" target="_blank" rel="noopener">Content-Security-Policy</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:16px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
+            
+              <a href="/tags/Web安全/" rel="tag"><i class="fa fa-tag"></i> Web安全</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019-10-18/前端性能优化/前端性能优化-重绘与回流/" rel="next" title="前端性能优化-重绘与回流">
+                  <i class="fa fa-chevron-left"></i> 前端性能优化-重绘与回流
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#跨站脚本攻击XSS"><span class="nav-number">1.</span> <span class="nav-text">跨站脚本攻击XSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨站"><span class="nav-number">2.</span> <span class="nav-text">跨站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS攻击原理"><span class="nav-number">3.</span> <span class="nav-text">XSS攻击原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS能做什么"><span class="nav-number">4.</span> <span class="nav-text">XSS能做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS攻击类型"><span class="nav-number">5.</span> <span class="nav-text">XSS攻击类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS攻击注入点"><span class="nav-number">6.</span> <span class="nav-text">XSS攻击注入点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML节点内容"><span class="nav-number">6.1.</span> <span class="nav-text">HTML节点内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML属性"><span class="nav-number">6.2.</span> <span class="nav-text">HTML属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Javascript代码"><span class="nav-number">6.3.</span> <span class="nav-text">Javascript代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#富文本"><span class="nav-number">6.4.</span> <span class="nav-text">富文本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器自带防御"><span class="nav-number">7.</span> <span class="nav-text">浏览器自带防御</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">7.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML节点内容防御方法"><span class="nav-number">8.</span> <span class="nav-text">HTML节点内容防御方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML属性防御方法"><span class="nav-number">9.</span> <span class="nav-text">HTML属性防御方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML节点内容，HTML属性防御方法"><span class="nav-number">10.</span> <span class="nav-text">HTML节点内容，HTML属性防御方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Javascript代码防御方法"><span class="nav-number">11.</span> <span class="nav-text">Javascript代码防御方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#富文本防御方法"><span class="nav-number">12.</span> <span class="nav-text">富文本防御方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用黑名单过滤"><span class="nav-number">12.1.</span> <span class="nav-text">使用黑名单过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用白名单过滤"><span class="nav-number">12.2.</span> <span class="nav-text">使用白名单过滤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防御-XSS-攻击"><span class="nav-number">13.</span> <span class="nav-text">防御 XSS 攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSP"><span class="nav-number">14.</span> <span class="nav-text">CSP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启用CSP"><span class="nav-number">14.1.</span> <span class="nav-text">启用CSP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#制定策略"><span class="nav-number">14.2.</span> <span class="nav-text">制定策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更多策略指令"><span class="nav-number">14.3.</span> <span class="nav-text">更多策略指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述策略"><span class="nav-number">14.4.</span> <span class="nav-text">描述策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见用例"><span class="nav-number">14.5.</span> <span class="nav-text">常见用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更多案例说明"><span class="nav-number">14.6.</span> <span class="nav-text">更多案例说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对策略进行测试"><span class="nav-number">14.7.</span> <span class="nav-text">对策略进行测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启用违例报告"><span class="nav-number">14.8.</span> <span class="nav-text">启用违例报告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#违例报告的语法"><span class="nav-number">14.9.</span> <span class="nav-text">违例报告的语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#违例报告样本"><span class="nav-number">14.10.</span> <span class="nav-text">违例报告样本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">15.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="jkfhto">
+  <p class="site-author-name" itemprop="name">jkfhto</p>
+  <div class="site-description" itemprop="description">ARE YOU READY TO DIE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/jkfhto" title="GitHub &rarr; https://github.com/jkfhto" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jkfhto</span>
+</div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.1
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'alQVMWPnOOe4lPVXKRWqDTsQ-gzGzoHsz',
+    appKey: 'RleUsHgziBnyz6c72sCfUduo',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
