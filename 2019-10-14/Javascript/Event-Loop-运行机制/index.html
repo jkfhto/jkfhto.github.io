@@ -63,13 +63,14 @@
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="Event LoopEvent Loop即事件循环，是指浏览器或Node的一种解决javaScript单线程运行时不会阻塞的一种机制，也就是我们经常使用异步的原理。进程和线程基本概念拿出在教科书里的概念： 1、调度：线程作为调度和分配的基本单位，进程作为拥有资源的基本单位； 2、并发性：不仅进程之间可以并发执行，同一个进程的多个线程之间也可并发执行； 3、拥有资源：进程是拥有资源的一个独立单位，线">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://jkfhto.github.io/images/EventLoop3.jpg">
 <meta property="og:image" content="https://jkfhto.github.io/images/EventLoop.jpg">
 <meta property="og:image" content="https://jkfhto.github.io/images/EventLoop2.jpg">
-<meta property="og:updated_time" content="2019-10-19T04:22:16.714Z">
+<meta property="og:updated_time" content="2019-10-19T04:37:26.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Event Loop 运行机制">
 <meta name="twitter:description" content="Event LoopEvent Loop即事件循环，是指浏览器或Node的一种解决javaScript单线程运行时不会阻塞的一种机制，也就是我们经常使用异步的原理。进程和线程基本概念拿出在教科书里的概念： 1、调度：线程作为调度和分配的基本单位，进程作为拥有资源的基本单位； 2、并发性：不仅进程之间可以并发执行，同一个进程的多个线程之间也可并发执行； 3、拥有资源：进程是拥有资源的一个独立单位，线">
-<meta name="twitter:image" content="https://jkfhto.github.io/images/EventLoop.jpg">
+<meta name="twitter:image" content="https://jkfhto.github.io/images/EventLoop3.jpg">
   <link rel="canonical" href="https://jkfhto.github.io/2019-10-14/Javascript/Event-Loop-运行机制/">
 
 
@@ -300,7 +301,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-19 12:22:16" itemprop="dateModified" datetime="2019-10-19T12:22:16+08:00">2019-10-19</time>
+                <time title="修改时间：2019-10-19 12:37:26" itemprop="dateModified" datetime="2019-10-19T12:37:26+08:00">2019-10-19</time>
               </span>
             
           
@@ -353,6 +354,35 @@
 <p>处理机分给线程，即真正在处理机上运行的是线程；</p>
 <p>线程在执行过程中，需要协作同步。不同进程的线程间要利用消息通信的办法实现同步。线程是指进程内的一个执行单元,也是进程内的可调度实体。</p>
 <p>基本总结，一个进程可以有多个线程，线程之间可以相互通信。</p>
+<p>进程是 CPU资源分配的最小单位；线程是 CPU调度的最小单位。</p>
+<h3 id="图示解析"><a href="#图示解析" class="headerlink" title="图示解析"></a>图示解析</h3><p><img src="/images/EventLoop3.jpg" alt="进程和线程"></p>
+<ul>
+<li>进程好比图中的工厂，有单独的专属自己的工厂资源。</li>
+<li>线程好比图中的工人，多个工人在一个工厂中协作工作，工厂与工人是 1:n的关系。也就是说一个进程由一个或多个线程组成，线程是一个进程中代码的不同执行路线；</li>
+<li>工厂的空间是工人们共享的，这象征一个进程的内存空间是共享的，每个线程都可用这些共享内存。</li>
+<li>多个工厂之间独立存在。</li>
+</ul>
+<h3 id="多进程与多线程"><a href="#多进程与多线程" class="headerlink" title="多进程与多线程"></a>多进程与多线程</h3><ul>
+<li>多进程：在同一个时间里，同一个计算机系统中如果允许两个或两个以上的进程处于运行状态。多进程带来的好处是明显的，比如你可以听歌的同时，打开编辑器敲代码，编辑器和听歌软件的进程之间丝毫不会相互干扰。</li>
+<li>多线程：程序中包含多个执行流，即在一个程序中可以同时运行多个不同的线程来执行不同的任务，也就是说允许单个程序创建多个并行执行的线程来完成各自的任务。</li>
+</ul>
+<p>以Chrome浏览器中为例，当你打开一个 Tab 页时，其实就是创建了一个进程，一个进程中可以有多个线程，比如渲染线程、JS 引擎线程、HTTP 请求线程等等。当你发起一个请求时，其实就是创建了一个线程，当请求结束后，该线程可能就会被销毁。</p>
+<h2 id="浏览器内核"><a href="#浏览器内核" class="headerlink" title="浏览器内核"></a>浏览器内核</h2><p>简单来说浏览器内核是通过取得页面内容、整理信息（应用CSS）、计算和组合最终输出可视化的图像结果，通常也被称为渲染引擎。</p>
+<p>浏览器内核是多线程，在内核控制下各线程相互配合以保持同步，一个浏览器通常由以下常驻线程组成：</p>
+<ul>
+<li>GUI 渲染线程</li>
+<li>JavaScript引擎线程</li>
+<li>定时触发器线程</li>
+<li>事件触发线程</li>
+<li>异步http请求线程</li>
+</ul>
+<h3 id="1-GUI渲染线程"><a href="#1-GUI渲染线程" class="headerlink" title="1.GUI渲染线程"></a>1.GUI渲染线程</h3><p>主要负责页面的渲染，解析HTML、CSS，构建DOM树，布局和绘制等。<br>当界面需要重绘或者由于某种操作引发回流时，将执行该线程。<br>该线程与JS引擎线程互斥，当执行JS引擎线程时，GUI渲染会被挂起，当任务队列空闲时，主线程才会去执行GUI渲染。</p>
+<h3 id="2-JS引擎线程"><a href="#2-JS引擎线程" class="headerlink" title="2.JS引擎线程"></a>2.JS引擎线程</h3><p>该线程当然是主要负责处理 JavaScript脚本，执行代码。<br>也是主要负责执行准备好待执行的事件，即定时器计数结束，或者异步请求成功并正确返回时，将依次进入任务队列，等待 JS引擎线程的执行。<br>当然，该线程与 GUI渲染线程互斥，当 JS引擎线程执行 JavaScript脚本时间过长，将导致页面渲染的阻塞。</p>
+<h3 id="3-定时器触发线程"><a href="#3-定时器触发线程" class="headerlink" title="3.定时器触发线程"></a>3.定时器触发线程</h3><p>负责执行异步定时器一类的函数的线程，如： setTimeout，setInterval。<br>主线程依次执行代码时，遇到定时器，会将定时器交给该线程处理，当计数完毕后，事件触发线程会将计数完毕后的事件加入到任务队列的尾部，等待JS引擎线程执行。</p>
+<h3 id="4-事件触发线程"><a href="#4-事件触发线程" class="headerlink" title="4.事件触发线程"></a>4.事件触发线程</h3><p>主要负责将准备好的事件交给 JS引擎线程执行。</p>
+<p>比如 setTimeout定时器计数结束， ajax等异步请求成功并触发回调函数，或者用户触发点击事件时，该线程会将整装待发的事件依次加入到任务队列的队尾，等待 JS引擎线程的执行。</p>
+<h3 id="5-异步http请求线程"><a href="#5-异步http请求线程" class="headerlink" title="5.异步http请求线程"></a>5.异步http请求线程</h3><p>负责执行异步请求一类的函数的线程，如： Promise，axios，ajax等。</p>
+<p>主线程依次执行代码时，遇到异步请求，会将函数交给该线程处理，当监听到状态码变更，如果有回调函数，事件触发线程会将回调函数加入到任务队列的尾部，等待JS引擎线程执行。</p>
 <h2 id="为什么JavaScript是单线程？"><a href="#为什么JavaScript是单线程？" class="headerlink" title="为什么JavaScript是单线程？"></a>为什么JavaScript是单线程？</h2><p>JS 执行是单线程的，意味着 JS 在执行代码的时候一次只能处理一个任务，必须按队列顺序逐个执行。JS 的主要功效是处理前端交互，其中就包括操作 DOM 节点。试想若 JS 是多线程，在处理网页交互时，一个线程需要删除 DOM 节点，另一个线程却是要操作同一个 DOM 节点，这样该如何判断先执行哪个线程？但若队列中存在多个任务，上一个任务的执行会阻塞下一个任务，导致代码执行效率低下。就像 AJAX 请求线程，发出请求后需要等待响应结果，期间 CPU 却是空闲的。对此，JS的事件循环机制（Event Loop）很好地解决了问题。</p>
 <p>为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这里所谓的单线程指的是主线程是单线程的,所以在Node中主线程依旧是单线程的。</span><br></pre></td></tr></table></figure>
@@ -471,6 +501,7 @@
 <li><a href="http://www.zhufengpeixun.cn/main/course/index.html" target="_blank" rel="noopener">珠峰前端架构师</a></li>
 <li><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a></li>
 <li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener">The Node.js Event Loop, Timers, and process.nextTick()</a></li>
+<li><a href="https://juejin.im/post/5c337ae06fb9a049bc4cd218" target="_blank" rel="noopener">浏览器与Node的事件循环(Event Loop)有何区别?</a></li>
 </ul>
 
     </div>
@@ -564,7 +595,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-Loop"><span class="nav-number">1.</span> <span class="nav-text">Event Loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程和线程基本概念"><span class="nav-number">2.</span> <span class="nav-text">进程和线程基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么JavaScript是单线程？"><span class="nav-number">3.</span> <span class="nav-text">为什么JavaScript是单线程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务"><span class="nav-number">4.</span> <span class="nav-text">任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器-Event-Loop-过程解析"><span class="nav-number">5.</span> <span class="nav-text">浏览器 Event Loop 过程解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#举个例子"><span class="nav-number">5.1.</span> <span class="nav-text">举个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更复杂的例子"><span class="nav-number">5.2.</span> <span class="nav-text">更复杂的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NodeJS-Event-Loop-过程解析"><span class="nav-number">6.</span> <span class="nav-text">NodeJS Event Loop 过程解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js的运行机制如下"><span class="nav-number">6.1.</span> <span class="nav-text">Node.js的运行机制如下:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timers"><span class="nav-number">6.2.</span> <span class="nav-text">timers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pending-callbacks"><span class="nav-number">6.3.</span> <span class="nav-text">pending callbacks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poll"><span class="nav-number">6.4.</span> <span class="nav-text">poll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#check"><span class="nav-number">6.5.</span> <span class="nav-text">check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#close-callbacks"><span class="nav-number">6.6.</span> <span class="nav-text">close callbacks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setImmediate-的setTimeout-的区别"><span class="nav-number">6.7.</span> <span class="nav-text">setImmediate() 的setTimeout()的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Process-nextTick"><span class="nav-number">6.8.</span> <span class="nav-text">Process.nextTick()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个完整的-NodeJS-Event-Loop-过程"><span class="nav-number">6.9.</span> <span class="nav-text">一个完整的 NodeJS Event Loop 过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-Loop"><span class="nav-number">1.</span> <span class="nav-text">Event Loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程和线程基本概念"><span class="nav-number">2.</span> <span class="nav-text">进程和线程基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图示解析"><span class="nav-number">2.1.</span> <span class="nav-text">图示解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多进程与多线程"><span class="nav-number">2.2.</span> <span class="nav-text">多进程与多线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器内核"><span class="nav-number">3.</span> <span class="nav-text">浏览器内核</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-GUI渲染线程"><span class="nav-number">3.1.</span> <span class="nav-text">1.GUI渲染线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-JS引擎线程"><span class="nav-number">3.2.</span> <span class="nav-text">2.JS引擎线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-定时器触发线程"><span class="nav-number">3.3.</span> <span class="nav-text">3.定时器触发线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-事件触发线程"><span class="nav-number">3.4.</span> <span class="nav-text">4.事件触发线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-异步http请求线程"><span class="nav-number">3.5.</span> <span class="nav-text">5.异步http请求线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么JavaScript是单线程？"><span class="nav-number">4.</span> <span class="nav-text">为什么JavaScript是单线程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务"><span class="nav-number">5.</span> <span class="nav-text">任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器-Event-Loop-过程解析"><span class="nav-number">6.</span> <span class="nav-text">浏览器 Event Loop 过程解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#举个例子"><span class="nav-number">6.1.</span> <span class="nav-text">举个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更复杂的例子"><span class="nav-number">6.2.</span> <span class="nav-text">更复杂的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NodeJS-Event-Loop-过程解析"><span class="nav-number">7.</span> <span class="nav-text">NodeJS Event Loop 过程解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js的运行机制如下"><span class="nav-number">7.1.</span> <span class="nav-text">Node.js的运行机制如下:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timers"><span class="nav-number">7.2.</span> <span class="nav-text">timers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pending-callbacks"><span class="nav-number">7.3.</span> <span class="nav-text">pending callbacks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poll"><span class="nav-number">7.4.</span> <span class="nav-text">poll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#check"><span class="nav-number">7.5.</span> <span class="nav-text">check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#close-callbacks"><span class="nav-number">7.6.</span> <span class="nav-text">close callbacks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setImmediate-的setTimeout-的区别"><span class="nav-number">7.7.</span> <span class="nav-text">setImmediate() 的setTimeout()的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Process-nextTick"><span class="nav-number">7.8.</span> <span class="nav-text">Process.nextTick()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个完整的-NodeJS-Event-Loop-过程"><span class="nav-number">7.9.</span> <span class="nav-text">一个完整的 NodeJS Event Loop 过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
