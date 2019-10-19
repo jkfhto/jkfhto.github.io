@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="粗略地讲，函数的调用方式决定了this的值，谁调用的函数，this就指向谁。this取值符合以下规则：1.如果函数作为构造函数用，那么其中的this就代表它即将new出来的对象。2.如果appl、call或bind方法用于调用、创建一个函数，this的值就取传入的对象的值。3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象。比如当obj.method()被">
-<meta name="keywords" content="Javascript">
+  <meta name="description" content="CookieCookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）。（可以叫做浏览器缓存）Cookie特性 前端（浏览器）数据存储 后端通过http响应头进行设置 前端请求时，会自动添加cookie，通过http请求头传给后端 前端可读写 遵守同源策略">
+<meta name="keywords" content="Javascript,Web安全">
 <meta property="og:type" content="article">
-<meta property="og:title" content="简述JavaScript中的this">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-12/Javascript/简述JavaScript中的this/index.html">
+<meta property="og:title" content="前端Cookie安全性">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-19/Web前后端漏洞分析与防御/前端Cookie安全性/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="粗略地讲，函数的调用方式决定了this的值，谁调用的函数，this就指向谁。this取值符合以下规则：1.如果函数作为构造函数用，那么其中的this就代表它即将new出来的对象。2.如果appl、call或bind方法用于调用、创建一个函数，this的值就取传入的对象的值。3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象。比如当obj.method()被">
+<meta property="og:description" content="CookieCookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）。（可以叫做浏览器缓存）Cookie特性 前端（浏览器）数据存储 后端通过http响应头进行设置 前端请求时，会自动添加cookie，通过http请求头传给后端 前端可读写 遵守同源策略">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-16T10:22:39.068Z">
+<meta property="og:updated_time" content="2019-10-19T14:14:27.304Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="简述JavaScript中的this">
-<meta name="twitter:description" content="粗略地讲，函数的调用方式决定了this的值，谁调用的函数，this就指向谁。this取值符合以下规则：1.如果函数作为构造函数用，那么其中的this就代表它即将new出来的对象。2.如果appl、call或bind方法用于调用、创建一个函数，this的值就取传入的对象的值。3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象。比如当obj.method()被">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-12/Javascript/简述JavaScript中的this/">
+<meta name="twitter:title" content="前端Cookie安全性">
+<meta name="twitter:description" content="CookieCookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）。（可以叫做浏览器缓存）Cookie特性 前端（浏览器）数据存储 后端通过http响应头进行设置 前端请求时，会自动添加cookie，通过http请求头传给后端 前端可读写 遵守同源策略">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-19/Web前后端漏洞分析与防御/前端Cookie安全性/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>简述JavaScript中的this | 个人博客</title>
+  <title>前端Cookie安全性 | 个人博客</title>
   
 
 
@@ -255,7 +255,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/简述JavaScript中的this/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-19/Web前后端漏洞分析与防御/前端Cookie安全性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +269,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            简述JavaScript中的this
+            前端Cookie安全性
             
 
           
@@ -286,20 +286,40 @@
                 
               
 
-              <time title="创建时间：2019-10-12 15:43:07" itemprop="dateCreated datePublished" datetime="2019-10-12T15:43:07+08:00">2019-10-12</time>
+              <time title="创建时间：2019-10-19 22:06:32 / 修改时间：22:14:27" itemprop="dateCreated datePublished" datetime="2019-10-19T22:06:32+08:00">2019-10-19</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
               </span>
-            
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -321,8 +341,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-12/Javascript/简述JavaScript中的this/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/简述JavaScript中的this/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-19/Web前后端漏洞分析与防御/前端Cookie安全性/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-19/Web前后端漏洞分析与防御/前端Cookie安全性/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -337,13 +357,60 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>粗略地讲，函数的调用方式决定了<code>this</code>的值，谁调用的函数，<code>this</code>就指向谁。<code>this</code>取值符合以下规则：</p><p>1.如果函数作为构造函数用，那么其中的<code>this</code>就代表它即将<code>new</code>出来的对象。</p><p>2.如果<code>appl</code>、<code>call</code>或<code>bind</code>方法用于调用、创建一个函数，this的值就取传入的对象的值。</p><p>3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的<code>this</code>指向该对象。比如当<code>obj.method()</code>被调用时，函数内的 <code>this</code> 将绑定到<code>obj</code>对象。</p><a id="more"></a>
+        <h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）。（可以叫做浏览器缓存）</p><h2 id="Cookie特性"><a href="#Cookie特性" class="headerlink" title="Cookie特性"></a>Cookie特性</h2><ul>
+<li>前端（浏览器）数据存储</li>
+<li>后端通过http响应头进行设置</li>
+<li>前端请求时，会自动添加cookie，通过http请求头传给后端</li>
+<li>前端可读写</li>
+<li>遵守同源策略</li>
+</ul><a id="more"></a>
 
-
-
-<p>4.如果调用函数不符合上述规则，那么<code>this</code>的值指向全局对象<code>（global object）</code>。浏览器环境下<code>this</code>的值指向<code>window</code>对象，但是在严格模式下<code>(&#39;use strict&#39;)</code>，<code>this</code>的值为<code>undefined</code>。</p>
-<p>5.如果符合上述多个规则，则较高的规则（1 号最高，4 号最低）将决定<code>this</code>的值。</p>
-<p>6.如果该函数是 ES2015 中的<code>箭头函数</code>，将忽略上面的所有规则，<code>this</code>被设置为它被<code>创建时的上下文</code>。</p>
+<h2 id="Cookie属性"><a href="#Cookie属性" class="headerlink" title="Cookie属性"></a>Cookie属性</h2><ul>
+<li>domain：域，表示当前cookie属于哪个域或子域下面，可以在哪些域名下使用</li>
+<li>Path：表示cookie的所属路径，标识指定了主机下的哪些路径可以接受Cookie，具体可以作用到网站的哪一级，即url层级</li>
+<li>Expire time/Max-age：表示了cookie的有效期。expire的值，是一个时间，过了这个时间，该cookie就失效了。或者是用max-age指定当前cookie是在多长时间之后而失效。如果服务器返回的一个cookie，没有指定其expire time，那么表明此cookie有效期只是当前的session，即是session cookie，当前session会话结束后，就过期了。对应的，当关闭（浏览器中）该页面的时候，此cookie就应该被浏览器所删除了。需要注意的是，有些浏览器提供了会话恢复功能，这种情况下即使关闭了浏览器，会话期Cookie也会被保留下来，就好像浏览器从来没有关闭一样</li>
+<li>secure：表示该cookie只能用https传输。一般用于包含认证信息的cookie，要求传输此cookie的时候，必须用https传输</li>
+<li>httponly：表示此cookie必须用于http或https传输。这意味着，浏览器脚本，比如javascript中，是不允许访问操作此cookie的</li>
+<li>SameSite：允许服务器要求某个cookie在跨站请求时不会被发送，从而可以阻止跨站请求伪造攻击（CSRF）</li>
+</ul>
+<h2 id="Cookie作用"><a href="#Cookie作用" class="headerlink" title="Cookie作用"></a>Cookie作用</h2><ul>
+<li>存储个性化设置</li>
+<li>存储未登录时用户唯一标识</li>
+<li>存储已登录用户凭证</li>
+<li>存储其他业务数据（缓存）</li>
+</ul>
+<h2 id="Cookie的缺陷"><a href="#Cookie的缺陷" class="headerlink" title="Cookie的缺陷"></a>Cookie的缺陷</h2><ul>
+<li>cookie会被附加在每个HTTP请求中，所以无形中增加了流量。</li>
+<li>由于在HTTP请求中的cookie是明文传递的，所以安全性成问题。（除非用HTTPS)</li>
+<li>cookie的大小限制在4KB左右。对于复杂的存储需求来说是不够用的</li>
+</ul>
+<h2 id="Cookie-登录用户凭证"><a href="#Cookie-登录用户凭证" class="headerlink" title="Cookie 登录用户凭证"></a>Cookie 登录用户凭证</h2><ul>
+<li>前端提交用户名和密码</li>
+<li>后端验证用户名和密码</li>
+<li>后端生成用户凭证，设置cookie，通过http响应头传输给前端</li>
+<li>后续，继续访问时，http请求头会携带cookie，后端通过用户凭证cookie验证用户信息，处理请求</li>
+</ul>
+<h2 id="Cookie-生成用户凭证"><a href="#Cookie-生成用户凭证" class="headerlink" title="Cookie 生成用户凭证"></a>Cookie 生成用户凭证</h2><ul>
+<li>用户ID：很容易被篡改</li>
+<li>用户ID+签名：后台根据用户ID生成签名，将用户ID+签名传给前端，后台处理请求时通过验证用户ID和签名，处理请求。同时通过判断用户ID和签名的一致性，验证用户ID是否被篡改</li>
+<li>Session：客户端第一次正常访问服务器，服务器生成一个sessionid来标识用户并保存用户信息（服务器有一个专门的地方来保存所有用户的sessionId），在response headers中作为cookie的一个值返回，客户端收到后把cookie保存在本地，下次再发请求时会在request headers中带上这个sessionId，服务器通过查找这个sessionId就知道用户状态了，并更新sessionId的最后访问时间。sessionId也可以设置失效时间。总言之cookie是保存在客户端，session是存在服务器，session依赖于cookie</li>
+</ul>
+<h2 id="Cookie和XSS的关系"><a href="#Cookie和XSS的关系" class="headerlink" title="Cookie和XSS的关系"></a>Cookie和XSS的关系</h2><ul>
+<li>XSS可能偷取Cookie</li>
+<li>设置http-only防止Cookie被盗</li>
+</ul>
+<h2 id="Cookie和CSRF的关系"><a href="#Cookie和CSRF的关系" class="headerlink" title="Cookie和CSRF的关系"></a>Cookie和CSRF的关系</h2><ul>
+<li>CSRF利用了用户的Cookie</li>
+<li>攻击站点无法读写Cookie</li>
+<li>最好能阻止第三方使用Cookie（SameSite）</li>
+</ul>
+<h2 id="Cookie的安全策略"><a href="#Cookie的安全策略" class="headerlink" title="Cookie的安全策略"></a>Cookie的安全策略</h2><ul>
+<li>签名防止篡改（用户ID+签名）</li>
+<li>私有变换（加密）</li>
+<li>http-only（防止XSS攻击）</li>
+<li>secure：防止HTTP数据传输过程中的窃听，盗取Cookie</li>
+<li>SameSite（防止CSRF攻击）</li>
+</ul>
 
     </div>
 
@@ -367,6 +434,8 @@
             
               <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
             
+              <a href="/tags/Web安全/" rel="tag"><i class="fa fa-tag"></i> Web安全</a>
+            
           </div>
         
 
@@ -375,15 +444,15 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
+                <a href="/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站请求伪造攻击CSRF/" rel="next" title="Web安全-跨站请求伪造攻击CSRF">
+                  <i class="fa fa-chevron-left"></i> Web安全-跨站请求伪造攻击CSRF
+                </a>
+              
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019-10-12/Javascript/call、apply-及-bind-函数的区别/" rel="prev" title="call、apply 及 bind 函数的区别">
-                  call、apply 及 bind 函数的区别 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -432,6 +501,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie特性"><span class="nav-number">2.</span> <span class="nav-text">Cookie特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie属性"><span class="nav-number">3.</span> <span class="nav-text">Cookie属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie作用"><span class="nav-number">4.</span> <span class="nav-text">Cookie作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie的缺陷"><span class="nav-number">5.</span> <span class="nav-text">Cookie的缺陷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-登录用户凭证"><span class="nav-number">6.</span> <span class="nav-text">Cookie 登录用户凭证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-生成用户凭证"><span class="nav-number">7.</span> <span class="nav-text">Cookie 生成用户凭证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie和XSS的关系"><span class="nav-number">8.</span> <span class="nav-text">Cookie和XSS的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie和CSRF的关系"><span class="nav-number">9.</span> <span class="nav-text">Cookie和CSRF的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie的安全策略"><span class="nav-number">10.</span> <span class="nav-text">Cookie的安全策略</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 

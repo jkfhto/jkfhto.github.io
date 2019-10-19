@@ -55,19 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="粗略地讲，函数的调用方式决定了this的值，谁调用的函数，this就指向谁。this取值符合以下规则：1.如果函数作为构造函数用，那么其中的this就代表它即将new出来的对象。2.如果appl、call或bind方法用于调用、创建一个函数，this的值就取传入的对象的值。3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象。比如当obj.method()被">
-<meta name="keywords" content="Javascript">
-<meta property="og:type" content="article">
-<meta property="og:title" content="简述JavaScript中的this">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-12/Javascript/简述JavaScript中的this/index.html">
+  <meta name="description" content="ARE YOU READY TO DIE">
+<meta name="keywords" content="Web,HTML,Node,全栈,React,Webpack,Webgl,Three.js">
+<meta property="og:type" content="website">
+<meta property="og:title" content="个人博客">
+<meta property="og:url" content="https://jkfhto.github.io/categories/前端/page/4/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="粗略地讲，函数的调用方式决定了this的值，谁调用的函数，this就指向谁。this取值符合以下规则：1.如果函数作为构造函数用，那么其中的this就代表它即将new出来的对象。2.如果appl、call或bind方法用于调用、创建一个函数，this的值就取传入的对象的值。3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象。比如当obj.method()被">
+<meta property="og:description" content="ARE YOU READY TO DIE">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-16T10:22:39.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="简述JavaScript中的this">
-<meta name="twitter:description" content="粗略地讲，函数的调用方式决定了this的值，谁调用的函数，this就指向谁。this取值符合以下规则：1.如果函数作为构造函数用，那么其中的this就代表它即将new出来的对象。2.如果appl、call或bind方法用于调用、创建一个函数，this的值就取传入的对象的值。3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象。比如当obj.method()被">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-12/Javascript/简述JavaScript中的this/">
+<meta name="twitter:title" content="个人博客">
+<meta name="twitter:description" content="ARE YOU READY TO DIE">
+  <link rel="canonical" href="https://jkfhto.github.io/categories/前端/page/4/">
 
 
 <script id="page-configurations">
@@ -75,13 +74,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: true,
+    isPost: false,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>简述JavaScript中的this | 个人博客</title>
+  <title>分类: 前端 | 个人博客</title>
   
 
 
@@ -247,162 +246,86 @@
         <div class="content-wrap">
             
 
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+
           <div class="content">
             
 
-  <div class="posts-expand">
-      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-12/Javascript/简述JavaScript中的this/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jkfhto">
-      <meta itemprop="description" content="ARE YOU READY TO DIE">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            简述JavaScript中的this
-            
-
-          
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h2 class="collection-header">前端
+          <small>分类</small>
         </h2>
+      </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+      
 
-              
-                
-              
-
-              <time title="创建时间：2019-10-12 15:43:07" itemprop="dateCreated datePublished" datetime="2019-10-12T15:43:07+08:00">2019-10-12</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-16 18:22:39" itemprop="dateModified" datetime="2019-10-16T18:22:39+08:00">2019-10-16</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-          
   
-  <span class="post-meta-item">
+  
+
+  
     
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
+    <div class="collection-year">
+      <h2 class="collection-header">2019</h2>
+    </div>
+  
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2019-10-16T16:02:31+08:00"
+              content="2019-10-16">
+          10-16
+        </time>
+      </div>
+
+      <h3 class="post-title">
         
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019-10-12/Javascript/简述JavaScript中的this/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-12/Javascript/简述JavaScript中的this/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
+          <a class="post-title-link" href="/2019-10-16/前端性能优化/从输入-URL-到页面加载完成，发生了什么？/" itemprop="url">
+            <span itemprop="name">从输入 URL 到页面加载完成，发生了什么？</span>
+          </a>
+        
+      </h3>
 
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <p>粗略地讲，函数的调用方式决定了<code>this</code>的值，谁调用的函数，<code>this</code>就指向谁。<code>this</code>取值符合以下规则：</p><p>1.如果函数作为构造函数用，那么其中的<code>this</code>就代表它即将<code>new</code>出来的对象。</p><p>2.如果<code>appl</code>、<code>call</code>或<code>bind</code>方法用于调用、创建一个函数，this的值就取传入的对象的值。</p><p>3.如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的<code>this</code>指向该对象。比如当<code>obj.method()</code>被调用时，函数内的 <code>this</code> 将绑定到<code>obj</code>对象。</p><a id="more"></a>
+    </header>
+  </article>
 
 
-
-<p>4.如果调用函数不符合上述规则，那么<code>this</code>的值指向全局对象<code>（global object）</code>。浏览器环境下<code>this</code>的值指向<code>window</code>对象，但是在严格模式下<code>(&#39;use strict&#39;)</code>，<code>this</code>的值为<code>undefined</code>。</p>
-<p>5.如果符合上述多个规则，则较高的规则（1 号最高，4 号最低）将决定<code>this</code>的值。</p>
-<p>6.如果该函数是 ES2015 中的<code>箭头函数</code>，将忽略上面的所有规则，<code>this</code>被设置为它被<code>创建时的上下文</code>。</p>
 
     </div>
-
-    
-    
-    
-      <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:16px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
-    
-</div>
-    
-        
-      
-
-      <footer class="post-footer">
-          
-            
-          
-          <div class="post-tags">
-            
-              <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
-            
-          </div>
-        
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-              
-            </div>
-
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019-10-12/Javascript/call、apply-及-bind-函数的区别/" rel="prev" title="call、apply 及 bind 函数的区别">
-                  call、apply 及 bind 函数的区别 <i class="fa fa-chevron-right"></i>
-                </a>
-              
-            </div>
-          </div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
   </div>
+  
+  
+  
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/categories/前端/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/categories/前端/">1</a><span class="space">&hellip;</span><a class="page-number" href="/categories/前端/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
 
 
           </div>
           
-    
-    <div class="comments" id="comments"></div>
-  
 
         </div>
           
@@ -415,11 +338,6 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
-        
-        
-        
-        
-      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
