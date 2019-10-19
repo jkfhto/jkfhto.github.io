@@ -1,6 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Web安全-跨站请求伪造攻击CSRF</title>
+    <url>/2019-10-19/Web%E5%89%8D%E5%90%8E%E7%AB%AF%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E9%98%B2%E5%BE%A1/Web%E5%AE%89%E5%85%A8-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%94%BB%E5%87%BBCSRF/</url>
+    <content><![CDATA[<h2 id="跨站请求伪造攻击CSRF"><a href="#跨站请求伪造攻击CSRF" class="headerlink" title="跨站请求伪造攻击CSRF"></a>跨站请求伪造攻击CSRF</h2><p>CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，XSS利用站点内的信任用户，而CSRF则通过伪装成受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。</p><a id="more"></a>
+<h2 id="跨站"><a href="#跨站" class="headerlink" title="跨站"></a>跨站</h2><p>在其他网站，在用户不知情的情况下，对目标网站发出了请求，产生了影响。</p>
+<h2 id="CSRF攻击攻击原理及过程"><a href="#CSRF攻击攻击原理及过程" class="headerlink" title="CSRF攻击攻击原理及过程"></a>CSRF攻击攻击原理及过程</h2><ul>
+<li>用户C打开浏览器，访问受信任网站A，输入用户名和密码请求登录网站A；</li>
+<li>在用户信息通过验证后，网站A产生Cookie信息并返回给浏览器，此时用户登录网站A成功，可以正常发送请求到网站A；</li>
+<li>用户在同一浏览器中，打开一个TAB页访问了攻击网站B；</li>
+<li>攻击网站就能伪装成用户C向A网站发起请求（此时携带了用户的身份信息Cookie）</li>
+</ul>
+<h2 id="CSRF攻击特征"><a href="#CSRF攻击特征" class="headerlink" title="CSRF攻击特征"></a>CSRF攻击特征</h2><ul>
+<li>攻击网站B向A网站发起请求</li>
+<li>携带A网站的Cookie</li>
+<li>不访问A网站前端</li>
+<li>HTTP请求头的refer指向攻击网站B</li>
+</ul>
+<h2 id="CSRF攻击危害"><a href="#CSRF攻击危害" class="headerlink" title="CSRF攻击危害"></a>CSRF攻击危害</h2><ul>
+<li>利用用户登录态</li>
+<li>用户不知情</li>
+<li>完成业务请求</li>
+<li>盗取用户资金（转账，消费）</li>
+<li>冒充用户发帖背锅</li>
+<li>损坏网站声誉</li>
+<li>等等…</li>
+</ul>
+<h2 id="CSRF攻击防御"><a href="#CSRF攻击防御" class="headerlink" title="CSRF攻击防御"></a>CSRF攻击防御</h2><ul>
+<li>通过SameSite Cookie，禁止第三方网站携带Cookie</li>
+<li>不访问A网站前端，在A网站前端中加入验证信息，第三方攻击网站无法获取验证信息，后台通过判断验证信息处理请求<ul>
+<li>验证码,（图形验证码）缺点是用户体验差<ul>
+<li><a href="https://www.npmjs.com/package/svg-captcha" target="_blank" rel="noopener">svg-captcha</a>：Node 图形验证码</li>
+</ul>
+</li>
+<li>Token：Token 是在服务端产生的。如果前端使用用户名/密码向服务端请求认证，服务端认证成功，那么在服务端会返回 Token 给前端。前端可以在每次请求的时候带上 Token 证明自己的合法地位</li>
+</ul>
+</li>
+<li>验证HTTP请求头的refer 请求来源，如果不是合法的域名直接拒绝请求</li>
+<li>防抓包：使用HTTPS(HTTPS 还是通过了 HTTP 来传输信息，但是信息通过 TLS 协议进行了加密。)替换HTTP,对传输的数据进行加密,这样,当请求的信息被抓包工具抓包后,也无法修改提交的数据。</li>
+<li>node可以使用 <a href="https://github.com/expressjs/csurf" target="_blank" rel="noopener">CSRF</a> 中间件来防御csrf攻击。</li>
+</ul>
+<h2 id="SameSite-Cookie"><a href="#SameSite-Cookie" class="headerlink" title="SameSite Cookie"></a>SameSite Cookie</h2><p>服务器端设置Cookie的 <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies" target="_blank" rel="noopener">SameSite</a>，浏览器端在跨站请求时Cookie不会被发送，从而可以阻止跨站请求伪造攻击（CSRF）。目前主流浏览器基本上都支持。<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#Browser_compatibility" target="_blank" rel="noopener">支持情况</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Set-Cookie: key=value; SameSite=Strict</span><br></pre></td></tr></table></figure>
+
+<h2 id="SameSite属性值"><a href="#SameSite属性值" class="headerlink" title="SameSite属性值"></a>SameSite属性值</h2><ul>
+<li>Strict：跨域发起的任何请求都不会携带cookie</li>
+<li>Lax： Lax相对于Strict模式来说，宽松了一些</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>请求类型</th>
+<th>例子</th>
+<th>非 SameSite</th>
+<th>SameSite = Lax</th>
+<th>SameSite = Strict</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>link</td>
+<td><code>&lt;a href=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>prerender</td>
+<td><code>&lt;link rel=&quot;prerender&quot; href=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>form get</td>
+<td><code>&lt;form method=&quot;get&quot; action=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>form post</td>
+<td><code>&lt;form method=&quot;post&quot; action=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>iframe</td>
+<td><code>&lt;iframe src=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>ajax</td>
+<td><code>$.get(&#39;…&#39;)</code></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>image</td>
+<td><code>&lt;img src=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody></table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://coding.imooc.com/class/104.html" target="_blank" rel="noopener">Web前后端漏洞分析与防御</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>Web安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Web安全-跨站脚本攻击XSS</title>
     <url>/2019-10-19/Web%E5%89%8D%E5%90%8E%E7%AB%AF%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E9%98%B2%E5%BE%A1/Web%E5%AE%89%E5%85%A8-%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BBXSS/</url>
     <content><![CDATA[<h2 id="跨站脚本攻击XSS"><a href="#跨站脚本攻击XSS" class="headerlink" title="跨站脚本攻击XSS"></a>跨站脚本攻击XSS</h2><p>跨站脚本攻击（XSS），是目前最普遍的Web应用安全漏洞。这类漏洞能够使得攻击者嵌入恶意脚本代码到正常用户会访问到的页面中，当正常用户访问该页面时，则可导致嵌入的恶意脚本代码的执行，从而达到恶意攻击用户的目的。</p><h2 id="跨站"><a href="#跨站" class="headerlink" title="跨站"></a>跨站</h2><p>简单来说，如果有一个网站，希望网站中所有运行的逻辑都来自本站。如果运行了别的网站的脚本，就产生了跨站脚本攻击。</p><a id="more"></a>

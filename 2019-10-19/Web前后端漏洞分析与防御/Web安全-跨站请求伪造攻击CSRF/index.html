@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="CDN 缓存CDN 的全称是 Content Delivery Network，即内容分发网络。CDN服务商将源站的资源缓存到遍布全国的高性能加速节点上，当用户访问相应的业务资源时，用户会被调度至最接近的节点最近的节点ip返回给用户，使内容能够传输的更快，更加稳定。可以提升首次请求的响应能力。CDN缓存 基本原理">
-<meta name="keywords" content="Javascript,前端性能优化">
+  <meta name="description" content="跨站请求伪造攻击CSRFCSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，XSS利用站点内的信任用户，而CSRF则通过伪装成受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSR">
+<meta name="keywords" content="Javascript,Web安全">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端性能优化-CDN 缓存">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化-CDN-缓存/index.html">
+<meta property="og:title" content="Web安全-跨站请求伪造攻击CSRF">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站请求伪造攻击CSRF/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="CDN 缓存CDN 的全称是 Content Delivery Network，即内容分发网络。CDN服务商将源站的资源缓存到遍布全国的高性能加速节点上，当用户访问相应的业务资源时，用户会被调度至最接近的节点最近的节点ip返回给用户，使内容能够传输的更快，更加稳定。可以提升首次请求的响应能力。CDN缓存 基本原理">
+<meta property="og:description" content="跨站请求伪造攻击CSRFCSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，XSS利用站点内的信任用户，而CSRF则通过伪装成受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSR">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-17T17:20:01.707Z">
+<meta property="og:updated_time" content="2019-10-19T13:58:42.613Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端性能优化-CDN 缓存">
-<meta name="twitter:description" content="CDN 缓存CDN 的全称是 Content Delivery Network，即内容分发网络。CDN服务商将源站的资源缓存到遍布全国的高性能加速节点上，当用户访问相应的业务资源时，用户会被调度至最接近的节点最近的节点ip返回给用户，使内容能够传输的更快，更加稳定。可以提升首次请求的响应能力。CDN缓存 基本原理">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化-CDN-缓存/">
+<meta name="twitter:title" content="Web安全-跨站请求伪造攻击CSRF">
+<meta name="twitter:description" content="跨站请求伪造攻击CSRFCSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，XSS利用站点内的信任用户，而CSRF则通过伪装成受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSR">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站请求伪造攻击CSRF/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>前端性能优化-CDN 缓存 | 个人博客</title>
+  <title>Web安全-跨站请求伪造攻击CSRF | 个人博客</title>
   
 
 
@@ -255,7 +255,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/前端性能优化/前端性能优化-CDN-缓存/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站请求伪造攻击CSRF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +269,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            前端性能优化-CDN 缓存
+            Web安全-跨站请求伪造攻击CSRF
             
 
           
@@ -286,19 +286,11 @@
                 
               
 
-              <time title="创建时间：2019-10-17 22:02:32" itemprop="dateCreated datePublished" datetime="2019-10-17T22:02:32+08:00">2019-10-17</time>
+              <time title="创建时间：2019-10-19 21:00:28 / 修改时间：21:58:42" itemprop="dateCreated datePublished" datetime="2019-10-19T21:00:28+08:00">2019-10-19</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-18 01:20:01" itemprop="dateModified" datetime="2019-10-18T01:20:01+08:00">2019-10-18</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -319,8 +311,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
-                    <span itemprop="name">前端性能优化</span>
+                  <a href="/categories/前端/Web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
                   </a>
                 </span>
 
@@ -349,8 +341,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-17/前端性能优化/前端性能优化-CDN-缓存/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/前端性能优化/前端性能优化-CDN-缓存/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站请求伪造攻击CSRF/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站请求伪造攻击CSRF/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -365,23 +357,112 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="CDN-缓存"><a href="#CDN-缓存" class="headerlink" title="CDN 缓存"></a>CDN 缓存</h2><p><strong><em>CDN</em></strong> 的全称是 <strong><em>Content Delivery Network</em></strong>，即内容分发网络。CDN服务商将源站的资源缓存到遍布全国的高性能加速节点上，当用户访问相应的业务资源时，用户会被调度至最接近的节点最近的节点ip返回给用户，使内容能够传输的更快，更加稳定。可以提升首次请求的响应能力。</p><h2 id="CDN缓存-基本原理"><a href="#CDN缓存-基本原理" class="headerlink" title="CDN缓存 基本原理"></a>CDN缓存 基本原理</h2><a id="more"></a>
-<p><strong><em>CDN</em></strong> 的基本原理是广泛采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户请求。</p>
-<p><strong><em>CDN</em></strong> 的基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。</p>
-<h2 id="CDN的核心功能"><a href="#CDN的核心功能" class="headerlink" title="CDN的核心功能"></a>CDN的核心功能</h2><p>CDN 的核心点有两个，一个是缓存，一个是回源。</p>
-<p>这两个概念都非常好理解。对标到上面描述的过程，“缓存”就是说我们把资源 copy 一份到 CDN 服务器上这个过程，“回源”就是说 CDN 发现自己没有这个资源（一般是缓存的数据过期了），转头向根服务器（或者它的上层服务器）去要这个资源的过程。</p>
-<h2 id="CDN缓存应用场景"><a href="#CDN缓存应用场景" class="headerlink" title="CDN缓存应用场景"></a>CDN缓存应用场景</h2><ul>
-<li><p>使用第三方的CDN服务：前端开源项目的CDN加速服务，<a href="https://www.bootcdn.cn/" target="_blank" rel="noopener">第三方的CDN服务</a></p>
-</li>
-<li><p>CDN 往往被用来存放静态资源：所谓“静态资源”，就是像 JS、CSS、图片等不需要业务服务器进行计算即得的资源。而“动态资源”，顾名思义是需要后端实时动态生成的资源，较为常见的就是 JSP、ASP 或者依赖服务端渲染得到的 HTML 页面。而且我们可以写脚本结合Webpack将对应的静态资源直接放到CDN，完成一键自动部署整个项目。</p>
-</li>
-<li><p>把静态资源和业务服务器置于不同的域名下：静态服务器最好启用一个全新域名，避免每次请求都携带Cookie。</p>
-</li>
-<li><p>直播传送：直播本质上是使用流媒体进行传送，那么CDN也是支持流媒体传送的，所以直播完全可以使用CDN来提高访问速度。CDN在处理流媒体的时候与处理普通静态文件有所不同，普通文件如果在边缘节点没有找到的话，就会去上一层接着寻找，但是流媒体本身数据量就非常大，如果使用回源的方式，必然会带来性能问题，所以流媒体一般采用的都是主动推送的方式来进行。</p>
-</li>
+        <h2 id="跨站请求伪造攻击CSRF"><a href="#跨站请求伪造攻击CSRF" class="headerlink" title="跨站请求伪造攻击CSRF"></a>跨站请求伪造攻击CSRF</h2><p>CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，XSS利用站点内的信任用户，而CSRF则通过伪装成受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。</p><a id="more"></a>
+<h2 id="跨站"><a href="#跨站" class="headerlink" title="跨站"></a>跨站</h2><p>在其他网站，在用户不知情的情况下，对目标网站发出了请求，产生了影响。</p>
+<h2 id="CSRF攻击攻击原理及过程"><a href="#CSRF攻击攻击原理及过程" class="headerlink" title="CSRF攻击攻击原理及过程"></a>CSRF攻击攻击原理及过程</h2><ul>
+<li>用户C打开浏览器，访问受信任网站A，输入用户名和密码请求登录网站A；</li>
+<li>在用户信息通过验证后，网站A产生Cookie信息并返回给浏览器，此时用户登录网站A成功，可以正常发送请求到网站A；</li>
+<li>用户在同一浏览器中，打开一个TAB页访问了攻击网站B；</li>
+<li>攻击网站就能伪装成用户C向A网站发起请求（此时携带了用户的身份信息Cookie）</li>
 </ul>
+<h2 id="CSRF攻击特征"><a href="#CSRF攻击特征" class="headerlink" title="CSRF攻击特征"></a>CSRF攻击特征</h2><ul>
+<li>攻击网站B向A网站发起请求</li>
+<li>携带A网站的Cookie</li>
+<li>不访问A网站前端</li>
+<li>HTTP请求头的refer指向攻击网站B</li>
+</ul>
+<h2 id="CSRF攻击危害"><a href="#CSRF攻击危害" class="headerlink" title="CSRF攻击危害"></a>CSRF攻击危害</h2><ul>
+<li>利用用户登录态</li>
+<li>用户不知情</li>
+<li>完成业务请求</li>
+<li>盗取用户资金（转账，消费）</li>
+<li>冒充用户发帖背锅</li>
+<li>损坏网站声誉</li>
+<li>等等…</li>
+</ul>
+<h2 id="CSRF攻击防御"><a href="#CSRF攻击防御" class="headerlink" title="CSRF攻击防御"></a>CSRF攻击防御</h2><ul>
+<li>通过SameSite Cookie，禁止第三方网站携带Cookie</li>
+<li>不访问A网站前端，在A网站前端中加入验证信息，第三方攻击网站无法获取验证信息，后台通过判断验证信息处理请求<ul>
+<li>验证码,（图形验证码）缺点是用户体验差<ul>
+<li><a href="https://www.npmjs.com/package/svg-captcha" target="_blank" rel="noopener">svg-captcha</a>：Node 图形验证码</li>
+</ul>
+</li>
+<li>Token：Token 是在服务端产生的。如果前端使用用户名/密码向服务端请求认证，服务端认证成功，那么在服务端会返回 Token 给前端。前端可以在每次请求的时候带上 Token 证明自己的合法地位</li>
+</ul>
+</li>
+<li>验证HTTP请求头的refer 请求来源，如果不是合法的域名直接拒绝请求</li>
+<li>防抓包：使用HTTPS(HTTPS 还是通过了 HTTP 来传输信息，但是信息通过 TLS 协议进行了加密。)替换HTTP,对传输的数据进行加密,这样,当请求的信息被抓包工具抓包后,也无法修改提交的数据。</li>
+<li>node可以使用 <a href="https://github.com/expressjs/csurf" target="_blank" rel="noopener">CSRF</a> 中间件来防御csrf攻击。</li>
+</ul>
+<h2 id="SameSite-Cookie"><a href="#SameSite-Cookie" class="headerlink" title="SameSite Cookie"></a>SameSite Cookie</h2><p>服务器端设置Cookie的 <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies" target="_blank" rel="noopener">SameSite</a>，浏览器端在跨站请求时Cookie不会被发送，从而可以阻止跨站请求伪造攻击（CSRF）。目前主流浏览器基本上都支持。<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#Browser_compatibility" target="_blank" rel="noopener">支持情况</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: key=value; SameSite=Strict</span><br></pre></td></tr></table></figure>
+
+<h2 id="SameSite属性值"><a href="#SameSite属性值" class="headerlink" title="SameSite属性值"></a>SameSite属性值</h2><ul>
+<li>Strict：跨域发起的任何请求都不会携带cookie</li>
+<li>Lax： Lax相对于Strict模式来说，宽松了一些</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>请求类型</th>
+<th>例子</th>
+<th>非 SameSite</th>
+<th>SameSite = Lax</th>
+<th>SameSite = Strict</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>link</td>
+<td><code>&lt;a href=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>prerender</td>
+<td><code>&lt;link rel=&quot;prerender&quot; href=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>form get</td>
+<td><code>&lt;form method=&quot;get&quot; action=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>form post</td>
+<td><code>&lt;form method=&quot;post&quot; action=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>iframe</td>
+<td><code>&lt;iframe src=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>ajax</td>
+<td><code>$.get(&#39;…&#39;)</code></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>image</td>
+<td><code>&lt;img src=&quot;…&quot;&gt;</code></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody></table>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://www.imooc.com/read/41#catalog" target="_blank" rel="noopener">你不知道的前端性能优化技巧</a></li>
+<li><a href="https://coding.imooc.com/class/104.html" target="_blank" rel="noopener">Web前后端漏洞分析与防御</a></li>
 </ul>
 
     </div>
@@ -406,7 +487,7 @@
             
               <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
             
-              <a href="/tags/前端性能优化/" rel="tag"><i class="fa fa-tag"></i> 前端性能优化</a>
+              <a href="/tags/Web安全/" rel="tag"><i class="fa fa-tag"></i> Web安全</a>
             
           </div>
         
@@ -416,8 +497,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019-10-17/前端性能优化/前端性能优化-缓存/" rel="next" title="前端性能优化-缓存">
-                  <i class="fa fa-chevron-left"></i> 前端性能优化-缓存
+                <a href="/2019-10-19/Web前后端漏洞分析与防御/Web安全-跨站脚本攻击XSS/" rel="next" title="Web安全-跨站脚本攻击XSS">
+                  <i class="fa fa-chevron-left"></i> Web安全-跨站脚本攻击XSS
                 </a>
               
             </div>
@@ -425,10 +506,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019-10-17/前端性能优化/前端性能优化-本地存储/" rel="prev" title="前端性能优化-本地存储">
-                  前端性能优化-本地存储 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -477,7 +554,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN-缓存"><span class="nav-number">1.</span> <span class="nav-text">CDN 缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN缓存-基本原理"><span class="nav-number">2.</span> <span class="nav-text">CDN缓存 基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN的核心功能"><span class="nav-number">3.</span> <span class="nav-text">CDN的核心功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN缓存应用场景"><span class="nav-number">4.</span> <span class="nav-text">CDN缓存应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#跨站请求伪造攻击CSRF"><span class="nav-number">1.</span> <span class="nav-text">跨站请求伪造攻击CSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨站"><span class="nav-number">2.</span> <span class="nav-text">跨站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF攻击攻击原理及过程"><span class="nav-number">3.</span> <span class="nav-text">CSRF攻击攻击原理及过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF攻击特征"><span class="nav-number">4.</span> <span class="nav-text">CSRF攻击特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF攻击危害"><span class="nav-number">5.</span> <span class="nav-text">CSRF攻击危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF攻击防御"><span class="nav-number">6.</span> <span class="nav-text">CSRF攻击防御</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SameSite-Cookie"><span class="nav-number">7.</span> <span class="nav-text">SameSite Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SameSite属性值"><span class="nav-number">8.</span> <span class="nav-text">SameSite属性值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
