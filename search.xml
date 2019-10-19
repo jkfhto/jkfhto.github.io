@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Web安全-SQL注入攻击</title>
+    <url>/2019-10-19/Web%E5%89%8D%E5%90%8E%E7%AB%AF%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E9%98%B2%E5%BE%A1/Web%E5%AE%89%E5%85%A8-SQL%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/</url>
+    <content><![CDATA[<h2 id="SQL注入攻击"><a href="#SQL注入攻击" class="headerlink" title="SQL注入攻击"></a>SQL注入攻击</h2><p>所谓SQL注入，就是通过把SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。具体来说，它是利用现有应用程序，将（恶意的）SQL命令注入到后台数据库引擎执行的能力，它可以通过在Web表单中输入（恶意）SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。</p><a id="more"></a>
+<h2 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h2><ul>
+<li>存储结构化数据</li>
+<li>可高效操作大量数据</li>
+<li>方便处理数据之间的关联关系</li>
+<li>常见的关系型数据库：MySQL，Oracle，SQLServer，PostGreSQL</li>
+</ul>
+<h2 id="SQL语言"><a href="#SQL语言" class="headerlink" title="SQL语言"></a>SQL语言</h2><ul>
+<li>结构化查询语言，一种描述性语言，面向语义化</li>
+<li>SQL语言的作用：对存储在RDBMS（关系型数据库管理系统）中的数据进行增删改查等操作，有些非关系数据库也支持SQL</li>
+</ul>
+<h2 id="SQL注入原理"><a href="#SQL注入原理" class="headerlink" title="SQL注入原理"></a>SQL注入原理</h2><p>SQL注入攻击指的是通过构建特殊的输入作为参数传入Web应用程序，而这些输入大都是SQL语法里的一些组合，通过执行SQL语句进而执行攻击者所要的操作，其主要原因是程序没有细致地过滤用户输入的数据，致使非法数据侵入系统。</p>
+<h2 id="SQL注入类型"><a href="#SQL注入类型" class="headerlink" title="SQL注入类型"></a>SQL注入类型</h2><p>根据相关技术原理，SQL注入可以分为<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## SQL注入产生原因</span><br><span class="line"></span><br><span class="line">- 不当的类型处理；</span><br><span class="line">- 不安全的数据库配置；</span><br><span class="line">- 不合理的查询集处理；</span><br><span class="line">- 不当的错误处理；</span><br><span class="line">- 转义字符处理不合适；</span><br><span class="line">- 多个提交处理不当。</span><br><span class="line"></span><br><span class="line">## SQL注入示例</span><br><span class="line"></span><br><span class="line">```js</span><br><span class="line">//查询语句</span><br><span class="line">SELECT * FROM table WHERE id=$&#123;id&#125;</span><br><span class="line">//注入数据</span><br><span class="line">1 or 1=1</span><br><span class="line">//注入后的查询语句</span><br><span class="line">SELECT * FROM table WHERE id=1 or 1=1</span><br><span class="line"></span><br><span class="line">//查询语句</span><br><span class="line">SELECT * FROM user WHERE username=`$&#123;username&#125;` AND password=`$&#123;password&#125;`</span><br><span class="line">//注入数据</span><br><span class="line">1&apos; or &apos;1&apos;=&apos;1</span><br><span class="line">//注入后的查询语句</span><br><span class="line">SELECT * FROM user WHERE username=`123` AND password=1&apos; or &apos;1&apos;=&apos;1&apos;</span><br></pre></td></tr></table></figure></p>
+<h2 id="SQL注入危害"><a href="#SQL注入危害" class="headerlink" title="SQL注入危害"></a>SQL注入危害</h2><ul>
+<li>猜解密码</li>
+<li>获取数据</li>
+<li>删库删表</li>
+<li>拖库</li>
+</ul>
+<h2 id="SQL注入防御"><a href="#SQL注入防御" class="headerlink" title="SQL注入防御"></a>SQL注入防御</h2><ul>
+<li>对数据进行转义，永远不要信任用户的输入，要对用户的输入进行校验，可以通过正则表达式，或限制长度，对单引号和双”-“进行转换等</li>
+<li>永远不要使用动态拼装SQL，可以使用参数化的SQL或者直接使用存储过程进行数据查询存取</li>
+<li>永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接</li>
+<li>不要把机密信息明文存放，请加密或者hash掉密码和敏感的信息</li>
+<li>关闭错误输出：应用的异常信息应该给出尽可能少的提示，最好使用自定义的错误信息对原始错误信息进行包装，把异常信息存放在独立的表中</li>
+<li>使用ORM（对象关系映射）</li>
+</ul>
+<h2 id="Node-防止SQL注入攻击"><a href="#Node-防止SQL注入攻击" class="headerlink" title="Node 防止SQL注入攻击"></a>Node 防止SQL注入攻击</h2><h3 id="转义查询值"><a href="#转义查询值" class="headerlink" title="转义查询值"></a>转义查询值</h3><p>使用<a href="https://github.com/mysqljs/mysql" target="_blank" rel="noopener">mysql</a>，转义查询值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> mysql = <span class="built_in">require</span>(<span class="string">'mysql'</span>);</span><br><span class="line"><span class="keyword">var</span> connection = mysql.createConnection(&#123;</span><br><span class="line">    host: <span class="string">'localhost'</span>,</span><br><span class="line">    user: <span class="string">'me'</span>,</span><br><span class="line">    password: <span class="string">'secret'</span>,</span><br><span class="line">    database: <span class="string">'my_db'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">connection.connect();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> userId = <span class="string">'some user provided value'</span>;</span><br><span class="line"><span class="keyword">var</span> sql    = <span class="string">'SELECT * FROM users WHERE id = '</span> + connection.escape(userId); <span class="comment">//转义查询值</span></span><br><span class="line">connection.query(sql, <span class="function"><span class="keyword">function</span> (<span class="params">error, results, fields</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用参数化查询"><a href="#使用参数化查询" class="headerlink" title="使用参数化查询"></a>使用参数化查询</h3><p>使用<a href="https://github.com/sidorares/node-mysql2" target="_blank" rel="noopener">node-mysql2</a>进行参数化查询</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// get the client</span></span><br><span class="line"><span class="keyword">const</span> mysql = <span class="built_in">require</span>(<span class="string">'mysql2'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> connection = mysql.createConnection(&#123;</span><br><span class="line">    host: <span class="string">'localhost'</span>,</span><br><span class="line">    user: <span class="string">'me'</span>,</span><br><span class="line">    password: <span class="string">'secret'</span>,</span><br><span class="line">    database: <span class="string">'my_db'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">connection.connect();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> userId = <span class="string">'some user provided value'</span>;</span><br><span class="line">connection.execute(<span class="string">'SELECT * FROM users WHERE id = ?'</span>,[userId], <span class="function"><span class="keyword">function</span> (<span class="params">error, results, fields</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用ORM（对象关系映射）"><a href="#使用ORM（对象关系映射）" class="headerlink" title="使用ORM（对象关系映射）"></a>使用ORM（对象关系映射）</h3><p>使用<a href="https://github.com/demopark/sequelize-docs-Zh-CN/tree/master" target="_blank" rel="noopener">Sequelize</a></p>
+<h2 id="参数化查询"><a href="#参数化查询" class="headerlink" title="参数化查询"></a>参数化查询</h2><p>参数化查询(Parameterized Query 或 Parameterized Statement)是指在设计与数据库链接并访问数据时，在需要填入数值或数据的地方，使用参数 (Parameter) 来给值，这个方法目前已被视为最有效可预防SQL注入攻击 (SQL Injection) 的攻击手法的防御方式</p>
+<h3 id="参数化查询原理"><a href="#参数化查询原理" class="headerlink" title="参数化查询原理"></a>参数化查询原理</h3><p>在使用参数化查询的情况下，数据库服务器不会将参数的内容视为SQL指令的一部份来处理，而是在数据库完成 SQL 指令的编译后，才套用参数运行，因此就算参数中含有恶意的指令，由于已经编译完成，就不会被数据库所运行。 有部份的开发人员可能会认为使用参数化查询，会让程序更不好维护，或者在实现部份功能上会非常不便，然而，使用参数化查询造成的额外开发成本，通常都远低于因为SQL注入攻击漏洞被发现而遭受攻击，所造成的重大损失</p>
+<h3 id="SQL-指令撰写方法"><a href="#SQL-指令撰写方法" class="headerlink" title="SQL 指令撰写方法"></a>SQL 指令撰写方法</h3><p>MySQL 的参数格式是以 “?” 字符加上参数名称而成</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">UPDATE myTable SET c1 = ?c1, c2 = ?c2, c3 = ?c3 WHERE c4 = ?c4</span><br><span class="line"></span><br><span class="line"><span class="comment">//执行sql查询</span></span><br><span class="line">query(<span class="string">`SELECT * FROM user WHERE id=?`</span>,[id])</span><br></pre></td></tr></table></figure>
+
+<h2 id="NOSQL注入防御"><a href="#NOSQL注入防御" class="headerlink" title="NOSQL注入防御"></a>NOSQL注入防御</h2><ul>
+<li>检测数据类型</li>
+<li>类型转换</li>
+<li>写完整条件</li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>Web安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前端Cookie安全性</title>
     <url>/2019-10-19/Web%E5%89%8D%E5%90%8E%E7%AB%AF%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E9%98%B2%E5%BE%A1/%E5%89%8D%E7%AB%AFCookie%E5%AE%89%E5%85%A8%E6%80%A7/</url>
     <content><![CDATA[<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）。（可以叫做浏览器缓存）</p><h2 id="Cookie特性"><a href="#Cookie特性" class="headerlink" title="Cookie特性"></a>Cookie特性</h2><ul>
