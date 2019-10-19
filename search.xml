@@ -1482,6 +1482,12 @@
 <h2 id="NodeJS-Event-Loop-过程解析"><a href="#NodeJS-Event-Loop-过程解析" class="headerlink" title="NodeJS Event Loop 过程解析"></a>NodeJS Event Loop 过程解析</h2><p><img src="/images/EventLoop.jpg" alt="Event Loop"></p>
 <p>Node.js采用V8作为js的解析引擎，而I/O处理方面使用了自己设计的libuv，libuv是一个基于事件驱动的跨平台抽象层，封装了不同操作系统一些底层特性，对外提供统一的API，事件循环机制也是它里面的实现。</p>
 <p><img src="/images/EventLoop2.jpg" alt="Event Loop2"></p>
+<h3 id="Node-js的运行机制如下"><a href="#Node-js的运行机制如下" class="headerlink" title="Node.js的运行机制如下:"></a>Node.js的运行机制如下:</h3><ul>
+<li>V8引擎解析JavaScript脚本。</li>
+<li>解析后的代码，调用Node API。</li>
+<li>libuv库负责Node API的执行。它将不同的任务分配给不同的线程，形成一个Event Loop（事件循环），以异步的方式将任务的执行结果返回给V8引擎。</li>
+<li>V8引擎再将结果返回给用户。</li>
+</ul>
 <p>Node的Event loop一共分为6个阶段，每个细节具体如下：</p>
 <ul>
 <li>timers: 执行setTimeout和setInterval中到期的callback。</li>
