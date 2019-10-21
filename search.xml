@@ -1,6 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Redux学习总结</title>
+    <url>/2019-10-21/Redux/Redux%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="需要解决的问题"><a href="#需要解决的问题" class="headerlink" title="需要解决的问题"></a>需要解决的问题</h2><p>“模块（组件）之间需要共享数据”，和“数据可能被任意修改导致不可预料的结果”之间的矛盾。</p><h2 id="解决的方法"><a href="#解决的方法" class="headerlink" title="解决的方法"></a>解决的方法</h2><p>提高数据修改的门槛</p><h2 id="Redux应用场景"><a href="#Redux应用场景" class="headerlink" title="Redux应用场景"></a>Redux应用场景</h2><ul>
+<li><p>随着 JavaScript 单页应用开发日趋复杂,管理不断变化的 state 非常困难</p>
+</li>
+<li><p>Redux的出现就是为了解决state里的数据问题</p>
+</li>
+<li><p>在React中，数据在组件中是单向流动的</p>
+</li>
+<li><p>数据从一个方向父组件流向子组件(通过props)，由于这个特征，两个非父子关系的组件（或者称作兄弟组件）之间的通信就比较麻烦</p>
+<p><img src="/images/redux-wrong.png" alt="Redux应用场景"></p>
+</li>
+</ul><a id="more"></a>
+
+
+<h2 id="Redux设计思想"><a href="#Redux设计思想" class="headerlink" title="Redux设计思想"></a>Redux设计思想</h2><ul>
+<li><p>单一数据源：整个应用的 state 被储存在一棵 object tree 中，并且这个 object tree 只存在于唯一一个 store 中</p>
+</li>
+<li><p>State 是只读的：唯一改变 state 的方法就是派发（dispatch） action，action 是一个用于描述已发生事件的普通对象</p>
+</li>
+<li><p>使用纯函数来执行修改：为了描述 action 如何改变 state tree ，你需要编写 reducers</p>
+<ul>
+<li>Reducer 只是一些纯函数，它接收先前的 state 和 action，并返回新的 state </li>
+</ul>
+</li>
+<li><p>订阅事件：其它组件可以通过订阅（subscribe）store中的状态(state)来刷新自己的视图.  </p>
+<p><img src="/images/redux-flow.png" alt="Redux工作流"></p>
+</li>
+</ul>
+<h2 id="Redux概念解析"><a href="#Redux概念解析" class="headerlink" title="Redux概念解析"></a>Redux概念解析</h2><ul>
+<li><p>Store</p>
+<ul>
+<li><p>就是保存数据的地方，你可以把它看成一个容器。整个应用只能有一个Store。</p>
+</li>
+<li><p>Redux 提供createStore这个函数，用来生成Store</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>State</p>
+<ul>
+<li>Store对象包含所有数据。如果想得到某个时点的数据，就要对 Store 生成快照。这种时点的数据集合，就叫做 State。当前时刻的 State，可以通过store.getState()拿到</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer);</span><br><span class="line"><span class="keyword">const</span> state = store.getState();</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>Action</p>
+<ul>
+<li>是把数据从应用传到 store 的有效载荷。它是 store 数据的唯一来源。一般来说你会通过 store.dispatch() 将 action 传到 store。</li>
+<li>我们应该尽量减少在 action 中传递的数据。</li>
+<li>State的变化，会导致View的变化。但是，用户接触不到 State，只能接触到View 所以，State的变化必须是 View导致的。Action 就是 View 发出的通知，表示State 应该要发生变化了。 Action是一个对象。其中的type属性是必须的，表示 Action 的名称。其他属性可以自由设置。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ADD_TODO = <span class="string">'ADD_TODO'</span></span><br><span class="line">&#123;</span><br><span class="line">  type: ADD_TODO,</span><br><span class="line">  text: <span class="string">'Learn Redux'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Action Creator</p>
+<ul>
+<li>View 要发送多少种消息，就会有多少种 Action。如果都手写，会很麻烦。可以定义一个函数来生成 Action，这个函数就叫 Action Creator</li>
+<li>在 Redux 中的 action 创建函数只是简单的返回一个 action:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addTodo</span>(<span class="params">text</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    type: ADD_TODO,</span><br><span class="line">    text</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>store.dispatch</p>
+<ul>
+<li>View 发出 Action 的唯一方法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">const</span> store = createStore(fn);</span><br><span class="line"></span><br><span class="line">store.dispatch(&#123;</span><br><span class="line">  type: <span class="string">'ADD_TODO'</span>,</span><br><span class="line">  text: <span class="string">'Learn Redux'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Reducer</p>
+<ul>
+<li>Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会发生变化。这种 State 的计算过程就叫做 Reducer。</li>
+<li>Reducer 是一个纯函数，它接受 Action 和当前 State 作为参数，返回一个新的 State。<ul>
+<li>纯函数<ul>
+<li>函数的返回结果只依赖于它的参数，相同的输入产生相同的输出</li>
+<li>对外层作用域不会产生副作用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> reducer = <span class="function"><span class="keyword">function</span> (<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> new_state;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="相关源码分析"><a href="#相关源码分析" class="headerlink" title="相关源码分析"></a>相关源码分析</h2><h3 id="createStore"><a href="#createStore" class="headerlink" title="createStore"></a>createStore</h3><p>创建数据仓库，store。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">createStore</span>(<span class="params">reducer, enhancer</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//处理middleware 中间件</span></span><br><span class="line">    <span class="comment">//enhancer：applyMiddleware(...middleware)的执行结果</span></span><br><span class="line">    <span class="keyword">if</span> (enhancer) &#123;</span><br><span class="line">        <span class="keyword">return</span> enhancer(createStore)(reducer)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> state;</span><br><span class="line">    <span class="keyword">let</span> listeners = [];<span class="comment">//事件订阅</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回当前的状态</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getState</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//订阅事件，用于状态变更，触发view渲染。返回一个取消订阅的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">subscribe</span>(<span class="params">listener</span>)</span>&#123;</span><br><span class="line">        listeners.push(listener);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//取消事件订阅</span></span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            listeners = listeners.filter(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> item !== listener;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span>(<span class="params">action</span>)</span>&#123;</span><br><span class="line">        state = reducer(state, action);<span class="comment">//获取新的状态</span></span><br><span class="line">        <span class="comment">//发布事件  触发view更新</span></span><br><span class="line">        listeners.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">listener</span>)</span>&#123;</span><br><span class="line">            listener();</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: <span class="string">"@@TYEP/REDUX_INIT"</span> &#125;);<span class="comment">//初始化数据 state赋值为reducer中的默认值</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        dispatch,</span><br><span class="line">        subscribe,</span><br><span class="line">        getState,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="bindActionCreator"><a href="#bindActionCreator" class="headerlink" title="bindActionCreator"></a>bindActionCreator</h3><p>通过bindActionCreator将 <strong>store.dispatch*</strong> 与 <strong><em>Action Creator</em></strong>进行组合，降低两者的耦合，同时提高了 <strong><em>store.dispatch</em></strong> 代码的复用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bindActionCreator</span>(<span class="params">actionCreator, dispatch</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">//派发动作</span></span><br><span class="line">        dispatch(actionCreator(<span class="built_in">arguments</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//一个辅助方法，能够让我们以方法的形式来派发action</span></span><br><span class="line"><span class="comment">// 如果actionCreators是一个函数，返回一个派发动作的函数</span></span><br><span class="line"><span class="comment">// 如果actionCreators是一个对象，返回一个派发动作的对象</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">bindActionCreators</span>(<span class="params">actionCreators, dispatch</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//处理函数</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> actionCreators ===<span class="string">'function'</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> bindActionCreator(actionCreators, dispatch);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> actionCreators !== <span class="string">'object'</span> || actionCreators === <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">            <span class="string">`bindActionCreators expected an object or a function, instead received <span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">            actionCreators === <span class="literal">null</span> ? <span class="string">'null'</span> : <span class="keyword">typeof</span> actionCreators</span></span></span><br><span class="line"><span class="string"><span class="subst">            &#125;</span>. `</span> +</span><br><span class="line">            <span class="string">`Did you write "import ActionCreators from" instead of "import * as ActionCreators from"?`</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理对象</span></span><br><span class="line">    <span class="keyword">const</span> boundActionCreators = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> actionCreators) &#123;</span><br><span class="line">        <span class="keyword">const</span> actionCreator = actionCreators[key]</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> actionCreator === <span class="string">'function'</span>) &#123;</span><br><span class="line">            <span class="comment">//绑定属性：为bindActionCreator返回的函数</span></span><br><span class="line">            boundActionCreators[key] = bindActionCreator(actionCreator, dispatch)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//返回绑定actionCreators后的对象</span></span><br><span class="line">    <span class="keyword">return</span> boundActionCreators</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="combineReducers"><a href="#combineReducers" class="headerlink" title="combineReducers"></a>combineReducers</h3><p>随着应用变得复杂，需要对 reducer 函数 进行拆分，拆分后的每一块独立负责管理 state 的一部分。</p>
+<p>combineReducers 辅助函数的作用是，把一个由多个不同 reducer 函数作为 value 的 object，合并成一个最终的 reducer 函数，然后就可以对这个 reducer 调用 createStore。</p>
+<p>合并后的 reducer 可以调用各个子 reducer，并把它们的结果合并成一个 state 对象。state 对象的结构由传入的多个 reducer 的 key 决定。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">combineReducers</span>(<span class="params">reducers</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">state = &#123;&#125;, action</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> hasChanged = <span class="literal">false</span>;<span class="comment">//标记state是否更新</span></span><br><span class="line">        <span class="keyword">const</span> nextState = &#123;&#125;;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> reducers) &#123;</span><br><span class="line">            <span class="comment">//获取单个reducer 注意：每个reducer中的action type不要重名 否则会触发其他reducer计算新的state 出现非预期的状态更新</span></span><br><span class="line">            <span class="keyword">const</span> reducer = reducers[key];</span><br><span class="line">            <span class="keyword">const</span> previousStateForKey = state[key];<span class="comment">//获取旧状态</span></span><br><span class="line">            <span class="keyword">const</span> nextStateForKey = reducer(previousStateForKey, action);<span class="comment">//计算新状态 action命中会返回新的状态否则返回旧状态</span></span><br><span class="line">            <span class="comment">//赋值给nextState对象 合并成一个对象</span></span><br><span class="line">            nextState[key] = nextStateForKey;</span><br><span class="line">            <span class="comment">//判断state是否修改</span></span><br><span class="line">            hasChanged = hasChanged || previousStateForKey !== nextStateForKey</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果状态没有更新返回旧的状态state  否则返回新的状态</span></span><br><span class="line">        <span class="comment">//可以在组件shouldComponentUpdate生命周期 进行状态，属性的是否更新比较 避免不必要的渲染</span></span><br><span class="line">        <span class="keyword">return</span> hasChanged ? nextState : state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.zhufengpeixun.cn/main/course/index.html" target="_blank" rel="noopener">珠峰前端架构师</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Redux</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>Redux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Web安全-SQL注入攻击</title>
     <url>/2019-10-19/Web%E5%89%8D%E5%90%8E%E7%AB%AF%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E9%98%B2%E5%BE%A1/Web%E5%AE%89%E5%85%A8-SQL%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/</url>
     <content><![CDATA[<h2 id="SQL注入攻击"><a href="#SQL注入攻击" class="headerlink" title="SQL注入攻击"></a>SQL注入攻击</h2><p>所谓SQL注入，就是通过把SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。具体来说，它是利用现有应用程序，将（恶意的）SQL命令注入到后台数据库引擎执行的能力，它可以通过在Web表单中输入（恶意）SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。</p><a id="more"></a>
