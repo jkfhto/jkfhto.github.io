@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jkfhto.github.io/2019-10-12/Javascript/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/</loc>
+    <lastmod>2019-10-23</lastmod>
+  </url>  <url>
     <loc>https://jkfhto.github.io/2019-10-21/Redux/Redux%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
@@ -113,9 +116,6 @@
     <lastmod>2019-10-20</lastmod>
   </url>  <url>
     <loc>https://jkfhto.github.io/2019-10-12/Javascript/%E5%87%BD%E6%95%B0%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://jkfhto.github.io/2019-10-12/Javascript/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/</loc>
     <lastmod>2019-10-20</lastmod>
   </url>  <url>
     <loc>https://jkfhto.github.io/2019-10-12/Javascript/%E4%BD%BF%E7%94%A8let%E3%80%81var%E5%92%8Cconst%E5%88%9B%E5%BB%BA%E5%8F%98%E9%87%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/</loc>
