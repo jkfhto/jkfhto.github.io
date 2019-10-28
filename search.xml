@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HTML基础</title>
+    <url>/2019-10-28/Html/HTML%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h2 id="HTML基础"><a href="#HTML基础" class="headerlink" title="HTML基础"></a>HTML基础</h2><h2 id="DOCTYPE的作用"><a href="#DOCTYPE的作用" class="headerlink" title="DOCTYPE的作用"></a>DOCTYPE的作用</h2><ul>
+<li>告诉浏览器的解析器使用哪种HTML规范或者XHTML规范来解析页面</li>
+<li>让浏览器以标准模式渲染（盒子模型）</li>
+<li>让浏览器知道元素的合法性</li>
+</ul><h2 id="HTML-XHTML-HTML5的关系"><a href="#HTML-XHTML-HTML5的关系" class="headerlink" title="HTML XHTML HTML5的关系"></a>HTML XHTML HTML5的关系</h2><ul>
+<li>HTML是超文本标记语言，属于SGML</li>
+<li>XHTML属于XML，是HTML进行XML严格化的结果</li>
+<li>HTML5不属于SGML或XML，比XHTML宽松</li>
+</ul><a id="more"></a>
+
+<h2 id="HTML5有什么变化"><a href="#HTML5有什么变化" class="headerlink" title="HTML5有什么变化"></a>HTML5有什么变化</h2><ul>
+<li>新的语义化元素：section，article，footer，header</li>
+<li>表单增强</li>
+<li>新的API：离线，音视频，图形，实时通信，本地存储，设备能力<ul>
+<li>离线：<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Using_the_application_cache" target="_blank" rel="noopener">Application Cache</a>，已废弃，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API" target="_blank" rel="noopener">Service Worker</a></li>
+<li>音视频：<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/audio" target="_blank" rel="noopener">audio</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/video" target="_blank" rel="noopener">video</a></li>
+<li>图形：<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/canvas" target="_blank" rel="noopener">canvas</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Tutorial" target="_blank" rel="noopener">svg</a></li>
+<li>实时通信：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket" target="_blank" rel="noopener">WebSocket</a></li>
+<li>本地存储：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage" target="_blank" rel="noopener">localStorage</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/sessionStorage" target="_blank" rel="noopener">sessionStorage</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/IndexedDB_API" target="_blank" rel="noopener">IndexedDB</a></li>
+<li>设备能力：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation/Using_geolocation" target="_blank" rel="noopener">navigator.geolocation</a>，获取地理位置。<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/deviceorientation_event" target="_blank" rel="noopener">deviceorientation</a>，陀螺仪。</li>
+<li>分类和嵌套规则</li>
+</ul>
+</li>
+</ul>
+<h2 id="em和i的区别"><a href="#em和i的区别" class="headerlink" title="em和i的区别"></a>em和i的区别</h2><p>就表现而言&lt;em&gt;&lt;/em&gt;,&lt;i&gt;&lt;/i&gt;表现都一样，都是表示斜体。</p>
+<p>但是&lt;em&gt;标签是“含有语义”的标签，搜索引擎会了解这些语义。其在HTML中是特意被设定为表示“强调”的意思。当发现这些表示“强调”的标签时，一些屏幕阅读器可能使用不同的inflection，更利于SEO。</p>
+<p>i 是存样式标签。</p>
+<p>HTML5中 i 不推荐使用。</p>
+<h2 id="语义化的意义"><a href="#语义化的意义" class="headerlink" title="语义化的意义"></a>语义化的意义</h2><ul>
+<li>开发者容易理解</li>
+<li>机器容易理解结构（搜索引擎，读屏软件）</li>
+<li>有助于SEO</li>
+<li>semantic microdata</li>
+</ul>
+<h2 id="哪些元素可以自闭合"><a href="#哪些元素可以自闭合" class="headerlink" title="哪些元素可以自闭合"></a>哪些元素可以自闭合</h2><ul>
+<li>表单元素 input</li>
+<li>图片 img</li>
+<li>br hr</li>
+<li>meta link</li>
+</ul>
+<h2 id="HTML和DOM的关系"><a href="#HTML和DOM的关系" class="headerlink" title="HTML和DOM的关系"></a>HTML和DOM的关系</h2><ul>
+<li>HTML是’死‘的</li>
+<li>DOM有HTML解析而来，是活的</li>
+<li>JS可以维护 DOM</li>
+</ul>
+<h2 id="property和attribute的区别"><a href="#property和attribute的区别" class="headerlink" title="property和attribute的区别"></a>property和attribute的区别</h2><ul>
+<li>attribute是’死‘的</li>
+<li>property是活的，有HTML解析生成</li>
+<li>修改互不影响</li>
+</ul>
+<h2 id="form的作用有哪些"><a href="#form的作用有哪些" class="headerlink" title="form的作用有哪些"></a>form的作用有哪些</h2><ul>
+<li>直接提交表单</li>
+<li>使用 submit / reset 按钮</li>
+<li>便于浏览器保存表单</li>
+<li>第三方库可以整体提取值</li>
+<li>第三方库可以进行表单验证</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>node-stream实现原理</title>
     <url>/2019-10-24/Node/node-stream%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<h2 id="stream实现原理"><a href="#stream实现原理" class="headerlink" title="stream实现原理"></a>stream实现原理</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BUFFER_SIZE = <span class="number">10</span>;</span><br><span class="line"><span class="comment">// let buffer = Buffer.alloc(BUFFER_SIZE);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * fs.open(path, flags[, mode], callback): 异步打开文件, 返回文件描述符fd</span></span><br><span class="line"><span class="comment"> * path - 文件的路径。</span></span><br><span class="line"><span class="comment"> * flags -文件打开的行为。 具体值详见下文。</span></span><br><span class="line"><span class="comment"> * mode - 设置文件模式(权限)， 文件创建默认权限为 0666(可读， 可写)。</span></span><br><span class="line"><span class="comment"> * callback - 回调函数， 带有两个参数如： callback(err, fd)。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * fs.read(fd, buffer, offset, length, position, callback): 通过文件描述符 fd 读取文件内容</span></span><br><span class="line"><span class="comment"> * fd - 通过 fs.open() 方法返回的文件描述符，从 fd 指定的文件中读取数据。</span></span><br><span class="line"><span class="comment"> * buffer - 数据将写入的缓冲区。</span></span><br><span class="line"><span class="comment"> * offset - buffer 中开始写入的偏移量。</span></span><br><span class="line"><span class="comment"> * length - 缓冲区写入的字节数。</span></span><br><span class="line"><span class="comment"> * position - 参数指定从文件中开始读取的位置。 如果 position 为 null，则从当前文件位置读取数据，并更新文件位置。 如果 position 是整数，则文件位置将保持不变</span></span><br><span class="line"><span class="comment"> * callback - 回调函数，有三个参数err, bytesRead, buffer，err 为错误信息， bytesRead 表示读取的字节数，buffer 为缓冲区对象。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* fs.write(fd, buffer, offset, length[, position], callback): 将 buffer 写入到 fd 指定的文件</span></span><br><span class="line"><span class="comment">* fd - 通过 fs.open() 方法返回的文件描述符。</span></span><br><span class="line"><span class="comment">* buffer - 将 buffer 写入到 fd 指定的文件。</span></span><br><span class="line"><span class="comment">* offset - 决定 buffer 中要被写入的部位。</span></span><br><span class="line"><span class="comment">* length - 是一个整数，指定要写入的字节数。</span></span><br><span class="line"><span class="comment">* position - 指定文件开头的偏移量（ 数据应该被写入的位置）。</span></span><br><span class="line"><span class="comment">* callback - 回调函数， 有三个参数err, bytesWritten, buffer， err 为错误信息， bytesWritten 指定 buffer 中被写入的字节数， buffer 为缓冲区对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * fs.write(fd, string[, position[, encoding]], callback): 将 string 写入到 fd 指定的文件。 如果 string 不是一个字符串， 则该值会被强制转换为字符串。</span></span><br><span class="line"><span class="comment"> * position 指定文件开头的偏移量（ 数据应该被写入的位置）。 如果 typeof position !== 'number'，则数据会被写入当前的位置。</span></span><br><span class="line"><span class="comment"> * encoding 是期望的字符串编码。</span></span><br><span class="line"><span class="comment"> * callback回调会接收到参数(err, written, string)， 其中 written 指定传入的字符串中被要求写入的字节数。 被写入的字节数不一定与被写入的字符串字符数相同</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> readPath = path.resolve(__dirname, <span class="string">'1.txt'</span>);</span><br><span class="line"><span class="keyword">const</span> writePath = path.resolve(__dirname, <span class="string">'2.txt'</span>);</span><br><span class="line">fs.open(readPath, <span class="string">'r'</span>, (err, rfd) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(err)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">"打开文件fd："</span> + rfd)</span><br><span class="line">        fs.open(writePath, <span class="string">'w'</span>, (err, wfd) =&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="built_in">console</span>.error(err);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"打开文件fd："</span> + wfd)</span><br><span class="line">                <span class="keyword">let</span> readPosition = <span class="number">0</span>;</span><br><span class="line">                <span class="function"><span class="keyword">function</span> <span class="title">next</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="keyword">let</span> buffer = Buffer.alloc(BUFFER_SIZE);</span><br><span class="line">                    fs.read(rfd, buffer, <span class="number">0</span>, BUFFER_SIZE, readPosition, (err, bytesRead) =&gt; &#123;</span><br><span class="line">                        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                            <span class="built_in">console</span>.error(err);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            readPosition += bytesRead;</span><br><span class="line">                            <span class="comment">//如果调用fs.write(fd, buffer, offset, length[, position], callback) 将buffer写入到fd指定的文件会出现乱码的情况</span></span><br><span class="line">                            <span class="comment">//此处调用fs.write(fd, string[, position[, encoding]], callback) 将string写入到fd指定的文件不会出现乱码</span></span><br><span class="line">                            <span class="keyword">if</span> (bytesRead != <span class="number">0</span>) &#123;</span><br><span class="line">                                <span class="comment">//递归</span></span><br><span class="line">                                fs.write(wfd, buffer, <span class="number">0</span>, bytesRead, (err, bytesWritten, buffer) =&gt; &#123;</span><br><span class="line">                                    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                                        <span class="built_in">console</span>.error(err);</span><br><span class="line">                                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                        next();</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;)</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                <span class="comment">//关闭文件</span></span><br><span class="line">                                fs.close(rfd, () =&gt; &#123;</span><br><span class="line">                                    <span class="built_in">console</span>.log(<span class="string">"关闭文件fd："</span> + rfd)</span><br><span class="line">                                &#125;);</span><br><span class="line">                                fs.close(wfd, () =&gt; &#123;</span><br><span class="line">                                    <span class="built_in">console</span>.log(<span class="string">"关闭文件fd："</span> + wfd)</span><br><span class="line">                                &#125;);</span><br><span class="line">                            &#125;</span><br><span class="line"></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;</span><br><span class="line">                next()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><a id="more"></a>
