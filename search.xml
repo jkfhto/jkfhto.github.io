@@ -75,7 +75,10 @@
 <li>标签选择器里样式的权重是 1。</li>
 <li>通用选择器直接忽略。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、这个计算模型仅供理解样式优先级关系，不能代表浏览器里真实的计算方法。</span><br><span class="line">2、权重值的计算不能越级，比如选择器 A 只有 1 个 ID 选择器，权重就是 100；选择器 B 用了 20 个类选择器，权重值是 200。这个时候如果两个选择器对应的样式作用在同一个 DOM 节点上，那么还是选择器A会生效，因为它的选择器级别更高。</span><br><span class="line">3、如果两个选择器 A 和 B 是同级别选择器，并且最终计算的权重值也相同，那么这两个选择器谁在后面谁优先级高。</span><br><span class="line">4、!important 优先级最高。</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、这个计算模型仅供理解样式优先级关系，不能代表浏览器里真实的计算方法。</span><br><span class="line">2、权重值的计算不能越级，比如选择器 A 只有 1 个 ID 选择器，权重就是 100；选择器 B 用了 20 个类选择器，权重值是 200。这个时候如果两个选择器对应的样式作用在同一个 DOM 节点上，那么还是选择器A会生效，因为它的选择器级别更高。</span><br><span class="line">3、如果两个选择器 A 和 B 是同级别选择器，并且最终计算的权重值也相同，那么这两个选择器谁在后面谁优先级高。</span><br><span class="line">4、!important 优先级最高。</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.imooc.com/read/36" target="_blank" rel="noopener">手把手带你打造自己的UI样式库</a></p>
+]]></content>
       <tags>
         <tag>CSS</tag>
       </tags>
