@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="webpack 的性能瓶颈webpack 的优化瓶颈，主要是两个方面：  webpack 的构建过程太花时间 webpack 打包的结果体积太大  webpack构建速度和体积优化策略 01 | 初级分析：使用webpack内置的stats 02 | 速度分析：使用speed-measure-webpack-plugin 03 | 体积分析：使用webpack-bundle-analyzer 04">
-<meta name="keywords" content="Javascript,前端性能优化,Webpack">
+  <meta name="description" content="CSS动画的分类 transition补间，过度动画：控制最开始的状态和最末的状态的动画，中间的状态由浏览器自动帮我们计算生成 keyframe关键帧动画 逐帧动画 transition补间动画 transition-property：规定设置过渡效果的 CSS 属性的名称。只有指定的属性才会在过渡中发生动画，其它属性仍如通常那样瞬间变化。 transition-duration：指定过渡的时长。">
+<meta name="keywords" content="CSS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Webpack 性能优化">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-17/webpack/Webpack-性能优化/index.html">
+<meta property="og:title" content="CSS动画">
+<meta property="og:url" content="https://jkfhto.github.io/2019-10-29/Css/CSS动画/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="webpack 的性能瓶颈webpack 的优化瓶颈，主要是两个方面：  webpack 的构建过程太花时间 webpack 打包的结果体积太大  webpack构建速度和体积优化策略 01 | 初级分析：使用webpack内置的stats 02 | 速度分析：使用speed-measure-webpack-plugin 03 | 体积分析：使用webpack-bundle-analyzer 04">
+<meta property="og:description" content="CSS动画的分类 transition补间，过度动画：控制最开始的状态和最末的状态的动画，中间的状态由浏览器自动帮我们计算生成 keyframe关键帧动画 逐帧动画 transition补间动画 transition-property：规定设置过渡效果的 CSS 属性的名称。只有指定的属性才会在过渡中发生动画，其它属性仍如通常那样瞬间变化。 transition-duration：指定过渡的时长。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-20T09:03:11.913Z">
+<meta property="og:updated_time" content="2019-10-29T16:21:04.736Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Webpack 性能优化">
-<meta name="twitter:description" content="webpack 的性能瓶颈webpack 的优化瓶颈，主要是两个方面：  webpack 的构建过程太花时间 webpack 打包的结果体积太大  webpack构建速度和体积优化策略 01 | 初级分析：使用webpack内置的stats 02 | 速度分析：使用speed-measure-webpack-plugin 03 | 体积分析：使用webpack-bundle-analyzer 04">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-17/webpack/Webpack-性能优化/">
+<meta name="twitter:title" content="CSS动画">
+<meta name="twitter:description" content="CSS动画的分类 transition补间，过度动画：控制最开始的状态和最末的状态的动画，中间的状态由浏览器自动帮我们计算生成 keyframe关键帧动画 逐帧动画 transition补间动画 transition-property：规定设置过渡效果的 CSS 属性的名称。只有指定的属性才会在过渡中发生动画，其它属性仍如通常那样瞬间变化。 transition-duration：指定过渡的时长。">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-10-29/Css/CSS动画/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>Webpack 性能优化 | 个人博客</title>
+  <title>CSS动画 | 个人博客</title>
   
 
 
@@ -255,7 +255,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/Webpack-性能优化/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-29/Css/CSS动画/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +269,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            Webpack 性能优化
+            CSS动画
             
 
           
@@ -286,7 +286,7 @@
                 
               
 
-              <time title="创建时间：2019-10-17 10:31:32" itemprop="dateCreated datePublished" datetime="2019-10-17T10:31:32+08:00">2019-10-17</time>
+              <time title="创建时间：2019-10-29 23:11:56" itemprop="dateCreated datePublished" datetime="2019-10-29T23:11:56+08:00">2019-10-29</time>
             </span>
           
             
@@ -297,48 +297,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-20 17:03:11" itemprop="dateModified" datetime="2019-10-20T17:03:11+08:00">2019-10-20</time>
+                <time title="修改时间：2019-10-30 00:21:04" itemprop="dateModified" datetime="2019-10-30T00:21:04+08:00">2019-10-30</time>
               </span>
             
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">Webpack</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack构建速度和体积优化策略</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -360,8 +321,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-17/webpack/Webpack-性能优化/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/Webpack-性能优化/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-10-29/Css/CSS动画/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-29/Css/CSS动画/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -376,24 +337,59 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="webpack-的性能瓶颈"><a href="#webpack-的性能瓶颈" class="headerlink" title="webpack 的性能瓶颈"></a>webpack 的性能瓶颈</h2><p>webpack 的优化瓶颈，主要是两个方面：</p>
-<ul>
-<li>webpack 的构建过程太花时间</li>
-<li>webpack 打包的结果体积太大</li>
+        <h2 id="CSS动画的分类"><a href="#CSS动画的分类" class="headerlink" title="CSS动画的分类"></a>CSS动画的分类</h2><ul>
+<li>transition补间，过度动画：控制最开始的状态和最末的状态的动画，中间的状态由浏览器自动帮我们计算生成</li>
+<li>keyframe关键帧动画</li>
+<li>逐帧动画</li>
+</ul><h2 id="transition补间动画"><a href="#transition补间动画" class="headerlink" title="transition补间动画"></a>transition补间动画</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-property" target="_blank" rel="noopener">transition-property</a>：规定设置过渡效果的 CSS 属性的名称。只有指定的属性才会在过渡中发生动画，其它属性仍如通常那样瞬间变化。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-duration" target="_blank" rel="noopener">transition-duration</a>：指定过渡的时长。或者为所有属性指定一个值，或者指定多个值，为每个属性指定不同的时长。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-timing-function" target="_blank" rel="noopener">transition-timing-function</a>：规定速度效果的速度曲线。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-delay" target="_blank" rel="noopener">transition-delay</a>：指定延迟，即属性开始变化时与过渡开始发生时之间的时长。</li>
+</ul><a id="more"></a>
+
+<h3 id="补间动画场景"><a href="#补间动画场景" class="headerlink" title="补间动画场景"></a>补间动画场景</h3><ul>
+<li>位置-平移（left，right，margin，transform）</li>
+<li>方位-旋转（transform: rotate）</li>
+<li>大小-缩放（transform: scale）</li>
+<li>透明度（opacity）</li>
+<li>其他-线性变换（transform）</li>
 </ul>
-<h2 id="webpack构建速度和体积优化策略"><a href="#webpack构建速度和体积优化策略" class="headerlink" title="webpack构建速度和体积优化策略"></a>webpack构建速度和体积优化策略</h2><ul>
-<li><a href="/2019-10-17/webpack/初级分析：使用webpack内置的stats">01 | 初级分析：使用webpack内置的stats</a></li>
-<li><a href="/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin">02 | 速度分析：使用speed-measure-webpack-plugin</a></li>
-<li><a href="/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer">03 | 体积分析：使用webpack-bundle-analyzer</a></li>
-<li><a href="/2019-10-17/webpack/使用高版本的webpack和Node-js">04 | 使用高版本的webpack和Node.js</a></li>
-<li><a href="/2019-10-17/webpack/多进程-多实例构建">05 | 多进程/多实例构建</a></li>
-<li><a href="/2019-10-17/webpack/多进程并行压缩代码">06 | 多进程并行压缩代码</a></li>
-<li><a href="/2019-10-17/webpack/进一步分包：预编译资源模块-使用-DLLPlugin-进行分包">07 | 进一步分包：预编译资源模块 使用 DLLPlugin 进行分包</a></li>
-<li><a href="/2019-10-17/webpack/充分利用缓存提升二次构建速度">08 | 充分利用缓存提升二次构建速度</a></li>
-<li><a href="/2019-10-17/webpack/缩小构建目标">09 | 缩小构建目标</a></li>
-<li><a href="/2019-10-17/webpack/使用Tree-Shaking擦除无用的JavaScript和CSS">10 | 使用Tree Shaking擦除无用的JavaScript和CSS</a></li>
-<li><a href="/2019-10-17/webpack/使用webpack进行图片压缩">11 | 使用webpack进行图片压缩</a></li>
-<li><a href="/2019-10-17/webpack/使用动态Polyfill服务">12 | 使用动态Polyfill服务</a></li>
+<h3 id="补间动画过度动画"><a href="#补间动画过度动画" class="headerlink" title="补间动画过度动画"></a>补间动画过度动画</h3><p><a href="https://matthewlein.com/tools/ceaser" target="_blank" rel="noopener">ceaser</a>：过度动画</p>
+<h2 id="keyframe关键帧动画"><a href="#keyframe关键帧动画" class="headerlink" title="keyframe关键帧动画"></a>keyframe关键帧动画</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@keyframes" target="_blank" rel="noopener">@keyframes</a> 规则通过在动画序列中定义关键帧（或waypoints）的样式来控制CSS动画序列中的中间步骤。这比 <strong>transition</strong> 更能控制动画序列的中间步骤。</p>
+<p>要使用关键帧, 先创建一个带名称的 <strong>@keyframes</strong> 规则，以便后续使用 <strong>animation-name</strong> 这个属性来将一个动画同其关键帧声明匹配。每个 <strong>@keyframes</strong> 规则包含多个关键帧，也就是一段样式块语句，每个关键帧有一个百分比值作为名称，代表在动画进行中，在哪个阶段触发这个帧所包含的样式。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation" target="_blank" rel="noopener">animation</a>：属性是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-name" target="_blank" rel="noopener">animation-name</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-duration" target="_blank" rel="noopener">animation-duration</a>, <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-timing-function" target="_blank" rel="noopener">animation-timing-function</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-delay" target="_blank" rel="noopener">animation-delay</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-iteration-count" target="_blank" rel="noopener">animation-iteration-count</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-direction" target="_blank" rel="noopener">animation-direction</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-fill-mode" target="_blank" rel="noopener">animation-fill-mode</a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-play-state" target="_blank" rel="noopener">animation-play-state</a> 属性的一个简写属性形式。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-name" target="_blank" rel="noopener">animation-name</a>：属性指定应用的一系列动画，每个名称代表一个由@keyframes定义的动画序列。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-direction" target="_blank" rel="noopener">animation-direction</a>: 指示动画是否反向播放，它通常在简写属性animation中设定</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-fill-mode" target="_blank" rel="noopener">animation-fill-mode</a>：设置CSS动画在执行之前和之后如何将样式应用于其目标。决定动画停在哪里。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-iteration-count" target="_blank" rel="noopener">animation-iteration-count</a>: 定义动画在结束前运行的次数 可以是1次 无限循环。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-play-state" target="_blank" rel="noopener">animation-play-state</a>：定义一个动画是否运行或者暂停。可以通过查询它来确定动画是否正在运行。另外，它的值可以被设置为暂停和恢复的动画的重放。</li>
+</ul>
+<h2 id="逐帧动画"><a href="#逐帧动画" class="headerlink" title="逐帧动画"></a>逐帧动画</h2><ul>
+<li>每一帧都是关键帧，没有补间，过度</li>
+<li>适用于无法补间计算的动画</li>
+<li>资源较大，需要大量图片</li>
+<li>使用 animation-timing-function: steps(1)，1保证每个区间只有一个画面，取消补间，过度效果。</li>
+</ul>
+<h2 id="过度动画与关键帧动画的区别"><a href="#过度动画与关键帧动画的区别" class="headerlink" title="过度动画与关键帧动画的区别"></a>过度动画与关键帧动画的区别</h2><ul>
+<li>过度动画需要有状态改变</li>
+<li>关键帧动画不需要状态改变</li>
+<li>关键帧动画能控制更精细</li>
+</ul>
+<h2 id="逐帧动画如何实现"><a href="#逐帧动画如何实现" class="headerlink" title="逐帧动画如何实现"></a>逐帧动画如何实现</h2><ul>
+<li>使用关键帧动画</li>
+<li>消除补间，过度（steps）</li>
+</ul>
+<h2 id="CSS动画性能"><a href="#CSS动画性能" class="headerlink" title="CSS动画性能"></a>CSS动画性能</h2><ul>
+<li>性能不差</li>
+<li>部分情况下优于js</li>
+<li>js可以做到更好，可以优化</li>
+<li>部分高危属性，如：box-shadow等</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@keyframes" target="_blank" rel="noopener">CSS3中的关键帧</a></li>
+<li><a href="https://coding.imooc.com/class/164.html" target="_blank" rel="noopener">全面系统讲解CSS工作应用+面试一步搞定</a></li>
 </ul>
 
     </div>
@@ -416,11 +412,7 @@
           
           <div class="post-tags">
             
-              <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
-            
-              <a href="/tags/前端性能优化/" rel="tag"><i class="fa fa-tag"></i> 前端性能优化</a>
-            
-              <a href="/tags/Webpack/" rel="tag"><i class="fa fa-tag"></i> Webpack</a>
+              <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
             
           </div>
         
@@ -430,8 +422,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019-10-17/前端性能优化/DNS-Prefetch/" rel="next" title="DNS Prefetch">
-                  <i class="fa fa-chevron-left"></i> DNS Prefetch
+                <a href="/2019-10-29/Css/CSS布局/" rel="next" title="CSS布局">
+                  <i class="fa fa-chevron-left"></i> CSS布局
                 </a>
               
             </div>
@@ -439,10 +431,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019-10-17/webpack/初级分析：使用webpack内置的stats/" rel="prev" title="初级分析：使用webpack内置的stats">
-                  初级分析：使用webpack内置的stats <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -491,7 +479,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-的性能瓶颈"><span class="nav-number">1.</span> <span class="nav-text">webpack 的性能瓶颈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack构建速度和体积优化策略"><span class="nav-number">2.</span> <span class="nav-text">webpack构建速度和体积优化策略</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS动画的分类"><span class="nav-number">1.</span> <span class="nav-text">CSS动画的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transition补间动画"><span class="nav-number">2.</span> <span class="nav-text">transition补间动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补间动画场景"><span class="nav-number">2.1.</span> <span class="nav-text">补间动画场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补间动画过度动画"><span class="nav-number">2.2.</span> <span class="nav-text">补间动画过度动画</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#keyframe关键帧动画"><span class="nav-number">3.</span> <span class="nav-text">keyframe关键帧动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逐帧动画"><span class="nav-number">4.</span> <span class="nav-text">逐帧动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过度动画与关键帧动画的区别"><span class="nav-number">5.</span> <span class="nav-text">过度动画与关键帧动画的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逐帧动画如何实现"><span class="nav-number">6.</span> <span class="nav-text">逐帧动画如何实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS动画性能"><span class="nav-number">7.</span> <span class="nav-text">CSS动画性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

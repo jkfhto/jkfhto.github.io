@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CSS动画</title>
+    <url>/2019-10-29/Css/CSS%E5%8A%A8%E7%94%BB/</url>
+    <content><![CDATA[<h2 id="CSS动画的分类"><a href="#CSS动画的分类" class="headerlink" title="CSS动画的分类"></a>CSS动画的分类</h2><ul>
+<li>transition补间，过度动画：控制最开始的状态和最末的状态的动画，中间的状态由浏览器自动帮我们计算生成</li>
+<li>keyframe关键帧动画</li>
+<li>逐帧动画</li>
+</ul><h2 id="transition补间动画"><a href="#transition补间动画" class="headerlink" title="transition补间动画"></a>transition补间动画</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-property" target="_blank" rel="noopener">transition-property</a>：规定设置过渡效果的 CSS 属性的名称。只有指定的属性才会在过渡中发生动画，其它属性仍如通常那样瞬间变化。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-duration" target="_blank" rel="noopener">transition-duration</a>：指定过渡的时长。或者为所有属性指定一个值，或者指定多个值，为每个属性指定不同的时长。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-timing-function" target="_blank" rel="noopener">transition-timing-function</a>：规定速度效果的速度曲线。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-delay" target="_blank" rel="noopener">transition-delay</a>：指定延迟，即属性开始变化时与过渡开始发生时之间的时长。</li>
+</ul><a id="more"></a>
+
+<h3 id="补间动画场景"><a href="#补间动画场景" class="headerlink" title="补间动画场景"></a>补间动画场景</h3><ul>
+<li>位置-平移（left，right，margin，transform）</li>
+<li>方位-旋转（transform: rotate）</li>
+<li>大小-缩放（transform: scale）</li>
+<li>透明度（opacity）</li>
+<li>其他-线性变换（transform）</li>
+</ul>
+<h3 id="补间动画过度动画"><a href="#补间动画过度动画" class="headerlink" title="补间动画过度动画"></a>补间动画过度动画</h3><p><a href="https://matthewlein.com/tools/ceaser" target="_blank" rel="noopener">ceaser</a>：过度动画</p>
+<h2 id="keyframe关键帧动画"><a href="#keyframe关键帧动画" class="headerlink" title="keyframe关键帧动画"></a>keyframe关键帧动画</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@keyframes" target="_blank" rel="noopener">@keyframes</a> 规则通过在动画序列中定义关键帧（或waypoints）的样式来控制CSS动画序列中的中间步骤。这比 <strong>transition</strong> 更能控制动画序列的中间步骤。</p>
+<p>要使用关键帧, 先创建一个带名称的 <strong>@keyframes</strong> 规则，以便后续使用 <strong>animation-name</strong> 这个属性来将一个动画同其关键帧声明匹配。每个 <strong>@keyframes</strong> 规则包含多个关键帧，也就是一段样式块语句，每个关键帧有一个百分比值作为名称，代表在动画进行中，在哪个阶段触发这个帧所包含的样式。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation" target="_blank" rel="noopener">animation</a>：属性是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-name" target="_blank" rel="noopener">animation-name</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-duration" target="_blank" rel="noopener">animation-duration</a>, <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-timing-function" target="_blank" rel="noopener">animation-timing-function</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-delay" target="_blank" rel="noopener">animation-delay</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-iteration-count" target="_blank" rel="noopener">animation-iteration-count</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-direction" target="_blank" rel="noopener">animation-direction</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-fill-mode" target="_blank" rel="noopener">animation-fill-mode</a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-play-state" target="_blank" rel="noopener">animation-play-state</a> 属性的一个简写属性形式。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-name" target="_blank" rel="noopener">animation-name</a>：属性指定应用的一系列动画，每个名称代表一个由@keyframes定义的动画序列。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-direction" target="_blank" rel="noopener">animation-direction</a>: 指示动画是否反向播放，它通常在简写属性animation中设定</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-fill-mode" target="_blank" rel="noopener">animation-fill-mode</a>：设置CSS动画在执行之前和之后如何将样式应用于其目标。决定动画停在哪里。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-iteration-count" target="_blank" rel="noopener">animation-iteration-count</a>: 定义动画在结束前运行的次数 可以是1次 无限循环。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-play-state" target="_blank" rel="noopener">animation-play-state</a>：定义一个动画是否运行或者暂停。可以通过查询它来确定动画是否正在运行。另外，它的值可以被设置为暂停和恢复的动画的重放。</li>
+</ul>
+<h2 id="逐帧动画"><a href="#逐帧动画" class="headerlink" title="逐帧动画"></a>逐帧动画</h2><ul>
+<li>每一帧都是关键帧，没有补间，过度</li>
+<li>适用于无法补间计算的动画</li>
+<li>资源较大，需要大量图片</li>
+<li>使用 animation-timing-function: steps(1)，1保证每个区间只有一个画面，取消补间，过度效果。</li>
+</ul>
+<h2 id="过度动画与关键帧动画的区别"><a href="#过度动画与关键帧动画的区别" class="headerlink" title="过度动画与关键帧动画的区别"></a>过度动画与关键帧动画的区别</h2><ul>
+<li>过度动画需要有状态改变</li>
+<li>关键帧动画不需要状态改变</li>
+<li>关键帧动画能控制更精细</li>
+</ul>
+<h2 id="逐帧动画如何实现"><a href="#逐帧动画如何实现" class="headerlink" title="逐帧动画如何实现"></a>逐帧动画如何实现</h2><ul>
+<li>使用关键帧动画</li>
+<li>消除补间，过度（steps）</li>
+</ul>
+<h2 id="CSS动画性能"><a href="#CSS动画性能" class="headerlink" title="CSS动画性能"></a>CSS动画性能</h2><ul>
+<li>性能不差</li>
+<li>部分情况下优于js</li>
+<li>js可以做到更好，可以优化</li>
+<li>部分高危属性，如：box-shadow等</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@keyframes" target="_blank" rel="noopener">CSS3中的关键帧</a></li>
+<li><a href="https://coding.imooc.com/class/164.html" target="_blank" rel="noopener">全面系统讲解CSS工作应用+面试一步搞定</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CSS布局</title>
     <url>/2019-10-29/Css/CSS%E5%B8%83%E5%B1%80/</url>
     <content><![CDATA[<h2 id="CSS实现三栏布局"><a href="#CSS实现三栏布局" class="headerlink" title="CSS实现三栏布局"></a>CSS实现三栏布局</h2><ul>
