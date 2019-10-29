@@ -221,6 +221,26 @@
 <li>第三方库可以整体提取值</li>
 <li>第三方库可以进行表单验证</li>
 </ul>
+<h2 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h2><p>盒模型属性：</p>
+<ul>
+<li>宽度（width）和高度（height），这两个属性分别决定了一个盒子的宽度和高度，在标准盒模型中，这个宽高指定的就是最里层内容区的宽度和高度，对应画框中最里面带色彩的部分。</li>
+<li>内边距（padding），当内容区和边框需要离开一定的间距，避免布局太过拥挤时，就可以用内边距来指定他们隔开的距离。在画框中就对应着内容区和边框中间夹着的那部分白色的区域。</li>
+<li>边框（border），边框比较好理解，就是每幅画的外框。</li>
+<li>外边距（margin），外边距是用来限制盒子与盒子中间的距离的，在上图中，三幅画边框与边框中间空出来的距离，就由外边距来指定。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">            div&#123;</span><br><span class="line">                width: 200px;</span><br><span class="line">                height: 100px;</span><br><span class="line">                padding: 10px;</span><br><span class="line"><span class="css">                <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#000</span>;</span></span><br><span class="line">                margin: 20px;</span><br><span class="line">            &#125;</span><br><span class="line"><span class="css">            <span class="comment">/* 标准盒模型 **/</span></span></span><br><span class="line"><span class="css">            <span class="selector-class">.content-box</span>&#123;</span></span><br><span class="line">                box-sizing: content-box;</span><br><span class="line">            &#125;</span><br><span class="line"><span class="css">            <span class="comment">/* 怪异盒模型 **/</span></span></span><br><span class="line"><span class="css">            <span class="selector-class">.border-box</span>&#123;</span></span><br><span class="line">                box-sizing: border-box;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 标准盒模型 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content-box"</span>&gt;</span></span><br><span class="line">            我是content-box</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 怪异盒模型 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"border-box"</span>&gt;</span></span><br><span class="line">            我是border-box</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="标准盒模型"><a href="#标准盒模型" class="headerlink" title="标准盒模型"></a>标准盒模型</h3><p>盒子实际大小是：</p>
+<ul>
+<li>横向空间：width  + padding宽度 + border宽度</li>
+<li>纵向空间：height + padding高度 + border宽度</li>
+</ul>
+<h3 id="怪异盒模型"><a href="#怪异盒模型" class="headerlink" title="怪异盒模型"></a>怪异盒模型</h3><p>在怪异模式下，width 和 height 做指定的宽高就是盒子的实际宽高，而它内容区部分的大小是在 width 或 height 指定尺寸的基础上，再减去 border 和 padding 所占的宽度。</p>
+<h2 id="外边距折叠"><a href="#外边距折叠" class="headerlink" title="外边距折叠"></a>外边距折叠</h2><p>但是如果两个盒子都设置了 margin，在排列这两个盒子的时候左右外边距是叠加的，上下外边距是取最大值。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://coding.imooc.com/class/164.html" target="_blank" rel="noopener">全面系统讲解CSS工作应用+面试一步搞定</a></li>
+<li><a href="https://www.imooc.com/read/36" target="_blank" rel="noopener">手把手带你打造自己的UI样式库</a></li>
+</ul>
 ]]></content>
       <tags>
         <tag>HTML</tag>
