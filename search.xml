@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>基于Docker搭建GitLab</title>
+    <url>/2019-11-05/docker/%E5%9F%BA%E4%BA%8EDocker%E6%90%AD%E5%BB%BAGitLab/</url>
+    <content><![CDATA[<h2 id="安装镜像"><a href="#安装镜像" class="headerlink" title="安装镜像"></a>安装镜像</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo docker run --detach \</span><br><span class="line">  --hostname gitlab.example.com \</span><br><span class="line">  --publish 13443:443 --publish 13880:80 --publish 13822:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /srv/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /srv/gitlab/logs:/var/log/gitlab \</span><br><span class="line">  --volume /srv/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">--hostname  <span class="comment">//虚拟机地址或云服务器地址</span></span><br><span class="line">--publish <span class="comment">// 设置端口 13443:443 13443代表宿主机上的端口 修改端口防止443，80，22端口占用</span></span><br></pre></td></tr></table></figure>
+
+<p>下载并启动一个GitLab CE容器，并发布访问SSH，HTTP和HTTPS所需的端口。 配置 (etc) 、 日志 (log) 、数据 (data) 三个文件夹，放到容器之外， 便于日后升级，放在 <strong>/srv/gitlab/</strong> 目录。 系统重启后，容器将自动“重启”。</p>
+<h2 id="防火墙开启端口"><a href="#防火墙开启端口" class="headerlink" title="防火墙开启端口"></a>防火墙开启端口</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=13880/tcp</span><br><span class="line">firewall-cmd --permanent --add-port=13822/tcp</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-can’t-connect-to-docker-daemon"><a href="#Docker-can’t-connect-to-docker-daemon" class="headerlink" title="Docker can’t connect to docker daemon"></a>Docker can’t connect to docker daemon</h2><ol>
+<li><p>创建 docker 组.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo groupadd docker</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将用户添加到 docker 组.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo usermod -aG docker $(whoami)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注销并重新登录以确保docker以正确的权限运行.</p>
+</li>
+<li><p>启动docker.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="数据存储在哪里"><a href="#数据存储在哪里" class="headerlink" title="数据存储在哪里?"></a>数据存储在哪里?</h2><table>
+<thead>
+<tr>
+<th align="left">Local location</th>
+<th align="left">Container location</th>
+<th align="left">Usage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>/srv/gitlab/data</code></td>
+<td align="left"><code>/var/opt/gitlab</code></td>
+<td align="left">用于存储应用程序数据</td>
+</tr>
+<tr>
+<td align="left"><code>/srv/gitlab/logs</code></td>
+<td align="left"><code>/var/log/gitlab</code></td>
+<td align="left">用于存储日志</td>
+</tr>
+<tr>
+<td align="left"><code>/srv/gitlab/config</code></td>
+<td align="left"><code>/etc/gitlab</code></td>
+<td align="left">用于存储GitLab配置文件</td>
+</tr>
+</tbody></table>
+<p>您可以微调这些目录以满足您的要求</p>
+<h2 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h2><p>打开浏览器，输入本机的ip地址并登陆</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">`http://192.168.138.128:13880/`</span><br></pre></td></tr></table></figure>
+
+<p>默认帐户的用户名是root，第一次访问时，将被重定向到密码重置屏幕,登录后，您可以更改用户名。</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux常用命令</title>
     <url>/2019-11-03/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h2 id="Linux目录结构"><a href="#Linux目录结构" class="headerlink" title="Linux目录结构"></a>Linux目录结构</h2><p><img src="/images/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt="Linux目录结构"></p><h2 id="Linux文件属性"><a href="#Linux文件属性" class="headerlink" title="Linux文件属性"></a>Linux文件属性</h2><p><img src="/images/Linux%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7.png" alt="Linux文件属性"></p><ul>
@@ -672,6 +735,9 @@
 <li><a href="https://ipcmen.com/" target="_blank" rel="noopener">Linux命令大全（手册）</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
       <tags>
         <tag>Linux</tag>
       </tags>
@@ -966,7 +1032,7 @@
 <li>边框（border），边框比较好理解，就是每幅画的外框。</li>
 <li>外边距（margin），外边距是用来限制盒子与盒子中间的距离的，在上图中，三幅画边框与边框中间空出来的距离，就由外边距来指定。</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">            div&#123;</span><br><span class="line">                width: 200px;</span><br><span class="line">                height: 100px;</span><br><span class="line">                padding: 10px;</span><br><span class="line"><span class="css">                <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#000</span>;</span></span><br><span class="line">                margin: 20px;</span><br><span class="line">            &#125;</span><br><span class="line"><span class="css">            <span class="comment">/* 标准盒模型 **/</span></span></span><br><span class="line"><span class="css">            <span class="selector-class">.content-box</span>&#123;</span></span><br><span class="line">                box-sizing: content-box;</span><br><span class="line">            &#125;</span><br><span class="line"><span class="css">            <span class="comment">/* 怪异盒模型 **/</span></span></span><br><span class="line"><span class="css">            <span class="selector-class">.border-box</span>&#123;</span></span><br><span class="line">                box-sizing: border-box;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 标准盒模型 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content-box"</span>&gt;</span></span><br><span class="line">            我是content-box</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 怪异盒模型 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"border-box"</span>&gt;</span></span><br><span class="line">            我是border-box</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">            div&#123;</span><br><span class="line">                width: 200px;</span><br><span class="line">                height: 100px;</span><br><span class="line">                padding: 10px;</span><br><span class="line">                border: 1px solid #000;</span><br><span class="line">                margin: 20px;</span><br><span class="line">            &#125;</span><br><span class="line">            /* 标准盒模型 **/</span><br><span class="line">            .content-box&#123;</span><br><span class="line">                box-sizing: content-box;</span><br><span class="line">            &#125;</span><br><span class="line">            /* 怪异盒模型 **/</span><br><span class="line">            .border-box&#123;</span><br><span class="line">                box-sizing: border-box;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 标准盒模型 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content-box"</span>&gt;</span></span><br><span class="line">            我是content-box</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 怪异盒模型 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"border-box"</span>&gt;</span></span><br><span class="line">            我是border-box</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="标准盒模型"><a href="#标准盒模型" class="headerlink" title="标准盒模型"></a>标准盒模型</h3><p>盒子实际大小是：</p>
 <ul>
