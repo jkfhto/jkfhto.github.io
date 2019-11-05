@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="webpack 的性能瓶颈webpack 的优化瓶颈，主要是两个方面：  webpack 的构建过程太花时间 webpack 打包的结果体积太大  webpack构建速度和体积优化策略 01 | 初级分析：使用webpack内置的stats 02 | 速度分析：使用speed-measure-webpack-plugin 03 | 体积分析：使用webpack-bundle-analyzer 04">
-<meta name="keywords" content="Javascript,前端性能优化,Webpack">
+  <meta name="description" content="CentOS 安装 Docker CE 警告：切勿在没有配置 Docker YUM 源的情况下直接使用 yum 命令安装 Docker. 准备工作系统要求Docker CE 支持 64 位版本 CentOS 7，并且要求内核版本不低于 3.10。 CentOS 7 满足最低内核的要求，但由于内核版本比较低，部分功能（如 overlay2 存储层驱动）无法使用，并且部分功能可能不太稳定。">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Webpack 性能优化">
-<meta property="og:url" content="https://jkfhto.github.io/2019-10-17/webpack/Webpack-性能优化/index.html">
+<meta property="og:title" content="CentOS 安装 Docker CE">
+<meta property="og:url" content="https://jkfhto.github.io/2019-11-05/Linux/CentOS-安装-Docker-CE/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="webpack 的性能瓶颈webpack 的优化瓶颈，主要是两个方面：  webpack 的构建过程太花时间 webpack 打包的结果体积太大  webpack构建速度和体积优化策略 01 | 初级分析：使用webpack内置的stats 02 | 速度分析：使用speed-measure-webpack-plugin 03 | 体积分析：使用webpack-bundle-analyzer 04">
+<meta property="og:description" content="CentOS 安装 Docker CE 警告：切勿在没有配置 Docker YUM 源的情况下直接使用 yum 命令安装 Docker. 准备工作系统要求Docker CE 支持 64 位版本 CentOS 7，并且要求内核版本不低于 3.10。 CentOS 7 满足最低内核的要求，但由于内核版本比较低，部分功能（如 overlay2 存储层驱动）无法使用，并且部分功能可能不太稳定。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-20T09:03:11.913Z">
+<meta property="og:updated_time" content="2019-11-05T14:31:05.614Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Webpack 性能优化">
-<meta name="twitter:description" content="webpack 的性能瓶颈webpack 的优化瓶颈，主要是两个方面：  webpack 的构建过程太花时间 webpack 打包的结果体积太大  webpack构建速度和体积优化策略 01 | 初级分析：使用webpack内置的stats 02 | 速度分析：使用speed-measure-webpack-plugin 03 | 体积分析：使用webpack-bundle-analyzer 04">
-  <link rel="canonical" href="https://jkfhto.github.io/2019-10-17/webpack/Webpack-性能优化/">
+<meta name="twitter:title" content="CentOS 安装 Docker CE">
+<meta name="twitter:description" content="CentOS 安装 Docker CE 警告：切勿在没有配置 Docker YUM 源的情况下直接使用 yum 命令安装 Docker. 准备工作系统要求Docker CE 支持 64 位版本 CentOS 7，并且要求内核版本不低于 3.10。 CentOS 7 满足最低内核的要求，但由于内核版本比较低，部分功能（如 overlay2 存储层驱动）无法使用，并且部分功能可能不太稳定。">
+  <link rel="canonical" href="https://jkfhto.github.io/2019-11-05/Linux/CentOS-安装-Docker-CE/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>Webpack 性能优化 | 个人博客</title>
+  <title>CentOS 安装 Docker CE | 个人博客</title>
   
 
 
@@ -255,7 +255,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/Webpack-性能优化/">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-11-05/Linux/CentOS-安装-Docker-CE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jkfhto">
@@ -269,7 +269,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            Webpack 性能优化
+            CentOS 安装 Docker CE
             
 
           
@@ -286,19 +286,11 @@
                 
               
 
-              <time title="创建时间：2019-10-17 10:31:32" itemprop="dateCreated datePublished" datetime="2019-10-17T10:31:32+08:00">2019-10-17</time>
+              <time title="创建时间：2019-11-05 22:19:53 / 修改时间：22:31:05" itemprop="dateCreated datePublished" datetime="2019-11-05T22:19:53+08:00">2019-11-05</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-20 17:03:11" itemprop="dateModified" datetime="2019-10-20T17:03:11+08:00">2019-10-20</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -308,30 +300,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">Webpack</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack构建速度和体积优化策略</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -360,8 +330,8 @@
       
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019-10-17/webpack/Webpack-性能优化/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/Webpack-性能优化/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019-11-05/Linux/CentOS-安装-Docker-CE/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-11-05/Linux/CentOS-安装-Docker-CE/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -376,24 +346,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="webpack-的性能瓶颈"><a href="#webpack-的性能瓶颈" class="headerlink" title="webpack 的性能瓶颈"></a>webpack 的性能瓶颈</h2><p>webpack 的优化瓶颈，主要是两个方面：</p>
-<ul>
-<li>webpack 的构建过程太花时间</li>
-<li>webpack 打包的结果体积太大</li>
-</ul>
-<h2 id="webpack构建速度和体积优化策略"><a href="#webpack构建速度和体积优化策略" class="headerlink" title="webpack构建速度和体积优化策略"></a>webpack构建速度和体积优化策略</h2><ul>
-<li><a href="/2019-10-17/webpack/初级分析：使用webpack内置的stats">01 | 初级分析：使用webpack内置的stats</a></li>
-<li><a href="/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin">02 | 速度分析：使用speed-measure-webpack-plugin</a></li>
-<li><a href="/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer">03 | 体积分析：使用webpack-bundle-analyzer</a></li>
-<li><a href="/2019-10-17/webpack/使用高版本的webpack和Node-js">04 | 使用高版本的webpack和Node.js</a></li>
-<li><a href="/2019-10-17/webpack/多进程-多实例构建">05 | 多进程/多实例构建</a></li>
-<li><a href="/2019-10-17/webpack/多进程并行压缩代码">06 | 多进程并行压缩代码</a></li>
-<li><a href="/2019-10-17/webpack/进一步分包：预编译资源模块-使用-DLLPlugin-进行分包">07 | 进一步分包：预编译资源模块 使用 DLLPlugin 进行分包</a></li>
-<li><a href="/2019-10-17/webpack/充分利用缓存提升二次构建速度">08 | 充分利用缓存提升二次构建速度</a></li>
-<li><a href="/2019-10-17/webpack/缩小构建目标">09 | 缩小构建目标</a></li>
-<li><a href="/2019-10-17/webpack/使用Tree-Shaking擦除无用的JavaScript和CSS">10 | 使用Tree Shaking擦除无用的JavaScript和CSS</a></li>
-<li><a href="/2019-10-17/webpack/使用webpack进行图片压缩">11 | 使用webpack进行图片压缩</a></li>
-<li><a href="/2019-10-17/webpack/使用动态Polyfill服务">12 | 使用动态Polyfill服务</a></li>
+        <h2 id="CentOS-安装-Docker-CE"><a href="#CentOS-安装-Docker-CE" class="headerlink" title="CentOS 安装 Docker CE"></a>CentOS 安装 Docker CE</h2><blockquote>
+<p>警告：切勿在没有配置 Docker YUM 源的情况下直接使用 yum 命令安装 Docker.</p>
+</blockquote><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><h4 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h4><p>Docker CE 支持 64 位版本 CentOS 7，并且要求内核版本不低于 3.10。 CentOS 7 满足最低内核的要求，但由于内核版本比较低，部分功能（如 <code>overlay2</code> 存储层驱动）无法使用，并且部分功能可能不太稳定。</p><a id="more"></a>
+
+<h4 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h4><p>旧版本的 Docker 称为 <code>docker</code> 或者 <code>docker-engine</code>，使用以下命令卸载旧版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-yum-安装"><a href="#使用-yum-安装" class="headerlink" title="使用 yum 安装"></a>使用 yum 安装</h3><p>执行以下命令安装依赖包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+
+<p>鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 官方源</span></span><br><span class="line"><span class="comment"># $ sudo yum-config-manager \</span></span><br><span class="line"><span class="comment">#     --add-repo \</span></span><br><span class="line"><span class="comment">#     https://download.docker.com/linux/centos/docker-ce.repo</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装-Docker-CE"><a href="#安装-Docker-CE" class="headerlink" title="安装 Docker CE"></a>安装 Docker CE</h4><p>更新 <code>yum</code> 软件源缓存，并安装 <code>docker-ce</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum makecache fast</span><br><span class="line">$ sudo yum install docker-ce</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动-Docker-CE"><a href="#启动-Docker-CE" class="headerlink" title="启动 Docker CE"></a>启动 Docker CE</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="建立-docker-用户组"><a href="#建立-docker-用户组" class="headerlink" title="建立 docker 用户组"></a>建立 docker 用户组</h3><p>默认情况下，<code>docker</code> 命令会使用 <a href="https://en.wikipedia.org/wiki/Unix_domain_socket" target="_blank" rel="noopener">Unix socket</a> 与 Docker 引擎通讯。而只有 <code>root</code> 用户和 <code>docker</code> 组的用户才可以访问 Docker 引擎的 Unix socket。出于安全考虑，一般 Linux 系统上不会直接使用 <code>root</code> 用户。因此，更好地做法是将需要使用 <code>docker</code> 的用户加入 <code>docker</code> 用户组。</p>
+<p>建立 <code>docker</code> 组：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br></pre></td></tr></table></figure>
+
+<p>将当前用户加入 <code>docker</code> 组：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+
+<p>退出当前终端并重新登录，进行如下测试。</p>
+<h3 id="测试-Docker-是否安装正确"><a href="#测试-Docker-是否安装正确" class="headerlink" title="测试 Docker 是否安装正确"></a>测试 Docker 是否安装正确</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$ docker run hello-world</span><br><span class="line"></span><br><span class="line">Unable to find image <span class="string">'hello-world:latest'</span> locally</span><br><span class="line">latest: Pulling from library/hello-world</span><br><span class="line">d1725b59e92d: Pull complete</span><br><span class="line">Digest: sha256:0add3ace90ecb4adbf7777e9aacf18357296e799f81cabc9fde470971e499788</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> hello-world:latest</span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the <span class="string">"hello-world"</span> image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image <span class="built_in">which</span> runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, <span class="built_in">which</span> sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/get-started/</span><br></pre></td></tr></table></figure>
+
+<p>若能正常输出以上信息，则说明安装成功。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/install/centos.html" target="_blank" rel="noopener">CentOS 安装 Docker CE</a></li>
 </ul>
 
     </div>
@@ -416,11 +399,7 @@
           
           <div class="post-tags">
             
-              <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
-            
-              <a href="/tags/前端性能优化/" rel="tag"><i class="fa fa-tag"></i> 前端性能优化</a>
-            
-              <a href="/tags/Webpack/" rel="tag"><i class="fa fa-tag"></i> Webpack</a>
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
             
           </div>
         
@@ -430,8 +409,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019-10-17/前端性能优化/DNS-Prefetch/" rel="next" title="DNS Prefetch">
-                  <i class="fa fa-chevron-left"></i> DNS Prefetch
+                <a href="/2019-11-05/docker/基于Docker搭建GitLab/" rel="next" title="基于Docker搭建GitLab">
+                  <i class="fa fa-chevron-left"></i> 基于Docker搭建GitLab
                 </a>
               
             </div>
@@ -439,10 +418,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019-10-17/webpack/初级分析：使用webpack内置的stats/" rel="prev" title="初级分析：使用webpack内置的stats">
-                  初级分析：使用webpack内置的stats <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -491,7 +466,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-的性能瓶颈"><span class="nav-number">1.</span> <span class="nav-text">webpack 的性能瓶颈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack构建速度和体积优化策略"><span class="nav-number">2.</span> <span class="nav-text">webpack构建速度和体积优化策略</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS-安装-Docker-CE"><span class="nav-number">1.</span> <span class="nav-text">CentOS 安装 Docker CE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#系统要求"><span class="nav-number">1.1.1.</span> <span class="nav-text">系统要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卸载旧版本"><span class="nav-number">1.1.2.</span> <span class="nav-text">卸载旧版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-yum-安装"><span class="nav-number">1.2.</span> <span class="nav-text">使用 yum 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-Docker-CE"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装 Docker CE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-Docker-CE"><span class="nav-number">1.3.</span> <span class="nav-text">启动 Docker CE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立-docker-用户组"><span class="nav-number">1.4.</span> <span class="nav-text">建立 docker 用户组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试-Docker-是否安装正确"><span class="nav-number">1.5.</span> <span class="nav-text">测试 Docker 是否安装正确</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
