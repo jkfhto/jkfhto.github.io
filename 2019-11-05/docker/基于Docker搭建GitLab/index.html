@@ -372,7 +372,7 @@
 <p>下载并启动一个GitLab CE容器，并发布访问SSH，HTTP和HTTPS所需的端口。 配置 (etc) 、 日志 (log) 、数据 (data) 三个文件夹，放到容器之外， 便于日后升级，放在 <strong>/srv/gitlab/</strong> 目录。 系统重启后，容器将自动“重启”。</p>
 <h3 id="查找GitLab镜像"><a href="#查找GitLab镜像" class="headerlink" title="查找GitLab镜像"></a>查找GitLab镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search gitlab</span><br></pre></td></tr></table></figure>
 
-<h2 id="防火墙开启端口"><a href="#防火墙开启端口" class="headerlink" title="防火墙开启端口"></a>防火墙开启端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=13880/tcp</span><br><span class="line">firewall-cmd --permanent --add-port=13822/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 重新加载</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<h2 id="防火墙开启端口"><a href="#防火墙开启端口" class="headerlink" title="防火墙开启端口"></a>防火墙开启端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=13880/tcp</span><br><span class="line">firewall-cmd --permanent --add-port=13822/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重新加载</span></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 
 <h2 id="Docker-can’t-connect-to-docker-daemon"><a href="#Docker-can’t-connect-to-docker-daemon" class="headerlink" title="Docker can’t connect to docker daemon"></a>Docker can’t connect to docker daemon</h2><ol>
 <li><p>创建 docker 组.</p>
@@ -537,7 +537,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
