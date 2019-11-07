@@ -381,13 +381,13 @@
 <h2 id="安装中文镜像"><a href="#安装中文镜像" class="headerlink" title="安装中文镜像"></a>安装中文镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">    --hostname gitlab.example.com \</span><br><span class="line">    -p 80:80 \</span><br><span class="line">    -p 443:443 \</span><br><span class="line">    -p 22:22 \</span><br><span class="line">    --name gitlab \</span><br><span class="line">    --restart unless-stopped \</span><br><span class="line">    -v gitlab-config:/etc/gitlab \</span><br><span class="line">    -v gitlab-logs:/var/log/gitlab \</span><br><span class="line">    -v gitlab-data:/var/opt/gitlab \</span><br><span class="line">    --network gitlab-net \</span><br><span class="line">    twang2218/gitlab-ce-zh:11.1.4</span><br></pre></td></tr></table></figure>
 
 <p>如果需要进入容器修改配置文件，可以用 <code>docker exec</code> 命令进入容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker exec -it gitlab bash</span><br><span class="line">root@09f6e32c528c:/# vi /etc/gitlab/gitlab.rb</span><br><span class="line">root@09f6e32c528c:/# gitlab-ctl reconfigure</span><br><span class="line">Starting Chef Client, version 12.12.15</span><br><span class="line">resolving cookbooks for run list: ["gitlab"]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> -it gitlab bash</span></span><br><span class="line">root@09f6e32c528c:/# vi /etc/gitlab/gitlab.rb</span><br><span class="line">root@09f6e32c528c:/# gitlab-ctl reconfigure</span><br><span class="line">Starting Chef Client, version 12.12.15</span><br><span class="line">resolving cookbooks for run list: ["gitlab"]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
 <p>如需停止服务，直接运行 <code>docker stop gitlab</code>。</p>
 <p>如需卸载服务及相关内容，可以执行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker stop gitlab</span><br><span class="line">docker rm gitlab</span><br><span class="line">docker network rm gitlab-net</span><br><span class="line">docker volume rm gitlab-config gitlab-datagitlab-logs</span><br></pre></td></tr></table></figure>
 
-<h2 id="防火墙开启端口"><a href="#防火墙开启端口" class="headerlink" title="防火墙开启端口"></a>防火墙开启端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=13880/tcp</span><br><span class="line">firewall-cmd --permanent --add-port=13822/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 重新加载</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<h2 id="防火墙开启端口"><a href="#防火墙开启端口" class="headerlink" title="防火墙开启端口"></a>防火墙开启端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=13880/tcp</span><br><span class="line">firewall-cmd --permanent --add-port=13822/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重新加载</span></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 
 <h2 id="Docker-can’t-connect-to-docker-daemon"><a href="#Docker-can’t-connect-to-docker-daemon" class="headerlink" title="Docker can’t connect to docker daemon"></a>Docker can’t connect to docker daemon</h2><ol>
 <li><p>创建 docker 组.</p>
@@ -581,7 +581,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -594,7 +594,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -607,7 +607,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -366,7 +366,7 @@
 <li><p>端口冲突：修改端口，再执行安装命令</p>
 </li>
 <li><p>容器名称冲突，容器已经存在：停止容器，删除容器再安装</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 停止容器</span><br><span class="line">docker stop container</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 删除容器</span><br><span class="line">docker rm container</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 停止容器</span></span><br><span class="line">docker stop container</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除容器</span></span><br><span class="line">docker rm container</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul><a id="more"></a>
@@ -380,7 +380,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f jenkins_test</span><br></pre></td></tr></table></figure>
 
 <p>![打印容器信息]/images/打印容器信息.png)</p>
-<h2 id="防火墙开启端口"><a href="#防火墙开启端口" class="headerlink" title="防火墙开启端口"></a>防火墙开启端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=18080/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 重新加载</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<h2 id="防火墙开启端口"><a href="#防火墙开启端口" class="headerlink" title="防火墙开启端口"></a>防火墙开启端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=18080/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重新加载</span></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 
 <h2 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h2><p>打开浏览器，输入本机的ip地址并登陆</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`http://192.168.155.128:18080/`</span><br></pre></td></tr></table></figure>
@@ -428,6 +428,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019-11-07/jenkins/Jenkins权限管理/" rel="prev" title="Jenkins权限管理">
+                  Jenkins权限管理 <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -495,7 +499,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -508,7 +512,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -521,7 +525,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
