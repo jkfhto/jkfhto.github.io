@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="安装镜像123456789sudo docker run --detach \  --hostname gitlab.example.com \  --publish 13443:443 --publish 13880:80 --publish 13822:22 \  --name gitlab \  --restart always \  --volume /srv/gitlab/config:">
+  <meta name="description" content="安装镜像Docker 容器数据应该存储于卷中，在这里我们使用最简单的本地命名卷： gitlab-config 存储 GitLab 配置信息 gitlab-data 存储数据库 gitlab-logs 存储日志 123456789sudo docker run --detach \  --hostname gitlab.example.com \  --publish 13443:443 --pub">
 <meta name="keywords" content="Linux,Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于Docker搭建GitLab">
 <meta property="og:url" content="https://jkfhto.github.io/2019-11-05/docker/基于Docker搭建GitLab/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="安装镜像123456789sudo docker run --detach \  --hostname gitlab.example.com \  --publish 13443:443 --publish 13880:80 --publish 13822:22 \  --name gitlab \  --restart always \  --volume /srv/gitlab/config:">
+<meta property="og:description" content="安装镜像Docker 容器数据应该存储于卷中，在这里我们使用最简单的本地命名卷： gitlab-config 存储 GitLab 配置信息 gitlab-data 存储数据库 gitlab-logs 存储日志 123456789sudo docker run --detach \  --hostname gitlab.example.com \  --publish 13443:443 --pub">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-06T13:50:53.145Z">
+<meta property="og:updated_time" content="2019-11-07T14:55:28.728Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Docker搭建GitLab">
-<meta name="twitter:description" content="安装镜像123456789sudo docker run --detach \  --hostname gitlab.example.com \  --publish 13443:443 --publish 13880:80 --publish 13822:22 \  --name gitlab \  --restart always \  --volume /srv/gitlab/config:">
+<meta name="twitter:description" content="安装镜像Docker 容器数据应该存储于卷中，在这里我们使用最简单的本地命名卷： gitlab-config 存储 GitLab 配置信息 gitlab-data 存储数据库 gitlab-logs 存储日志 123456789sudo docker run --detach \  --hostname gitlab.example.com \  --publish 13443:443 --pub">
   <link rel="canonical" href="https://jkfhto.github.io/2019-11-05/docker/基于Docker搭建GitLab/">
 
 
@@ -297,7 +297,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-06 21:50:53" itemprop="dateModified" datetime="2019-11-06T21:50:53+08:00">2019-11-06</time>
+                <time title="修改时间：2019-11-07 22:55:28" itemprop="dateModified" datetime="2019-11-07T22:55:28+08:00">2019-11-07</time>
               </span>
             
           
@@ -365,14 +365,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="安装镜像"><a href="#安装镜像" class="headerlink" title="安装镜像"></a>安装镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run --detach \</span><br><span class="line">  --hostname gitlab.example.com \</span><br><span class="line">  --publish 13443:443 --publish 13880:80 --publish 13822:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /srv/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /srv/gitlab/logs:/var/log/gitlab \</span><br><span class="line">  --volume /srv/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure><a id="more"></a>
+        <h2 id="安装镜像"><a href="#安装镜像" class="headerlink" title="安装镜像"></a>安装镜像</h2><p>Docker 容器数据应该存储于卷中，在这里我们使用最简单的本地命名卷：</p><ul>
+<li><code>gitlab-config</code> 存储 GitLab 配置信息</li>
+<li><code>gitlab-data</code> 存储数据库</li>
+<li><code>gitlab-logs</code> 存储日志</li>
+</ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run --detach \</span><br><span class="line">  --hostname gitlab.example.com \</span><br><span class="line">  --publish 13443:443 --publish 13880:80 --publish 13822:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /srv/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /srv/gitlab/logs:/var/log/gitlab \</span><br><span class="line">  --volume /srv/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--hostname  <span class="comment">//虚拟机地址或云服务器地址</span></span><br><span class="line">--publish <span class="comment">// 设置端口 13443:443 13443代表宿主机上的端口 修改端口防止443，80，22端口占用</span></span><br></pre></td></tr></table></figure>
 
 <p>下载并启动一个GitLab CE容器，并发布访问SSH，HTTP和HTTPS所需的端口。 配置 (etc) 、 日志 (log) 、数据 (data) 三个文件夹，放到容器之外， 便于日后升级，放在 <strong>/srv/gitlab/</strong> 目录。 系统重启后，容器将自动“重启”。</p>
 <h3 id="查找GitLab镜像"><a href="#查找GitLab镜像" class="headerlink" title="查找GitLab镜像"></a>查找GitLab镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search gitlab</span><br></pre></td></tr></table></figure>
 
-<h2 id="防火墙开启端口"><a href="#防火墙开启端口" class="headerlink" title="防火墙开启端口"></a>防火墙开启端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=13880/tcp</span><br><span class="line">firewall-cmd --permanent --add-port=13822/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重新加载</span></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<h2 id="安装中文镜像"><a href="#安装中文镜像" class="headerlink" title="安装中文镜像"></a>安装中文镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">    --hostname gitlab.example.com \</span><br><span class="line">    -p 80:80 \</span><br><span class="line">    -p 443:443 \</span><br><span class="line">    -p 22:22 \</span><br><span class="line">    --name gitlab \</span><br><span class="line">    --restart unless-stopped \</span><br><span class="line">    -v gitlab-config:/etc/gitlab \</span><br><span class="line">    -v gitlab-logs:/var/log/gitlab \</span><br><span class="line">    -v gitlab-data:/var/opt/gitlab \</span><br><span class="line">    --network gitlab-net \</span><br><span class="line">    twang2218/gitlab-ce-zh:11.1.4</span><br></pre></td></tr></table></figure>
+
+<p>如果需要进入容器修改配置文件，可以用 <code>docker exec</code> 命令进入容器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker exec -it gitlab bash</span><br><span class="line">root@09f6e32c528c:/# vi /etc/gitlab/gitlab.rb</span><br><span class="line">root@09f6e32c528c:/# gitlab-ctl reconfigure</span><br><span class="line">Starting Chef Client, version 12.12.15</span><br><span class="line">resolving cookbooks for run list: ["gitlab"]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>如需停止服务，直接运行 <code>docker stop gitlab</code>。</p>
+<p>如需卸载服务及相关内容，可以执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker stop gitlab</span><br><span class="line">docker rm gitlab</span><br><span class="line">docker network rm gitlab-net</span><br><span class="line">docker volume rm gitlab-config gitlab-datagitlab-logs</span><br></pre></td></tr></table></figure>
+
+<h2 id="防火墙开启端口"><a href="#防火墙开启端口" class="headerlink" title="防火墙开启端口"></a>防火墙开启端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=13880/tcp</span><br><span class="line">firewall-cmd --permanent --add-port=13822/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 重新加载</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 
 <h2 id="Docker-can’t-connect-to-docker-daemon"><a href="#Docker-can’t-connect-to-docker-daemon" class="headerlink" title="Docker can’t connect to docker daemon"></a>Docker can’t connect to docker daemon</h2><ol>
 <li><p>创建 docker 组.</p>
@@ -425,6 +440,35 @@
 <h3 id="重新启动镜像"><a href="#重新启动镜像" class="headerlink" title="重新启动镜像"></a>重新启动镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart container</span><br></pre></td></tr></table></figure>
 
 <h3 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start container</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取容器的日志"><a href="#获取容器的日志" class="headerlink" title="获取容器的日志"></a>获取容器的日志</h3><p>docker logs : 获取容器的日志，可以根据日志信息，找到错误信息，解决相关问题</p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs [OPTIONS] CONTAINER</span><br></pre></td></tr></table></figure>
+
+<p>OPTIONS说明：</p>
+<ul>
+<li>-f : 跟踪日志输出</li>
+<li>–since :显示某个开始时间的所有日志</li>
+<li>-t : 显示时间戳</li>
+<li>–tail :仅列出最新N条容器日志</li>
+</ul>
+<h3 id="列出容器"><a href="#列出容器" class="headerlink" title="列出容器"></a>列出容器</h3><p><strong>docker ps :</strong> 列出容器</p>
+<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps [OPTIONS]</span><br></pre></td></tr></table></figure>
+
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-a :</strong>显示所有的容器，包括未运行的。</li>
+<li><strong>-f :</strong>根据条件过滤显示的内容。</li>
+<li><strong>–format :</strong>指定返回值的模板文件。</li>
+<li><strong>-l :</strong>显示最近创建的容器。</li>
+<li><strong>-n :</strong>列出最近创建的n个容器。</li>
+<li><strong>–no-trunc :</strong>不截断输出。</li>
+<li><strong>-q :</strong>静默模式，只显示容器编号。</li>
+<li><strong>-s :</strong>显示总的文件大小。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://hub.docker.com/r/twang2218/gitlab-ce-zh" target="_blank" rel="noopener">GitLab 中文社区版</a></li>
+</ul>
+
     </div>
 
     
@@ -518,7 +562,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装镜像"><span class="nav-number">1.</span> <span class="nav-text">安装镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找GitLab镜像"><span class="nav-number">1.1.</span> <span class="nav-text">查找GitLab镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙开启端口"><span class="nav-number">2.</span> <span class="nav-text">防火墙开启端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-can’t-connect-to-docker-daemon"><span class="nav-number">3.</span> <span class="nav-text">Docker can’t connect to docker daemon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据存储在哪里"><span class="nav-number">4.</span> <span class="nav-text">数据存储在哪里?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登陆"><span class="nav-number">5.</span> <span class="nav-text">登陆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用指令"><span class="nav-number">6.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#停止镜像"><span class="nav-number">6.1.</span> <span class="nav-text">停止镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除镜像"><span class="nav-number">6.2.</span> <span class="nav-text">删除镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新启动镜像"><span class="nav-number">6.3.</span> <span class="nav-text">重新启动镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动镜像"><span class="nav-number">6.4.</span> <span class="nav-text">启动镜像</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装镜像"><span class="nav-number">1.</span> <span class="nav-text">安装镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找GitLab镜像"><span class="nav-number">1.1.</span> <span class="nav-text">查找GitLab镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装中文镜像"><span class="nav-number">2.</span> <span class="nav-text">安装中文镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙开启端口"><span class="nav-number">3.</span> <span class="nav-text">防火墙开启端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-can’t-connect-to-docker-daemon"><span class="nav-number">4.</span> <span class="nav-text">Docker can’t connect to docker daemon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据存储在哪里"><span class="nav-number">5.</span> <span class="nav-text">数据存储在哪里?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登陆"><span class="nav-number">6.</span> <span class="nav-text">登陆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用指令"><span class="nav-number">7.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#停止镜像"><span class="nav-number">7.1.</span> <span class="nav-text">停止镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除镜像"><span class="nav-number">7.2.</span> <span class="nav-text">删除镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新启动镜像"><span class="nav-number">7.3.</span> <span class="nav-text">重新启动镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动镜像"><span class="nav-number">7.4.</span> <span class="nav-text">启动镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取容器的日志"><span class="nav-number">7.5.</span> <span class="nav-text">获取容器的日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法"><span class="nav-number">7.5.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出容器"><span class="nav-number">7.6.</span> <span class="nav-text">列出容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法-1"><span class="nav-number">7.6.1.</span> <span class="nav-text">语法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
