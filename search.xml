@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>TypeScript library starter</title>
+    <url>/2020-03-24/TypeScript/TypeScript-library-starter/</url>
+    <content><![CDATA[<h2 id="TypeScript-library-starter"><a href="#TypeScript-library-starter" class="headerlink" title="TypeScript library starter"></a>TypeScript library starter</h2><p>一个开源的 TypeScript 开发基础库的脚手架工具，可以帮助我们快速初始化一个 TypeScript 项目。<a href="https://github.com/alexjoverm/typescript-library-starter" target="_blank" rel="noopener">官网</a></p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># YOURFOLDERNAME 项目名称</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/alexjoverm/typescript-library-starter.git YOURFOLDERNAME</span><br><span class="line"><span class="built_in">cd</span> YOURFOLDERNAME</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run npm install and write your library name when asked. That's all!</span></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+<p>通过 git clone 把项目代码拉取到本地，并指定项目名称，然后运行 npm install 安装依赖。</p>
+<h2 id="项目目录介绍"><a href="#项目目录介绍" class="headerlink" title="项目目录介绍"></a>项目目录介绍</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">├── CONTRIBUTING.md  </span><br><span class="line">├── LICENSE ├── README.md  </span><br><span class="line">├── code-of-conduct.md  </span><br><span class="line">├── node_modules  </span><br><span class="line">├── package-lock.json  </span><br><span class="line">├── package.json  </span><br><span class="line">├── rollup.config.ts // rollup 配置文件  </span><br><span class="line">├── src // 源码目录  </span><br><span class="line">├── test // 测试目录  </span><br><span class="line">├── tools // 发布到 GitHup pages 以及 发布到 npm 的一些配置脚本工具  </span><br><span class="line">├── tsconfig.json // TypeScript 编译配置文件  </span><br><span class="line">└── tslint.json // TypeScript lint 文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="优秀工具集成"><a href="#优秀工具集成" class="headerlink" title="优秀工具集成"></a>优秀工具集成</h2><p>使用 TypeScript library starter 创建的项目集成了很多优秀的开源工具：</p>
+<p>使用  <strong><a href="https://rollupjs.org/" target="_blank" rel="noopener">RollupJS</a></strong> 帮助我们打包。<br>使用 <strong><a href="https://github.com/prettier/prettier" target="_blank" rel="noopener">Prettier</a></strong> 和 <strong><a href="https://palantir.github.io/tslint/" target="_blank" rel="noopener">TSLint</a></strong> 帮助我们格式化代码以及保证代码风格一致性。<br>使用 <strong><a href="http://typedoc.org/" target="_blank" rel="noopener">TypeDoc</a></strong> 帮助我们自动生成文档并部署到 GitHub pages。<br>使用 <strong><a href="http://facebook.github.io/jest/" target="_blank" rel="noopener">Jest</a></strong> 帮助我们做单元测试。<br>使用 <strong><a href="https://github.com/commitizen/cz-cli" target="_blank" rel="noopener">Commitizen</a></strong> 帮助我们生成规范化的提交注释。<br>使用 <strong><a href="https://github.com/semantic-release/semantic-release" target="_blank" rel="noopener">Semantic release</a></strong> 帮助我们管理版本和发布。<br>使用 <strong><a href="https://github.com/typicode/husky" target="_blank" rel="noopener">husky</a></strong> 帮助我们更简单地使用 git hooks。<br>使用 <strong><a href="https://github.com/conventional-changelog/conventional-changelog" target="_blank" rel="noopener">Conventional changelog</a></strong> 帮助我们通过代码提交信息自动生成 change log。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://juejin.im/post/5cce87b851882541b07a9bfe" target="_blank" rel="noopener">从今天开始，拿起 TypeScript 做一个轮子的制造者</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>TypeScript</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>TypeScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TypeScript介绍</title>
     <url>/2020-03-18/TypeScript/TypeScript%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<h2 id="Typescript-介绍"><a href="#Typescript-介绍" class="headerlink" title="Typescript  介绍"></a>Typescript  介绍</h2><ul>
