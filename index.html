@@ -547,6 +547,139 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-02/TypeScript/TypeScript类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2020-04-02/TypeScript/TypeScript类/" class="post-title-link" itemprop="url">TypeScript类</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-02 00:29:13 / 修改时间：01:42:10" itemprop="dateCreated datePublished" datetime="2020-04-02T00:29:13+08:00">2020-04-02</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/TypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020-04-02/TypeScript/TypeScript类/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020-04-02/TypeScript/TypeScript类/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>在TypeScript中，<code>类的成员属性</code> 都是 <code>实例</code> 属性，而不是原型属性，<code>类的成员方法</code> 都是 <code>原型</code> 方法。</p><h3 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h3><ul>
+<li>派生类的构造函数必须包含 <code>super</code> 调用。</li>
+<li>访问派生类的构造函数中的 <code>this</code> 前，必须调用 <code>super</code>。</li>
+<li><code>super</code> 代表父类的实例</li>
+<li>调用 <code>super()</code>，会执行基类的构造函数</li>
+</ul><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Dog &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">  run() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dog= <span class="keyword">new</span> Dog(<span class="string">'11'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dog);</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Husky <span class="keyword">extends</span> Dog &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span>,color: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="comment">// 报错 派生类的构造函数必须包含 "super" 调用。访问派生类的构造函数中的 "this" 前，必须调用 "super"。</span></span><br><span class="line">    <span class="comment">// super(name);</span></span><br><span class="line">    <span class="keyword">this</span>.color = color;</span><br><span class="line">  &#125;</span><br><span class="line">  color: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2020-04-02/TypeScript/TypeScript类/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <div>
+    
+</div>
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-01/TypeScript/TypeScript函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -813,157 +946,6 @@
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-01/TypeScript/TypeScript基础类型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jkfhto">
-      <meta itemprop="description" content="ARE YOU READY TO DIE">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2020-04-01/TypeScript/TypeScript基础类型/" class="post-title-link" itemprop="url">TypeScript基础类型</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-01 14:56:26 / 修改时间：17:11:31" itemprop="dateCreated datePublished" datetime="2020-04-01T14:56:26+08:00">2020-04-01</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/TypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">TypeScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020-04-01/TypeScript/TypeScript基础类型/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020-04-01/TypeScript/TypeScript基础类型/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="类型基础"><a href="#类型基础" class="headerlink" title="类型基础"></a>类型基础</h2><p>强类型语言：不允许改变变量的数据类型，除非进行强制类型转换。</p><p>弱类型语言：变量可以被赋予为不同的数据类型。</p><p>静态类型：在编译阶段确定所有变量的类型。</p><p>动态类型：在执行阶段确定所有变量的类型。</p><h3 id="静态类型与动态类型对比"><a href="#静态类型与动态类型对比" class="headerlink" title="静态类型与动态类型对比"></a>静态类型与动态类型对比</h3><table>
-<thead>
-<tr>
-<th>静态类型语言</th>
-<th>动态类型语言</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>对类型极其严格</td>
-<td>对类型宽松</td>
-</tr>
-<tr>
-<td>立即发现错误</td>
-<td>bug隐藏比较深</td>
-</tr>
-<tr>
-<td>运行时性能好</td>
-<td>运行时性能差</td>
-</tr>
-<tr>
-<td>自文档化</td>
-<td>可读性差</td>
-</tr>
-</tbody></table>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2020-04-01/TypeScript/TypeScript基础类型/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <div>
-    
-</div>
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
@@ -1016,7 +998,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
