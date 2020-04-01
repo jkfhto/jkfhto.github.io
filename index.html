@@ -254,299 +254,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/Webpack-性能优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jkfhto">
-      <meta itemprop="description" content="ARE YOU READY TO DIE">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019-10-17/webpack/Webpack-性能优化/" class="post-title-link" itemprop="url">Webpack 性能优化</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-17 10:31:32" itemprop="dateCreated datePublished" datetime="2019-10-17T10:31:32+08:00">2019-10-17</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-20 17:03:11" itemprop="dateModified" datetime="2019-10-20T17:03:11+08:00">2019-10-20</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">Webpack</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack构建速度和体积优化策略</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019-10-17/webpack/Webpack-性能优化/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/Webpack-性能优化/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="webpack-的性能瓶颈"><a href="#webpack-的性能瓶颈" class="headerlink" title="webpack 的性能瓶颈"></a>webpack 的性能瓶颈</h2><p>webpack 的优化瓶颈，主要是两个方面：</p>
-<ul>
-<li>webpack 的构建过程太花时间</li>
-<li>webpack 打包的结果体积太大</li>
-</ul>
-<h2 id="webpack构建速度和体积优化策略"><a href="#webpack构建速度和体积优化策略" class="headerlink" title="webpack构建速度和体积优化策略"></a>webpack构建速度和体积优化策略</h2><ul>
-<li><a href="/2019-10-17/webpack/初级分析：使用webpack内置的stats">01 | 初级分析：使用webpack内置的stats</a></li>
-<li><a href="/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin">02 | 速度分析：使用speed-measure-webpack-plugin</a></li>
-<li><a href="/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer">03 | 体积分析：使用webpack-bundle-analyzer</a></li>
-<li><a href="/2019-10-17/webpack/使用高版本的webpack和Node-js">04 | 使用高版本的webpack和Node.js</a></li>
-<li><a href="/2019-10-17/webpack/多进程-多实例构建">05 | 多进程/多实例构建</a></li>
-<li><a href="/2019-10-17/webpack/多进程并行压缩代码">06 | 多进程并行压缩代码</a></li>
-<li><a href="/2019-10-17/webpack/进一步分包：预编译资源模块-使用-DLLPlugin-进行分包">07 | 进一步分包：预编译资源模块 使用 DLLPlugin 进行分包</a></li>
-<li><a href="/2019-10-17/webpack/充分利用缓存提升二次构建速度">08 | 充分利用缓存提升二次构建速度</a></li>
-<li><a href="/2019-10-17/webpack/缩小构建目标">09 | 缩小构建目标</a></li>
-<li><a href="/2019-10-17/webpack/使用Tree-Shaking擦除无用的JavaScript和CSS">10 | 使用Tree Shaking擦除无用的JavaScript和CSS</a></li>
-<li><a href="/2019-10-17/webpack/使用webpack进行图片压缩">11 | 使用webpack进行图片压缩</a></li>
-<li><a href="/2019-10-17/webpack/使用动态Polyfill服务">12 | 使用动态Polyfill服务</a></li>
-</ul>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <div>
-    
-</div>
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-16/前端性能优化/前端性能优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jkfhto">
-      <meta itemprop="description" content="ARE YOU READY TO DIE">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019-10-16/前端性能优化/前端性能优化/" class="post-title-link" itemprop="url">前端性能优化</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-16 16:52:37" itemprop="dateCreated datePublished" datetime="2019-10-16T16:52:37+08:00">2019-10-16</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-20 17:03:11" itemprop="dateModified" datetime="2019-10-20T17:03:11+08:00">2019-10-20</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
-                    <span itemprop="name">前端性能优化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019-10-16/前端性能优化/前端性能优化/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-16/前端性能优化/前端性能优化/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="什么是前端性能优化"><a href="#什么是前端性能优化" class="headerlink" title="什么是前端性能优化"></a>什么是前端性能优化</h2><p>从用户访问资源到资源完整的展现在用户面前的过程中，通过技术手段和优化策略，缩短每个步骤的处理时间从而提升整个资源的访问和呈现速度。</p><h2 id="为什么要做前端性能优化"><a href="#为什么要做前端性能优化" class="headerlink" title="为什么要做前端性能优化"></a>为什么要做前端性能优化</h2><p>在构建web站点的过程中，任何一个细节都有可能影响网站的访问速度，如果不了解性能优化知识，很多不利网站访问速度的因素会形成累加，从而严重影响网站的性能，导致网站访问速度变慢，用户体验低下，最终导致用户流失。</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019-10-16/前端性能优化/前端性能优化/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <div>
-    
-</div>
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-02/TypeScript/TypeScript类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -577,7 +284,7 @@
                 
               
 
-              <time title="创建时间：2020-04-02 00:29:13 / 修改时间：01:42:10" itemprop="dateCreated datePublished" datetime="2020-04-02T00:29:13+08:00">2020-04-02</time>
+              <time title="创建时间：2020-04-02 00:29:13 / 修改时间：01:51:40" itemprop="dateCreated datePublished" datetime="2020-04-02T00:29:13+08:00">2020-04-02</time>
             </span>
           
             
@@ -920,6 +627,285 @@
           
             <div class="post-button">
               <a class="btn" href="/2020-04-01/TypeScript/TypeScript接口/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <div>
+    
+</div>
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-01/TypeScript/TypeScript基础类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2020-04-01/TypeScript/TypeScript基础类型/" class="post-title-link" itemprop="url">TypeScript基础类型</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-01 14:56:26 / 修改时间：17:11:31" itemprop="dateCreated datePublished" datetime="2020-04-01T14:56:26+08:00">2020-04-01</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/TypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020-04-01/TypeScript/TypeScript基础类型/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020-04-01/TypeScript/TypeScript基础类型/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="类型基础"><a href="#类型基础" class="headerlink" title="类型基础"></a>类型基础</h2><p>强类型语言：不允许改变变量的数据类型，除非进行强制类型转换。</p><p>弱类型语言：变量可以被赋予为不同的数据类型。</p><p>静态类型：在编译阶段确定所有变量的类型。</p><p>动态类型：在执行阶段确定所有变量的类型。</p><h3 id="静态类型与动态类型对比"><a href="#静态类型与动态类型对比" class="headerlink" title="静态类型与动态类型对比"></a>静态类型与动态类型对比</h3><table>
+<thead>
+<tr>
+<th>静态类型语言</th>
+<th>动态类型语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对类型极其严格</td>
+<td>对类型宽松</td>
+</tr>
+<tr>
+<td>立即发现错误</td>
+<td>bug隐藏比较深</td>
+</tr>
+<tr>
+<td>运行时性能好</td>
+<td>运行时性能差</td>
+</tr>
+<tr>
+<td>自文档化</td>
+<td>可读性差</td>
+</tr>
+</tbody></table>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2020-04-01/TypeScript/TypeScript基础类型/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <div>
+    
+</div>
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-03-24/TypeScript/TypeScript-library-starter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2020-03-24/TypeScript/TypeScript-library-starter/" class="post-title-link" itemprop="url">TypeScript library starter</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-24 16:37:56 / 修改时间：16:58:24" itemprop="dateCreated datePublished" datetime="2020-03-24T16:37:56+08:00">2020-03-24</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/TypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020-03-24/TypeScript/TypeScript-library-starter/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020-03-24/TypeScript/TypeScript-library-starter/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="TypeScript-library-starter"><a href="#TypeScript-library-starter" class="headerlink" title="TypeScript library starter"></a>TypeScript library starter</h2><p>一个开源的 TypeScript 开发基础库的脚手架工具，可以帮助我们快速初始化一个 TypeScript 项目。<a href="https://github.com/alexjoverm/typescript-library-starter" target="_blank" rel="noopener">官网</a></p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># YOURFOLDERNAME 项目名称</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/alexjoverm/typescript-library-starter.git YOURFOLDERNAME</span><br><span class="line"><span class="built_in">cd</span> YOURFOLDERNAME</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run npm install and write your library name when asked. That's all!</span></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2020-03-24/TypeScript/TypeScript-library-starter/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
