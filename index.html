@@ -254,6 +254,450 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/Webpack-性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019-10-17/webpack/Webpack-性能优化/" class="post-title-link" itemprop="url">Webpack 性能优化</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-17 10:31:32" itemprop="dateCreated datePublished" datetime="2019-10-17T10:31:32+08:00">2019-10-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-20 17:03:11" itemprop="dateModified" datetime="2019-10-20T17:03:11+08:00">2019-10-20</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">Webpack</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack构建速度和体积优化策略</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019-10-17/webpack/Webpack-性能优化/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/Webpack-性能优化/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="webpack-的性能瓶颈"><a href="#webpack-的性能瓶颈" class="headerlink" title="webpack 的性能瓶颈"></a>webpack 的性能瓶颈</h2><p>webpack 的优化瓶颈，主要是两个方面：</p>
+<ul>
+<li>webpack 的构建过程太花时间</li>
+<li>webpack 打包的结果体积太大</li>
+</ul>
+<h2 id="webpack构建速度和体积优化策略"><a href="#webpack构建速度和体积优化策略" class="headerlink" title="webpack构建速度和体积优化策略"></a>webpack构建速度和体积优化策略</h2><ul>
+<li><a href="/2019-10-17/webpack/初级分析：使用webpack内置的stats">01 | 初级分析：使用webpack内置的stats</a></li>
+<li><a href="/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin">02 | 速度分析：使用speed-measure-webpack-plugin</a></li>
+<li><a href="/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer">03 | 体积分析：使用webpack-bundle-analyzer</a></li>
+<li><a href="/2019-10-17/webpack/使用高版本的webpack和Node-js">04 | 使用高版本的webpack和Node.js</a></li>
+<li><a href="/2019-10-17/webpack/多进程-多实例构建">05 | 多进程/多实例构建</a></li>
+<li><a href="/2019-10-17/webpack/多进程并行压缩代码">06 | 多进程并行压缩代码</a></li>
+<li><a href="/2019-10-17/webpack/进一步分包：预编译资源模块-使用-DLLPlugin-进行分包">07 | 进一步分包：预编译资源模块 使用 DLLPlugin 进行分包</a></li>
+<li><a href="/2019-10-17/webpack/充分利用缓存提升二次构建速度">08 | 充分利用缓存提升二次构建速度</a></li>
+<li><a href="/2019-10-17/webpack/缩小构建目标">09 | 缩小构建目标</a></li>
+<li><a href="/2019-10-17/webpack/使用Tree-Shaking擦除无用的JavaScript和CSS">10 | 使用Tree Shaking擦除无用的JavaScript和CSS</a></li>
+<li><a href="/2019-10-17/webpack/使用webpack进行图片压缩">11 | 使用webpack进行图片压缩</a></li>
+<li><a href="/2019-10-17/webpack/使用动态Polyfill服务">12 | 使用动态Polyfill服务</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <div>
+    
+</div>
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-16/前端性能优化/前端性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019-10-16/前端性能优化/前端性能优化/" class="post-title-link" itemprop="url">前端性能优化</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-16 16:52:37" itemprop="dateCreated datePublished" datetime="2019-10-16T16:52:37+08:00">2019-10-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-20 17:03:11" itemprop="dateModified" datetime="2019-10-20T17:03:11+08:00">2019-10-20</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019-10-16/前端性能优化/前端性能优化/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-16/前端性能优化/前端性能优化/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="什么是前端性能优化"><a href="#什么是前端性能优化" class="headerlink" title="什么是前端性能优化"></a>什么是前端性能优化</h2><p>从用户访问资源到资源完整的展现在用户面前的过程中，通过技术手段和优化策略，缩短每个步骤的处理时间从而提升整个资源的访问和呈现速度。</p><h2 id="为什么要做前端性能优化"><a href="#为什么要做前端性能优化" class="headerlink" title="为什么要做前端性能优化"></a>为什么要做前端性能优化</h2><p>在构建web站点的过程中，任何一个细节都有可能影响网站的访问速度，如果不了解性能优化知识，很多不利网站访问速度的因素会形成累加，从而严重影响网站的性能，导致网站访问速度变慢，用户体验低下，最终导致用户流失。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019-10-16/前端性能优化/前端性能优化/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <div>
+    
+</div>
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-01/TypeScript/TypeScript基础类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2020-04-01/TypeScript/TypeScript基础类型/" class="post-title-link" itemprop="url">TypeScript基础类型</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-01 14:56:26 / 修改时间：17:11:31" itemprop="dateCreated datePublished" datetime="2020-04-01T14:56:26+08:00">2020-04-01</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/TypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020-04-01/TypeScript/TypeScript基础类型/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020-04-01/TypeScript/TypeScript基础类型/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="类型基础"><a href="#类型基础" class="headerlink" title="类型基础"></a>类型基础</h2><p>强类型语言：不允许改变变量的数据类型，除非进行强制类型转换。</p><p>弱类型语言：变量可以被赋予为不同的数据类型。</p><p>静态类型：在编译阶段确定所有变量的类型。</p><p>动态类型：在执行阶段确定所有变量的类型。</p><h3 id="静态类型与动态类型对比"><a href="#静态类型与动态类型对比" class="headerlink" title="静态类型与动态类型对比"></a>静态类型与动态类型对比</h3><table>
+<thead>
+<tr>
+<th>静态类型语言</th>
+<th>动态类型语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对类型极其严格</td>
+<td>对类型宽松</td>
+</tr>
+<tr>
+<td>立即发现错误</td>
+<td>bug隐藏比较深</td>
+</tr>
+<tr>
+<td>运行时性能好</td>
+<td>运行时性能差</td>
+</tr>
+<tr>
+<td>自文档化</td>
+<td>可读性差</td>
+</tr>
+</tbody></table>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2020-04-01/TypeScript/TypeScript基础类型/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <div>
+    
+</div>
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-03-24/TypeScript/TypeScript-library-starter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -509,430 +953,6 @@
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-11-07/jenkins/Jenkins权限管理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jkfhto">
-      <meta itemprop="description" content="ARE YOU READY TO DIE">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019-11-07/jenkins/Jenkins权限管理/" class="post-title-link" itemprop="url">Jenkins权限管理</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-07 23:53:11" itemprop="dateCreated datePublished" datetime="2019-11-07T23:53:11+08:00">2019-11-07</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-08 00:07:17" itemprop="dateModified" datetime="2019-11-08T00:07:17+08:00">2019-11-08</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/Docker/Jenkins/" itemprop="url" rel="index">
-                    <span itemprop="name">Jenkins</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019-11-07/jenkins/Jenkins权限管理/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-11-07/jenkins/Jenkins权限管理/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h2><p>打开浏览器，输入本机的ip地址并登陆</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`http://192.168.155.128:18080/`</span><br></pre></td></tr></table></figure><p>输入账号，密码，登录。</p><h2 id="进入权限管理界面"><a href="#进入权限管理界面" class="headerlink" title="进入权限管理界面"></a>进入权限管理界面</h2><p>系统管理-》全局安全设置  进入全局安全设置界面</p><ul>
-<li><strong>安全域</strong> ：配置哪些用户可以访问</li>
-<li><strong>授权策略</strong> ：配置这些用户的权限，读写，操作，可以访问什么等</li>
-</ul><p><img src="/images/%E5%85%A8%E5%B1%80%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE.png" alt="全局安全配置"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">注意需要新进行相关插件的安装，才能支持相关的安全域和授权策略。</span><br><span class="line">插件可以通过系统管理-》插件管理 界面进行安装。</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019-11-07/jenkins/Jenkins权限管理/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <div>
-    
-</div>
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-11-07/docker/基于Docker-安装-Jenkins/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jkfhto">
-      <meta itemprop="description" content="ARE YOU READY TO DIE">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019-11-07/docker/基于Docker-安装-Jenkins/" class="post-title-link" itemprop="url">基于Docker 安装 Jenkins</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-07 01:14:53 / 修改时间：01:25:18" itemprop="dateCreated datePublished" datetime="2019-11-07T01:14:53+08:00">2019-11-07</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019-11-07/docker/基于Docker-安装-Jenkins/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-11-07/docker/基于Docker-安装-Jenkins/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="安装命令"><a href="#安装命令" class="headerlink" title="安装命令"></a>安装命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name jenkins_test -itd -p 18080:8080 -p 50000:50000 jenkins/jenkins:lts</span><br></pre></td></tr></table></figure><ul>
-<li>name：容器名称</li>
-<li>itd：增加交互式终端</li>
-</ul><h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ul>
-<li><p>端口冲突：修改端口，再执行安装命令</p>
-</li>
-<li><p>容器名称冲突，容器已经存在：停止容器，删除容器再安装</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 停止容器</span></span><br><span class="line">docker stop container</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除容器</span></span><br><span class="line">docker rm container</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019-11-07/docker/基于Docker-安装-Jenkins/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <div>
-    
-</div>
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-11-06/docker/Docker-Compose/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jkfhto">
-      <meta itemprop="description" content="ARE YOU READY TO DIE">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019-11-06/docker/Docker-Compose/" class="post-title-link" itemprop="url">Docker Compose</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-06 00:15:27" itemprop="dateCreated datePublished" datetime="2019-11-06T00:15:27+08:00">2019-11-06</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-07 16:58:12" itemprop="dateModified" datetime="2019-11-07T16:58:12+08:00">2019-11-07</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019-11-06/docker/Docker-Compose/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019-11-06/docker/Docker-Compose/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><p>在日常工作中，经常会碰到需要多个容器相互配合来完成某项任务的情况。例如要实现一个 Web 项目，除了 Web 服务容器本身，往往还需要再加上后端的数据库服务容器，甚至还包括负载均衡容器等。</p><p><code>Compose</code> 恰好满足了这样的需求。它允许用户通过一个单独的 <code>docker-compose.yml</code> 模板文件（YAML 格式）来定义一组相关联的应用容器为一个项目（project）。</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019-11-06/docker/Docker-Compose/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <div>
-    
-</div>
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
@@ -985,7 +1005,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
