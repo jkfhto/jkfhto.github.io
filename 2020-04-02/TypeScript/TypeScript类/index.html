@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="类在TypeScript中，类的成员属性 都是 实例 属性，而不是原型属性，类的成员方法 都是 原型 方法。类的继承 派生类的构造函数必须包含 super 调用。 访问派生类的构造函数中的 this 前，必须调用 super。 super 代表父类的实例 调用 super()，会执行基类的构造函数 12345678910111213141516171819class Dog &amp;#123;  con">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-01T17:51:40.558Z">
+<meta property="og:updated_time" content="2020-04-01T17:55:13.557Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TypeScript类">
 <meta name="twitter:description" content="类在TypeScript中，类的成员属性 都是 实例 属性，而不是原型属性，类的成员方法 都是 原型 方法。类的继承 派生类的构造函数必须包含 super 调用。 访问派生类的构造函数中的 this 前，必须调用 super。 super 代表父类的实例 调用 super()，会执行基类的构造函数 12345678910111213141516171819class Dog &amp;#123;  con">
@@ -286,7 +286,7 @@
                 
               
 
-              <time title="创建时间：2020-04-02 00:29:13 / 修改时间：01:51:40" itemprop="dateCreated datePublished" datetime="2020-04-02T00:29:13+08:00">2020-04-02</time>
+              <time title="创建时间：2020-04-02 00:29:13 / 修改时间：01:55:13" itemprop="dateCreated datePublished" datetime="2020-04-02T00:29:13+08:00">2020-04-02</time>
             </span>
           
             
@@ -388,6 +388,7 @@
 <p>抽象类中可以定义一个方法的具体实现，这样就实现了方法的复用。</p>
 <p>抽象类中的抽象方法不包含具体实现并且必须在派生类中实现。 抽象方法的语法与接口方法相似。两者都是定义方法签名但不包含方法体。 然而，抽象方法必须包含 <code>abstract</code> 关键字并且可以包含访问修饰符。</p>
 <p>抽象类中抽象方法，可在不同子类中实现类的多态。</p>
+<p>子类必须实现抽象类的抽象方法</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Animal &#123;</span><br><span class="line">  eat() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"eat"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">abstract</span> sleep(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无法创建抽象类的实例。</span></span><br><span class="line"><span class="comment">// let animal = new Animal();</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Dog <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">"1111"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  <span class="comment">// 子类必须实现抽象类的抽象方法</span></span><br><span class="line">  sleep() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"dog sleep"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dog = <span class="keyword">new</span> Dog(<span class="string">'111'</span>);</span><br><span class="line">dog.eat();</span><br></pre></td></tr></table></figure>
 
 <h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>在父类中定义一个抽象方法，在多个子类中对这个方法有不同的实现。在程序运行时，会根据不同的对象，执行不同的操作，这样就实现了运行时绑定。</p>
