@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="TypeScript配置文件当我们使用 tsc 命令编译项目，且没有指定输入文件时，编译器就会去查找 tsconfig.json 文件。如果在当前目录没找到，就会逐级向父文件夹查找。我们也可以通过在 tsc 命令中加上–project 参数，来指定一个包含 tsconfig.json 文件的目录。如果命令行上指定了输入文件时，tsconfig.json 的配置会被忽略。">
+<meta name="keywords" content="Javascript,TypeScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript配置文件">
+<meta property="og:url" content="https://jkfhto.github.io/2020-04-07/TypeScript/TypeScript配置文件/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="TypeScript配置文件当我们使用 tsc 命令编译项目，且没有指定输入文件时，编译器就会去查找 tsconfig.json 文件。如果在当前目录没找到，就会逐级向父文件夹查找。我们也可以通过在 tsc 命令中加上–project 参数，来指定一个包含 tsconfig.json 文件的目录。如果命令行上指定了输入文件时，tsconfig.json 的配置会被忽略。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-07T14:00:14.588Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TypeScript配置文件">
+<meta name="twitter:description" content="TypeScript配置文件当我们使用 tsc 命令编译项目，且没有指定输入文件时，编译器就会去查找 tsconfig.json 文件。如果在当前目录没找到，就会逐级向父文件夹查找。我们也可以通过在 tsc 命令中加上–project 参数，来指定一个包含 tsconfig.json 文件的目录。如果命令行上指定了输入文件时，tsconfig.json 的配置会被忽略。">
+  <link rel="canonical" href="https://jkfhto.github.io/2020-04-07/TypeScript/TypeScript配置文件/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>TypeScript配置文件 | 个人博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home  //首页"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags  //标签"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th  //分类"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive  //归档"></i>归档</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>
+        
+        搜索
+        </a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-07/TypeScript/TypeScript配置文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            TypeScript配置文件
+            
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-07 21:10:26 / 修改时间：22:00:14" itemprop="dateCreated datePublished" datetime="2020-04-07T21:10:26+08:00">2020-04-07</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/TypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020-04-07/TypeScript/TypeScript配置文件/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020-04-07/TypeScript/TypeScript配置文件/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="TypeScript配置文件"><a href="#TypeScript配置文件" class="headerlink" title="TypeScript配置文件"></a>TypeScript配置文件</h2><p>当我们使用 tsc 命令编译项目，且没有指定输入文件时，编译器就会去查找 tsconfig.json 文件。如果在当前目录没找到，就会逐级向父文件夹查找。我们也可以通过在 tsc 命令中加上–project 参数，来指定一个包含 tsconfig.json 文件的目录。如果命令行上指定了输入文件时，tsconfig.json 的配置会被忽略。</p><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 直接在项目根目录下执行tsc命令，会自动根据tsconfig.json配置项编译</span><br><span class="line">tsc</span><br><span class="line"># 指定要编译的项目，即tsconfig.json所在文件目录</span><br><span class="line">tsc --project ./dir/project</span><br><span class="line"># 指定要编译的文件，忽略tsconfig.json文件配置</span><br><span class="line">tsc ./src/main.ts</span><br></pre></td></tr></table></figure>
+
+<h2 id="主要配置项"><a href="#主要配置项" class="headerlink" title="主要配置项"></a>主要配置项</h2><p>tsconfig.json 文件里有几个主要的配置项：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compileOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"files"</span>: [],</span><br><span class="line">  <span class="attr">"include"</span>: [],</span><br><span class="line">  <span class="attr">"exclude"</span>: [],</span><br><span class="line">  <span class="attr">"extends"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="compileOnSave"><a href="#compileOnSave" class="headerlink" title="compileOnSave"></a>compileOnSave</h3><p><code>compileOnSave</code> 的值是 <code>true</code> 或 <code>false</code>。如果设为 <code>true</code>，当我们编辑了项目中文件并保存的时候，编辑器会根据 tsconfig.json 的配置重新生成文件，不过这个要编辑器支持。</p>
+<h3 id="files"><a href="#files" class="headerlink" title="files"></a>files</h3><p><code>files</code> 可以配置一个数组列表，里面包含输入文件的相对或绝对路径。编译器在编译的时候只会编译包含在 <code>files</code> 中列出的文件。如果不指定，则取决于有没有设置 <code>include</code> 选项；如果没有 <code>include</code> 选项，则默认会编译根目录以及所有子目录中的文件。这里列出的路径必须是 <code>指定文件</code>，而 <code>不是某个文件夹</code>，而且 <code>不能使用*、?、**/等通配符</code>。</p>
+<h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><p><code>include</code> 也可以指定要编译的路径列表，但和 <code>files</code> 的区别在于，这里的路径 <code>可以是文件夹，也可以是文件</code>，可以使用相对和绝对路径，而且<code>可以使用通配符</code>。比如”./src”即表示要编译 src 文件夹下的所有文件以及子文件夹的文件。</p>
+<h3 id="exclude"><a href="#exclude" class="headerlink" title="exclude"></a>exclude</h3><p><code>exclude</code> 表示要排除的、不编译的文件，它也可以指定一个列表，规则和 <code>include</code> 一样，可以是文件可以是文件夹，可以是相对路径或绝对路径，可以使用通配符。</p>
+<h3 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h3><p><code>extends</code> 可以通过指定一个其它的 <code>tsconfig.json</code> 文件路径，来继承这个配置文件里的配置，继承来的文件配置会 <code>覆盖当前文件定义的配置</code>。TS 在 3.2 版本开始，支持继承一个来自 Node.js 包的 tsconfig.json 配置文件。</p>
+<h3 id="compilerOptions"><a href="#compilerOptions" class="headerlink" title="compilerOptions"></a>compilerOptions</h3><p>它用来 <code>设置编译选项</code>。</p>
+<p>我们先来看第一类，<code>一些比较基本的配置</code>：</p>
+<h4 id="target"><a href="#target" class="headerlink" title="target"></a>target</h4><p><code>target</code> 用于 <code>指定编译之后的版本目标</code>，可选值有：ES3(默认值)、ES5、ES2015、ES2016、ES2017、ESNEXT。如果不配置 target 项，<code>默认是将代码转译为 ES3 的版本</code>，如果设为 ESNEXT，则为最新 ES 规范版本。</p>
+<h4 id="module"><a href="#module" class="headerlink" title="module"></a>module</h4><p><code>module</code> 用来 <code>指定要使用的模块标准</code>，可选值有commonjs、amd、system、umd、es2015(或写 es6)。如果不设置 module 选项，则如果 target 设为 ES6，那么 module 默认值为 ES6，否则是 commonjs。</p>
+<h4 id="lib"><a href="#lib" class="headerlink" title="lib"></a>lib</h4><p><code>lib</code> 用于 <code>指定要包含在编译中的库文件</code>。如果你要使用一些 ES6 的新语法，你需要引入 ES6 这个库，或者也可以写 ES2015。如果没有指定 lib 配置，默认会加载一些库，而 <code>加载什么库是受 target 影响的</code>。如果 target 为 ES5，默认包含的库有DOM、ES5和ScriptHost；如果 target 是 ES6，默认引入的库有DOM、ES6、DOM.Iterable和ScriptHost。</p>
+<h4 id="allowJs"><a href="#allowJs" class="headerlink" title="allowJs"></a>allowJs</h4><p><code>allowJs</code> 设置的值为 <code>true</code> 或 <code>fals</code>e<code>，用来</code>指定是否允许编译 JS 文件`，默认是 false，即不编译 JS 文件。</p>
+<h4 id="checkJs"><a href="#checkJs" class="headerlink" title="checkJs"></a>checkJs</h4><p><code>checkJs</code> 的值为 <code>true</code> 或 <code>false</code>，用来 <code>指定是否检查和报告 JS 文件中的错误</code>，默认是 false。</p>
+<h4 id="declaration"><a href="#declaration" class="headerlink" title="declaration"></a>declaration</h4><p><code>declaration</code> 的值为 <code>true</code> 或 <code>false</code>，用来 <code>指定是否在编译的时候生成响应的&quot;.d.ts&quot;声明文件</code>。如果设为 true，编译每个 ts 文件之后会生成一个 js 文件和一个声明文件。但是 <code>declaration 和 allowJs 不能同时设为 true</code>。</p>
+<h4 id="sourceMap"><a href="#sourceMap" class="headerlink" title="sourceMap"></a>sourceMap</h4><p>sourceMap 的值为 <code>true</code> 或 <code>false</code>，用来 <code>指定编译时是否生成.map 文件</code>。</p>
+<h4 id="outFile"><a href="#outFile" class="headerlink" title="outFile"></a>outFile</h4><p><code>outFile</code> 用于 <code>指定将输出文件合并为一个文件</code>，<code>它的值为一个文件路径名</code>，比如设置为”./dist/main.js”，则输出的文件为一个 main.js 文件。但是要注意，<code>只有设置 module 的值为 amd 和 system 模块时才支持这个配置</code>。</p>
+<h4 id="outDir"><a href="#outDir" class="headerlink" title="outDir"></a>outDir</h4><p><code>outDir</code> 用来 <code>指定输出文件夹</code>，<code>值为一个文件夹路径字符串</code>，输出的文件都将放置在这个文件夹。</p>
+<h4 id="rootDir"><a href="#rootDir" class="headerlink" title="rootDir"></a>rootDir</h4><p>用来 <code>指定编译文件的根目录</code>，编译器会在根目录查找入口文件，如果编译器发现以 <code>rootDir</code> 的值作为根目录查找入口文件并不会把所有文件加载进去的话会报错，但是不会停止编译。</p>
+<h4 id="removeComments"><a href="#removeComments" class="headerlink" title="removeComments"></a>removeComments</h4><p><code>removeComments</code> 值为 <code>true</code> 或 <code>false</code>，用于 <code>指定是否将编译后的文件中的注释删掉</code>，设为 true 的话即删掉注释，默认为 false。</p>
+<h4 id="noEmit"><a href="#noEmit" class="headerlink" title="noEmit"></a>noEmit</h4><p><code>不生成编译文件</code>，这个一般很少用了。</p>
+<h4 id="importHelpers"><a href="#importHelpers" class="headerlink" title="importHelpers"></a>importHelpers</h4><p><code>importHelpers</code> 的值为 <code>true</code> 或 <code>false</code>，<code>指定是否引入 tslib 里的辅助工具函数</code>，默认 Wie。</p>
+<h4 id="isolatedModules"><a href="#isolatedModules" class="headerlink" title="isolatedModules"></a>isolatedModules</h4><p><code>isolatedModules</code> 的值为 <code>true</code> 或 <code>false</code>，<code>指定是否将每个文件作为单独的模块</code>，默认为 true，它不可以和 <code>declaration</code> 同时设定。</p>
+<p>第二类是和<code>严格类型检查</code>相关的，开启了这些检查 <code>如果有错会报错</code>：</p>
+<h4 id="noImplicitAny"><a href="#noImplicitAny" class="headerlink" title="noImplicitAny"></a>noImplicitAny</h4><p><code>noImplicitAny</code> 的值为 <code>true</code> 或 <code>false</code>，如果我们没有为一些值设置明确的类型，编译器会默认这个值为 any 类型，<code>如果将 noImplicitAny 设为 true，则如果没有设置明确的类型会报错</code>，默认值为 false。</p>
+<h4 id="alwaysStrict"><a href="#alwaysStrict" class="headerlink" title="alwaysStrict"></a>alwaysStrict</h4><p><code>alwaysStrict</code> 的值为 <code>true</code> 或 <code>false</code>，<code>指定始终以严格模式检查每个模块</code>，并且在编译之后的 JS 文件中加入”use strict”字符串，用来告诉浏览器该 JS 为严格模式。</p>
+<h4 id="strictNullChecks"><a href="#strictNullChecks" class="headerlink" title="strictNullChecks"></a>strictNullChecks</h4><p><code>strictNullChecks</code> 的值为 <code>true</code> 或 <code>false</code>，<code>当设为 true 时，null 和 undefined 值不能赋值给非这两种类型的值</code>，别的类型的值也不能赋给它们。 除了 any 类型，还有个例外就是 undefined 可以赋值给 void 类型。</p>
+<h4 id="strictFunctionTypes"><a href="#strictFunctionTypes" class="headerlink" title="strictFunctionTypes"></a>strictFunctionTypes</h4><p><code>strictFunctionTypes</code> 的值为 <code>true</code> 或 <code>false</code>，<code>用来指定是否使用函数参数双向协变检查</code>。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> funcA = <span class="function"><span class="keyword">function</span>(<span class="params">arg: <span class="built_in">number</span> | <span class="built_in">string</span></span>): <span class="title">void</span> </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> funcB = <span class="function"><span class="keyword">function</span>(<span class="params">arg: <span class="built_in">number</span></span>): <span class="title">void</span> </span>&#123;&#125;;</span><br><span class="line">funcA = funcB;</span><br></pre></td></tr></table></figure>
+
+<p>如果开启了 strictFunctionTypes，这个赋值就会报错，默认为 false</p>
+<h4 id="strictPropertyInitialization"><a href="#strictPropertyInitialization" class="headerlink" title="strictPropertyInitialization"></a>strictPropertyInitialization</h4><p><code>strictPropertyInitialization</code> 的值为 <code>true</code> 或 <code>false</code>，<code>设为 true 后会检查类的非 undefined 属性是否已经在构造函数里初始化</code>，如果要开启这项，<code>需要同时开启 strictNullChecks</code>，默认为 false。</p>
+<h4 id="strictBindCallApply"><a href="#strictBindCallApply" class="headerlink" title="strictBindCallApply"></a>strictBindCallApply</h4><p><code>strictBindCallApply</code> 的值为 <code>true</code> 或 <code>false</code>，<code>设为 true 后会对 bind、call 和 apply 绑定方法参数的检测是严格检测的</code>，如下面的例子：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a = foo.apply(<span class="keyword">this</span>, [<span class="number">1</span>]); <span class="comment">// error Property '1' is missing in type '[number]' but required in type '[number, string]'</span></span><br><span class="line"><span class="keyword">let</span> b = foo.apply(<span class="keyword">this</span>, [<span class="number">1</span>, <span class="number">2</span>]); <span class="comment">// error 不能将类型“number”分配给类型“string”</span></span><br><span class="line"><span class="keyword">let</span> ccd = foo.apply(<span class="keyword">this</span>, [<span class="number">1</span>, <span class="string">"a"</span>]); <span class="comment">// right</span></span><br><span class="line"><span class="keyword">let</span> ccsd = foo.apply(<span class="keyword">this</span>, [<span class="number">1</span>, <span class="string">"a"</span>, <span class="number">2</span>]); <span class="comment">// right</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="strict"><a href="#strict" class="headerlink" title="strict"></a>strict</h4><p><code>strict</code> 的值为 <code>true</code> 或 <code>false</code>，<code>用于指定是否启动所有类型检查</code>，<code>如果设为 true 则会同时开启前面这几个严格类型检查</code>，默认为 false。</p>
+<p>第三类为额外的一些检查，<code>开启了这些检查如果有错会提示不会报错</code>：</p>
+<h4 id="noUnusedLocals"><a href="#noUnusedLocals" class="headerlink" title="noUnusedLocals"></a>noUnusedLocals</h4><p><code>noUnusedLocals</code> 的值为 <code>true</code> 或 <code>false</code>，<code>用于检查是否有定义了但是没有使用的变量</code>，对于这一点的检测，使用 ESLint 可以在你书写代码的时候做提示，你可以配合使用。它的默认值为 false。</p>
+<h4 id="noUnusedParameters"><a href="#noUnusedParameters" class="headerlink" title="noUnusedParameters"></a>noUnusedParameters</h4><p><code>noUnusedParameters</code> 的值为 <code>true</code> 或 <code>false</code>，<code>用于检查是否有在函数体中没有使用的参数</code>，这个也可以配合 ESLint 来做检查，它默认是 false。</p>
+<h4 id="noImplicitReturns"><a href="#noImplicitReturns" class="headerlink" title="noImplicitReturns"></a>noImplicitReturns</h4><p><code>noImplicitReturns</code> 的值为 <code>true</code> 或 <code>false</code>，<code>用于检查函数是否有返回值</code>，设为 true 后，如果函数没有返回值则会提示，默认为 false。</p>
+<h4 id="noFallthroughCasesInSwitch"><a href="#noFallthroughCasesInSwitch" class="headerlink" title="noFallthroughCasesInSwitch"></a>noFallthroughCasesInSwitch</h4><p><code>noFallthroughCasesInSwitch</code> 的值为 <code>true</code> 或 <code>false</code>，<code>用于检查 switch 中是否有 case 没有使用 break 跳出 switch</code>，默认为 false。</p>
+<p>接下来是<code>模块解析相关</code>的：</p>
+<h4 id="moduleResolution"><a href="#moduleResolution" class="headerlink" title="moduleResolution"></a>moduleResolution</h4><p><code>moduleResolution 用于选择模块解析策略</code>，有”node”和”classic”两种类型。</p>
+<h4 id="baseUrl"><a href="#baseUrl" class="headerlink" title="baseUrl"></a>baseUrl</h4><p><code>baseUrl 用于设置解析非相对模块名称的基本目录</code>，相对模块不会受 baseUrl 的影响。</p>
+<h4 id="paths"><a href="#paths" class="headerlink" title="paths"></a>paths</h4><p><code>paths 用于设置模块名到基于 baseUrl 的路径映射</code>，比如这样配置：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    "baseUrl": ".", // 如果使用paths，必须设置baseUrl</span><br><span class="line">    "paths": &#123;</span><br><span class="line">      "jquery": ["node_modules/jquery/dist/jquery"] // 此处映射是相对于"baseUrl"</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有<code>当我们要为没有声明文件的第三方模块写声明文件时</code>，我们可以先如下设置：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    "baseUrl": ".", // 如果使用paths，必须设置baseUrl</span><br><span class="line">    "paths": &#123;</span><br><span class="line">      "*": ["./node_modules/@types/*", "./typings/*"]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在 <code>tsconfig.json</code> 文件所在的目录里建一个 <code>typings 文件夹</code>，然后为要写声明文件的模块建一个同名文件夹，比如我们要为 make-dir 这个模块写声明文件，那么就在 typings 文件夹下新建一个文件夹，命名为 make-dir，然后在 make-dir 文件夹新建一个 index.d.ts 声明文件来为这个模块补充声明。</p>
+<h4 id="rootDirs"><a href="#rootDirs" class="headerlink" title="rootDirs"></a>rootDirs</h4><p><code>rootDirs</code> <code>可以指定一个路径列表</code>，在构建时编译器会将这个路径列表中的路径内容都放到一个文件夹中。</p>
+<h4 id="typeRoots"><a href="#typeRoots" class="headerlink" title="typeRoots"></a>typeRoots</h4><p><code>typeRoots</code> <code>用来指定声明文件或文件夹的路径列表</code>，如果指定了此项，则只有在这里列出的声明文件才会被加载。</p>
+<h4 id="types"><a href="#types" class="headerlink" title="types"></a>types</h4><p><code>types</code> <code>用来指定需要包含的模块</code>，只有在这里列出的模块声明文件才会被加载进来。</p>
+<h4 id="allowSyntheticDefaultImports"><a href="#allowSyntheticDefaultImports" class="headerlink" title="allowSyntheticDefaultImports"></a>allowSyntheticDefaultImports</h4><p><code>allowSyntheticDefaultImports</code> 的值为 <code>true</code> 或 <code>fals</code>e，<code>用来指定允许从没有默认导出的模块中默认导入</code>。</p>
+<p>接下来的是 <code>source map</code> 的一些配置项：</p>
+<h4 id="sourceRoot"><a href="#sourceRoot" class="headerlink" title="sourceRoot"></a>sourceRoot</h4><p><code>sourceRoot</code> <code>用于指定调试器应该找到 TypeScript 文件而不是源文件位置</code>，这个值会被写进.map 文件里。</p>
+<h4 id="mapRoot"><a href="#mapRoot" class="headerlink" title="mapRoot"></a>mapRoot</h4><p><code>mapRoot</code> <code>用于指定调试器找到映射文件而非生成文件的位置，指定 map 文件的根路径</code>，该选项会影响.map 文件中的 sources 属性。</p>
+<h4 id="inlineSourceMap"><a href="#inlineSourceMap" class="headerlink" title="inlineSourceMap"></a>inlineSourceMap</h4><p><code>inlineSourceMap</code> 值为 <code>tru</code>e 或 <code>false</code>，<code>指定是否将 map 文件的内容和 js 文件编译在同一个 js 文件中</code>。如果设为 true，则 map 的内容会以 <code>//# sourceMappingURL=</code> 然后接 base64 字符串的形式插入在 js 文件底部。</p>
+<h4 id="inlineSources"><a href="#inlineSources" class="headerlink" title="inlineSources"></a>inlineSources</h4><p><code>inlineSources</code> 的值是 <code>true</code> 或 <code>false</code>，<code>用于指定是否进一步将.ts 文件的内容也包含到输出文件中</code>。</p>
+<p>最后还有两个其他的配置项：</p>
+<h4 id="experimentalDecorators"><a href="#experimentalDecorators" class="headerlink" title="experimentalDecorators"></a>experimentalDecorators</h4><p><code>experimentalDecorators</code> 的值是 <code>true</code> 或 <code>false</code>，<code>用于指定是否启用实验性的装饰器特性</code>。</p>
+<h4 id="emitDecoratorMetadata"><a href="#emitDecoratorMetadata" class="headerlink" title="emitDecoratorMetadata"></a>emitDecoratorMetadata</h4><p><code>emitDecoratorMetadata</code> 的值为 <code>true</code> 或 <code>false</code>，<code>用于指定是否为装饰器提供元数据支持</code>。关于元数据，也是 ES6 的新标准，可以通过 Reflect 提供的静态方法获取元数据，如果需要使用 Reflect 的一些方法，需要引入 ES2015.Reflect 这个库。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>TypeScript配置文件包含六个顶级配置项：<code>compileOnSave</code>、<code>files</code>、<code>include</code>、<code>exclude</code>、<code>extends</code>和<code>compilerOptions</code>，其中我们 <code>最常用的是compilerOptions</code>，<code>用来配置编译选项</code>。有一些参数是只能在 <code>tsconfig.json</code> 文件里配置的，而有一些则既可以在tsconfig.json文件配置，也可以在tsc命令行中指定，具体一个参数可以在哪里指定，可以参考<a href="https://www.tslang.cn/docs/handbook/compiler-options.html" target="_blank" rel="noopener">编译选项列表</a>。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.imooc.com/read/35" target="_blank" rel="noopener">零基础学透 TypeScript</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:16px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
+            
+              <a href="/tags/TypeScript/" rel="tag"><i class="fa fa-tag"></i> TypeScript</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020-04-03/TypeScript/TypeScript高级类型/" rel="next" title="TypeScript高级类型">
+                  <i class="fa fa-chevron-left"></i> TypeScript高级类型
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript配置文件"><span class="nav-number">1.</span> <span class="nav-text">TypeScript配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要配置项"><span class="nav-number">2.</span> <span class="nav-text">主要配置项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#compileOnSave"><span class="nav-number">2.1.</span> <span class="nav-text">compileOnSave</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#files"><span class="nav-number">2.2.</span> <span class="nav-text">files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#include"><span class="nav-number">2.3.</span> <span class="nav-text">include</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exclude"><span class="nav-number">2.4.</span> <span class="nav-text">exclude</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#extends"><span class="nav-number">2.5.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compilerOptions"><span class="nav-number">2.6.</span> <span class="nav-text">compilerOptions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#target"><span class="nav-number">2.6.1.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#module"><span class="nav-number">2.6.2.</span> <span class="nav-text">module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lib"><span class="nav-number">2.6.3.</span> <span class="nav-text">lib</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#allowJs"><span class="nav-number">2.6.4.</span> <span class="nav-text">allowJs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#checkJs"><span class="nav-number">2.6.5.</span> <span class="nav-text">checkJs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#declaration"><span class="nav-number">2.6.6.</span> <span class="nav-text">declaration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sourceMap"><span class="nav-number">2.6.7.</span> <span class="nav-text">sourceMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#outFile"><span class="nav-number">2.6.8.</span> <span class="nav-text">outFile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#outDir"><span class="nav-number">2.6.9.</span> <span class="nav-text">outDir</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rootDir"><span class="nav-number">2.6.10.</span> <span class="nav-text">rootDir</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#removeComments"><span class="nav-number">2.6.11.</span> <span class="nav-text">removeComments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#noEmit"><span class="nav-number">2.6.12.</span> <span class="nav-text">noEmit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#importHelpers"><span class="nav-number">2.6.13.</span> <span class="nav-text">importHelpers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#isolatedModules"><span class="nav-number">2.6.14.</span> <span class="nav-text">isolatedModules</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#noImplicitAny"><span class="nav-number">2.6.15.</span> <span class="nav-text">noImplicitAny</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#alwaysStrict"><span class="nav-number">2.6.16.</span> <span class="nav-text">alwaysStrict</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strictNullChecks"><span class="nav-number">2.6.17.</span> <span class="nav-text">strictNullChecks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strictFunctionTypes"><span class="nav-number">2.6.18.</span> <span class="nav-text">strictFunctionTypes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strictPropertyInitialization"><span class="nav-number">2.6.19.</span> <span class="nav-text">strictPropertyInitialization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strictBindCallApply"><span class="nav-number">2.6.20.</span> <span class="nav-text">strictBindCallApply</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strict"><span class="nav-number">2.6.21.</span> <span class="nav-text">strict</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#noUnusedLocals"><span class="nav-number">2.6.22.</span> <span class="nav-text">noUnusedLocals</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#noUnusedParameters"><span class="nav-number">2.6.23.</span> <span class="nav-text">noUnusedParameters</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#noImplicitReturns"><span class="nav-number">2.6.24.</span> <span class="nav-text">noImplicitReturns</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#noFallthroughCasesInSwitch"><span class="nav-number">2.6.25.</span> <span class="nav-text">noFallthroughCasesInSwitch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#moduleResolution"><span class="nav-number">2.6.26.</span> <span class="nav-text">moduleResolution</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#baseUrl"><span class="nav-number">2.6.27.</span> <span class="nav-text">baseUrl</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#paths"><span class="nav-number">2.6.28.</span> <span class="nav-text">paths</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rootDirs"><span class="nav-number">2.6.29.</span> <span class="nav-text">rootDirs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#typeRoots"><span class="nav-number">2.6.30.</span> <span class="nav-text">typeRoots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#types"><span class="nav-number">2.6.31.</span> <span class="nav-text">types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#allowSyntheticDefaultImports"><span class="nav-number">2.6.32.</span> <span class="nav-text">allowSyntheticDefaultImports</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sourceRoot"><span class="nav-number">2.6.33.</span> <span class="nav-text">sourceRoot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mapRoot"><span class="nav-number">2.6.34.</span> <span class="nav-text">mapRoot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inlineSourceMap"><span class="nav-number">2.6.35.</span> <span class="nav-text">inlineSourceMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inlineSources"><span class="nav-number">2.6.36.</span> <span class="nav-text">inlineSources</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#experimentalDecorators"><span class="nav-number">2.6.37.</span> <span class="nav-text">experimentalDecorators</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#emitDecoratorMetadata"><span class="nav-number">2.6.38.</span> <span class="nav-text">emitDecoratorMetadata</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="jkfhto">
+  <p class="site-author-name" itemprop="name">jkfhto</p>
+  <div class="site-description" itemprop="description">ARE YOU READY TO DIE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/jkfhto" title="GitHub &rarr; https://github.com/jkfhto" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jkfhto</span>
+</div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.1
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'alQVMWPnOOe4lPVXKRWqDTsQ-gzGzoHsz',
+    appKey: 'RleUsHgziBnyz6c72sCfUduo',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

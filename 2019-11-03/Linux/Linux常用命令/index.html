@@ -389,10 +389,10 @@
 </ul>
 <h3 id="管理防火墙"><a href="#管理防火墙" class="headerlink" title="管理防火墙"></a>管理防火墙</h3><ul>
 <li><p>查看，启动，关闭，重启防火墙</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看</span></span><br><span class="line">firewall-cmd --state</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">service firewall start</span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭</span></span><br><span class="line">service firewall stop</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">service firewall restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看</span><br><span class="line">firewall-cmd --state</span><br><span class="line"><span class="meta">#</span> 启动</span><br><span class="line">service firewall start</span><br><span class="line"><span class="meta">#</span> 关闭</span><br><span class="line">service firewall stop</span><br><span class="line"><span class="meta">#</span> 重启</span><br><span class="line">service firewall restart</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>端口管理 </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 打开443/TCP端口</span></span><br><span class="line">firewall-cmd --add-port=443/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久打开3690/TCP端口</span></span><br><span class="line">firewall-cmd --permanent --add-port=3690/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久打开端口好像需要reload一下，临时打开好像不用，如果用了reload临时打开的端口就失效了</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 其它服务也可能是这样的，这个没有测试</span></span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看防火墙，添加的端口也可以看到</span></span><br><span class="line">firewall-cmd --list-all</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有打开的端口：</span></span><br><span class="line">firewall-cmd --list-ports</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 阻止通过tcp访问443 删除端口</span></span><br><span class="line">firewall-cmd --remove-port=443/tcp</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 打开443/TCP端口</span><br><span class="line">firewall-cmd --add-port=443/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 永久打开3690/TCP端口</span><br><span class="line">firewall-cmd --permanent --add-port=3690/tcp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 永久打开端口好像需要reload一下，临时打开好像不用，如果用了reload临时打开的端口就失效了</span><br><span class="line"><span class="meta">#</span> 其它服务也可能是这样的，这个没有测试</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看防火墙，添加的端口也可以看到</span><br><span class="line">firewall-cmd --list-all</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看所有打开的端口：</span><br><span class="line">firewall-cmd --list-ports</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 阻止通过tcp访问443 删除端口</span><br><span class="line">firewall-cmd --remove-port=443/tcp</span><br></pre></td></tr></table></figure>
 
 
 
@@ -428,22 +428,22 @@
 <li>–version 　显示版本信息。</li>
 </ul>
 <h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>显示系统信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uname -a</span></span><br><span class="line">Linux snail-hnlinux 2.6.32-21-generic #32-Ubuntu SMP Fri Apr 16 08:10:02 UTC 2010 i686 GNU/Linux</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> uname -a</span><br><span class="line">Linux snail-hnlinux 2.6.32-21-generic #32-Ubuntu SMP Fri Apr 16 08:10:02 UTC 2010 i686 GNU/Linux</span><br></pre></td></tr></table></figure>
 
 <p>显示计算机类型</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uname -m</span></span><br><span class="line">i686</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> uname -m</span><br><span class="line">i686</span><br></pre></td></tr></table></figure>
 
 <p>显示计算机名</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uname -n</span></span><br><span class="line">snail-hnlinux</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> uname -n</span><br><span class="line">snail-hnlinux</span><br></pre></td></tr></table></figure>
 
 <p>显示操作系统发行编号</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uname -r</span></span><br><span class="line">2.6.32-21-generic</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> uname -r</span><br><span class="line">2.6.32-21-generic</span><br></pre></td></tr></table></figure>
 
 <p>显示操作系统名称</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uname -s</span></span><br><span class="line">Linux</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> uname -s</span><br><span class="line">Linux</span><br></pre></td></tr></table></figure>
 
 <p>显示系统时间</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uname -v</span></span><br><span class="line"><span class="meta">#</span><span class="bash">32-Ubuntu SMP Fri Apr 16 08:10:02 UTC 2014</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> uname -v</span><br><span class="line"><span class="meta">#</span>32-Ubuntu SMP Fri Apr 16 08:10:02 UTC 2014</span><br></pre></td></tr></table></figure>
 
 <h2 id="磁盘使用情况-df"><a href="#磁盘使用情况-df" class="headerlink" title="磁盘使用情况 df"></a>磁盘使用情况 df</h2><p>Linux df命令用于显示目前在Linux系统上的文件系统的磁盘使用情况统计。</p>
 <h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df [选项]... [FILE]...</span><br></pre></td></tr></table></figure>
@@ -502,25 +502,25 @@
 <li>b : 批次档模式，搭配 “n” 参数一起使用，可以用来将 top 的结果输出到档案内</li>
 </ul>
 <h3 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h3><p>显示进程信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> top</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> top</span><br></pre></td></tr></table></figure>
 
 <p>显示完整命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> top -c</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> top -c</span><br></pre></td></tr></table></figure>
 
 <p>以批处理模式显示程序信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> top -b</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> top -b</span><br></pre></td></tr></table></figure>
 
 <p>以累积模式显示程序信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> top -S</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> top -S</span><br></pre></td></tr></table></figure>
 
 <p>设置信息更新次数</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">top -n 2</span><br><span class="line"></span><br><span class="line">//表示更新两次后终止更新显示</span><br></pre></td></tr></table></figure>
 
 <p>设置信息更新时间</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> top -d 3</span></span><br><span class="line"></span><br><span class="line">//表示更新周期为3秒</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> top -d 3</span><br><span class="line"></span><br><span class="line">//表示更新周期为3秒</span><br></pre></td></tr></table></figure>
 
 <p>显示指定的进程信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> top -p 139</span></span><br><span class="line"></span><br><span class="line">//显示进程号为139的进程信息，CPU、内存占用率等</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> top -p 139</span><br><span class="line"></span><br><span class="line">//显示进程号为139的进程信息，CPU、内存占用率等</span><br></pre></td></tr></table></figure>
 
 <p>显示更新十次后退出</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top -n 10</span><br></pre></td></tr></table></figure>
@@ -579,16 +579,16 @@
 <li>–version 列出版本讯息。</li>
 </ul>
 <h3 id="实例-5"><a href="#实例-5" class="headerlink" title="实例"></a>实例</h3><p>使用指令”touch”修改文件”testfile”的时间属性为当前系统时间，输入如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> touch testfile                <span class="comment">#修改文件的时间属性</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> touch testfile                #修改文件的时间属性</span><br></pre></td></tr></table></figure>
 
 <p>首先，使用ls命令查看testfile文件的属性，如下所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls -l testfile                <span class="comment">#查看文件的时间属性  </span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">原来文件的修改时间为16:09  </span></span><br><span class="line">-rw-r--r-- 1 hdd hdd 55 2011-08-22 16:09 testfile</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ls -l testfile                #查看文件的时间属性  </span><br><span class="line"><span class="meta">#</span>原来文件的修改时间为16:09  </span><br><span class="line">-rw-r--r-- 1 hdd hdd 55 2011-08-22 16:09 testfile</span><br></pre></td></tr></table></figure>
 
 <p>执行指令”touch”修改文件属性以后，并再次查看该文件的时间属性，如下所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> touch testfile                <span class="comment">#修改文件时间属性为当前系统时间  </span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ls -l testfile                <span class="comment">#查看文件的时间属性  </span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">修改后文件的时间属性为当前系统时间  </span></span><br><span class="line">-rw-r--r-- 1 hdd hdd 55 2011-08-22 19:53 testfile</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> touch testfile                #修改文件时间属性为当前系统时间  </span><br><span class="line"><span class="meta">$</span> ls -l testfile                #查看文件的时间属性  </span><br><span class="line"><span class="meta">#</span>修改后文件的时间属性为当前系统时间  </span><br><span class="line">-rw-r--r-- 1 hdd hdd 55 2011-08-22 19:53 testfile</span><br></pre></td></tr></table></figure>
 
 <p>使用指令”touch”时，如果指定的文件不存在，则将创建一个新的空白文件。例如，在当前目录下，使用该指令创建一个空白文件”file”，输入如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> touch file            <span class="comment">#创建一个名为“file”的新的空白文件</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> touch file            #创建一个名为“file”的新的空白文件</span><br></pre></td></tr></table></figure>
 
 <h2 id="复制文件或目录-cp"><a href="#复制文件或目录-cp" class="headerlink" title="复制文件或目录 cp"></a>复制文件或目录 cp</h2><p>Linux cp命令主要用于复制文件或目录。</p>
 <h3 id="语法-6"><a href="#语法-6" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp [options] source dest</span><br></pre></td></tr></table></figure>
@@ -607,7 +607,7 @@
 <li>-l：不复制文件，只是生成链接文件。</li>
 </ul>
 <h3 id="实例-6"><a href="#实例-6" class="headerlink" title="实例"></a>实例</h3><p>使用指令”cp”将当前目录”test/”下的所有文件复制到新目录”newtest”下，输入如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cp –r <span class="built_in">test</span>/ newtest</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cp –r test/ newtest</span><br></pre></td></tr></table></figure>
 
 <p>注意：用户使用该指令复制目录时，必须使用参数”-r”或者”-R”。</p>
 <h2 id="移动目录或文件夹-mv"><a href="#移动目录或文件夹-mv" class="headerlink" title="移动目录或文件夹 mv"></a>移动目录或文件夹 mv</h2><p>Linux mv命令用来为文件或目录改名、或将文件或目录移入其它位置。</p>
@@ -650,7 +650,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv info/ logs</span><br></pre></td></tr></table></figure>
 
 <p>再如将/usr/student下的所有文件和目录移到当前目录下，命令行为：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mv /usr/student/*  .</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mv /usr/student/*  .</span><br></pre></td></tr></table></figure>
 
 <h2 id="vi-vim-的使用"><a href="#vi-vim-的使用" class="headerlink" title="vi/vim 的使用"></a>vi/vim 的使用</h2><p>基本上 vi/vim 共分为三种模式，分别是<strong>命令模式（Command mode）</strong>，<strong>插入模式（Insert mode）</strong>和<strong>底线命令模式（Last line mode）</strong>。 这三种模式的作用分别是：</p>
 <h3 id="命令模式："><a href="#命令模式：" class="headerlink" title="命令模式："></a>命令模式：</h3><p>用户刚刚启动 vi/vim，便进入了命令模式。</p>
@@ -737,7 +737,7 @@
 
 <p>同样，双引号也可以省略</p>
 <h3 id="3-显示变量"><a href="#3-显示变量" class="headerlink" title="3.显示变量"></a>3.显示变量</h3><p>read 命令从标准输入中读取一行,并把输入行的每个字段的值指定给 shell 变量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">read name </span><br><span class="line">echo "$name It is a test"</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line">read name </span><br><span class="line">echo "$name It is a test"</span><br></pre></td></tr></table></figure>
 
 <p>以上代码保存为 test.sh，name 接收标准输入的变量，结果将是:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# sh test.sh</span><br><span class="line">OK                     #标准输入</span><br><span class="line">OK It is a test        #输出</span><br></pre></td></tr></table></figure>
@@ -747,7 +747,7 @@
 <p>输出结果：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OK!</span><br><span class="line"></span><br><span class="line">It it a test</span><br></pre></td></tr></table></figure>
 
-<h3 id="5-显示不换行"><a href="#5-显示不换行" class="headerlink" title="5.显示不换行"></a>5.显示不换行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">echo -e "OK! \c" # -e 开启转义 \c 不换行</span><br><span class="line">echo "It is a test"</span><br></pre></td></tr></table></figure>
+<h3 id="5-显示不换行"><a href="#5-显示不换行" class="headerlink" title="5.显示不换行"></a>5.显示不换行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line">echo -e "OK! \c" # -e 开启转义 \c 不换行</span><br><span class="line">echo "It is a test"</span><br></pre></td></tr></table></figure>
 
 <p>输出结果：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OK! It is a test</span><br></pre></td></tr></table></figure>
@@ -774,7 +774,7 @@
 <li>-r 将目录及以下之档案亦逐一删除。</li>
 </ul>
 <h3 id="实例-8"><a href="#实例-8" class="headerlink" title="实例"></a>实例</h3><p>删除文件可以直接使用rm命令，若删除目录则必须配合选项”-r”，例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> rm  test.txt </span></span><br><span class="line">rm：是否删除 一般文件 "test.txt"? y  </span><br><span class="line"><span class="meta">#</span><span class="bash"> rm  homework  </span></span><br><span class="line">rm: 无法删除目录"homework": 是一个目录  </span><br><span class="line"><span class="meta">#</span><span class="bash"> rm  -r  homework  </span></span><br><span class="line">rm：是否删除 目录 "homework"? y</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> rm  test.txt </span><br><span class="line">rm：是否删除 一般文件 "test.txt"? y  </span><br><span class="line"><span class="meta">#</span> rm  homework  </span><br><span class="line">rm: 无法删除目录"homework": 是一个目录  </span><br><span class="line"><span class="meta">#</span> rm  -r  homework  </span><br><span class="line">rm：是否删除 目录 "homework"? y</span><br></pre></td></tr></table></figure>
 
 <p>删除当前目录下的所有文件及目录，命令行为：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm  -r  *</span><br></pre></td></tr></table></figure>
@@ -863,13 +863,13 @@
 <li>–volno-file=&lt;编号文件&gt; 使用指定文件内的编号取代预设的卷册编号。</li>
 </ul>
 <h3 id="实例-9"><a href="#实例-9" class="headerlink" title="实例"></a>实例</h3><p>压缩文件 非打包</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> touch a.c       </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> tar -czvf test.tar.gz a.c   //压缩 a.c文件为test.tar.gz</span></span><br><span class="line">a.c</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> touch a.c       </span><br><span class="line"><span class="meta">#</span> tar -czvf test.tar.gz a.c   //压缩 a.c文件为test.tar.gz</span><br><span class="line">a.c</span><br></pre></td></tr></table></figure>
 
 <p>列出压缩文件内容</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -tzvf test.tar.gz </span></span><br><span class="line">-rw-r--r-- root/root     0 2010-05-24 16:51:59 a.c</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> tar -tzvf test.tar.gz </span><br><span class="line">-rw-r--r-- root/root     0 2010-05-24 16:51:59 a.c</span><br></pre></td></tr></table></figure>
 
 <p>解压文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -xzvf test.tar.gz a.c</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> tar -xzvf test.tar.gz a.c</span><br></pre></td></tr></table></figure>
 
 <h2 id="显示当前进程-状态-ps"><a href="#显示当前进程-状态-ps" class="headerlink" title="显示当前进程 状态  ps"></a>显示当前进程 状态  ps</h2><p>Linux ps命令用于显示当前进程 (process) 的状态。</p>
 <p><a href="https://ipcmen.com/ps" target="_blank" rel="noopener">Linux ps</a></p>
@@ -916,22 +916,22 @@
 <li>[程序] 　[程序]可以是程序的PID或是PGID，也可以是工作编号。</li>
 </ul>
 <h3 id="实例-10"><a href="#实例-10" class="headerlink" title="实例"></a>实例</h3><p>杀死进程</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">kill</span> 12345</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kill 12345</span><br></pre></td></tr></table></figure>
 
 <p>强制杀死进程</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">kill</span> -KILL 123456</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kill -KILL 123456</span><br></pre></td></tr></table></figure>
 
 <p>发送SIGHUP信号，可以使用一下信号</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">kill</span> -HUP pid</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kill -HUP pid</span><br></pre></td></tr></table></figure>
 
 <p>彻底杀死进程</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">kill</span> -9 123456</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kill -9 123456</span><br></pre></td></tr></table></figure>
 
 <p>显示信号</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">kill</span> -l</span></span><br><span class="line">1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL	 5) SIGTRAP</span><br><span class="line">2) SIGABRT	 7) SIGBUS	 8) SIGFPE	 9) SIGKILL	10) SIGUSR1</span><br><span class="line">3)  SIGSEGV	12) SIGUSR2	13) SIGPIPE	14) SIGALRM	15) SIGTERM</span><br><span class="line">4)  SIGSTKFLT	17) SIGCHLD	18) SIGCONT	19) SIGSTOP	20) SIGTSTP</span><br><span class="line">5)  SIGTTIN	22) SIGTTOU	23) SIGURG	24) SIGXCPU	25) SIGXFSZ</span><br><span class="line">6)  SIGVTALRM	27) SIGPROF	28) SIGWINCH	29) SIGIO	30) SIGPWR</span><br><span class="line">7)  SIGSYS	34) SIGRTMIN	35) SIGRTMIN+1	36) SIGRTMIN+2	37) SIGRTMIN+3</span><br><span class="line">8)  SIGRTMIN+4	39) SIGRTMIN+5	40) SIGRTMIN+6	41) SIGRTMIN+7	42) SIGRTMIN+8</span><br><span class="line">9)  SIGRTMIN+9	44) SIGRTMIN+10	45) SIGRTMIN+11	46) SIGRTMIN+12	47) SIGRTMIN+13</span><br><span class="line">10) SIGRTMIN+14	49) SIGRTMIN+15	50) SIGRTMAX-14	51) SIGRTMAX-13	52) SIGRTMAX-12</span><br><span class="line">11) SIGRTMAX-11	54) SIGRTMAX-10	55) SIGRTMAX-9	56) SIGRTMAX-8	57) SIGRTMAX-7</span><br><span class="line">12) SIGRTMAX-6	59) SIGRTMAX-5	60) SIGRTMAX-4	61) SIGRTMAX-3	62) SIGRTMAX-2</span><br><span class="line">13) SIGRTMAX-1	64) SIGRTMAX</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kill -l</span><br><span class="line">1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL	 5) SIGTRAP</span><br><span class="line">2) SIGABRT	 7) SIGBUS	 8) SIGFPE	 9) SIGKILL	10) SIGUSR1</span><br><span class="line">3)  SIGSEGV	12) SIGUSR2	13) SIGPIPE	14) SIGALRM	15) SIGTERM</span><br><span class="line">4)  SIGSTKFLT	17) SIGCHLD	18) SIGCONT	19) SIGSTOP	20) SIGTSTP</span><br><span class="line">5)  SIGTTIN	22) SIGTTOU	23) SIGURG	24) SIGXCPU	25) SIGXFSZ</span><br><span class="line">6)  SIGVTALRM	27) SIGPROF	28) SIGWINCH	29) SIGIO	30) SIGPWR</span><br><span class="line">7)  SIGSYS	34) SIGRTMIN	35) SIGRTMIN+1	36) SIGRTMIN+2	37) SIGRTMIN+3</span><br><span class="line">8)  SIGRTMIN+4	39) SIGRTMIN+5	40) SIGRTMIN+6	41) SIGRTMIN+7	42) SIGRTMIN+8</span><br><span class="line">9)  SIGRTMIN+9	44) SIGRTMIN+10	45) SIGRTMIN+11	46) SIGRTMIN+12	47) SIGRTMIN+13</span><br><span class="line">10) SIGRTMIN+14	49) SIGRTMIN+15	50) SIGRTMAX-14	51) SIGRTMAX-13	52) SIGRTMAX-12</span><br><span class="line">11) SIGRTMAX-11	54) SIGRTMAX-10	55) SIGRTMAX-9	56) SIGRTMAX-8	57) SIGRTMAX-7</span><br><span class="line">12) SIGRTMAX-6	59) SIGRTMAX-5	60) SIGRTMAX-4	61) SIGRTMAX-3	62) SIGRTMAX-2</span><br><span class="line">13) SIGRTMAX-1	64) SIGRTMAX</span><br></pre></td></tr></table></figure>
 
 <p>杀死指定用户所有进程</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">kill</span> -9 $(ps -ef | grep hnlinux) //方法一 过滤出hnlinux用户进程 </span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">kill</span> -u hnlinux //方法二</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>kill -9 $(ps -ef | grep hnlinux) //方法一 过滤出hnlinux用户进程 </span><br><span class="line"><span class="meta">#</span>kill -u hnlinux //方法二</span><br></pre></td></tr></table></figure>
 
 <h2 id="控制系统服务-service"><a href="#控制系统服务-service" class="headerlink" title="控制系统服务  service"></a>控制系统服务  service</h2><p>控制系统服务的实用工具</p>
 <h3 id="补充说明-1"><a href="#补充说明-1" class="headerlink" title="补充说明"></a>补充说明</h3><p><strong>service命令</strong> 是Redhat Linux兼容的发行版中用来控制系统服务的实用工具，它以启动、停止、重新启动和关闭系统服务，还可以显示所有系统服务的当前状态。</p>
@@ -1136,7 +1136,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
