@@ -254,6 +254,435 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-17/webpack/Webpack-性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019-10-17/webpack/Webpack-性能优化/" class="post-title-link" itemprop="url">Webpack 性能优化</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-17 10:31:32" itemprop="dateCreated datePublished" datetime="2019-10-17T10:31:32+08:00">2019-10-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-20 17:03:11" itemprop="dateModified" datetime="2019-10-20T17:03:11+08:00">2019-10-20</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">Webpack</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webpack/webpack构建速度和体积优化策略/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack构建速度和体积优化策略</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019-10-17/webpack/Webpack-性能优化/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-17/webpack/Webpack-性能优化/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="webpack-的性能瓶颈"><a href="#webpack-的性能瓶颈" class="headerlink" title="webpack 的性能瓶颈"></a>webpack 的性能瓶颈</h2><p>webpack 的优化瓶颈，主要是两个方面：</p>
+<ul>
+<li>webpack 的构建过程太花时间</li>
+<li>webpack 打包的结果体积太大</li>
+</ul>
+<h2 id="webpack构建速度和体积优化策略"><a href="#webpack构建速度和体积优化策略" class="headerlink" title="webpack构建速度和体积优化策略"></a>webpack构建速度和体积优化策略</h2><ul>
+<li><a href="/2019-10-17/webpack/初级分析：使用webpack内置的stats">01 | 初级分析：使用webpack内置的stats</a></li>
+<li><a href="/2019-10-17/webpack/速度分析：使用speed-measure-webpack-plugin">02 | 速度分析：使用speed-measure-webpack-plugin</a></li>
+<li><a href="/2019-10-17/webpack/体积分析：使用webpack-bundle-analyzer">03 | 体积分析：使用webpack-bundle-analyzer</a></li>
+<li><a href="/2019-10-17/webpack/使用高版本的webpack和Node-js">04 | 使用高版本的webpack和Node.js</a></li>
+<li><a href="/2019-10-17/webpack/多进程-多实例构建">05 | 多进程/多实例构建</a></li>
+<li><a href="/2019-10-17/webpack/多进程并行压缩代码">06 | 多进程并行压缩代码</a></li>
+<li><a href="/2019-10-17/webpack/进一步分包：预编译资源模块-使用-DLLPlugin-进行分包">07 | 进一步分包：预编译资源模块 使用 DLLPlugin 进行分包</a></li>
+<li><a href="/2019-10-17/webpack/充分利用缓存提升二次构建速度">08 | 充分利用缓存提升二次构建速度</a></li>
+<li><a href="/2019-10-17/webpack/缩小构建目标">09 | 缩小构建目标</a></li>
+<li><a href="/2019-10-17/webpack/使用Tree-Shaking擦除无用的JavaScript和CSS">10 | 使用Tree Shaking擦除无用的JavaScript和CSS</a></li>
+<li><a href="/2019-10-17/webpack/使用webpack进行图片压缩">11 | 使用webpack进行图片压缩</a></li>
+<li><a href="/2019-10-17/webpack/使用动态Polyfill服务">12 | 使用动态Polyfill服务</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <div>
+    
+</div>
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2019-10-16/前端性能优化/前端性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019-10-16/前端性能优化/前端性能优化/" class="post-title-link" itemprop="url">前端性能优化</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-16 16:52:37" itemprop="dateCreated datePublished" datetime="2019-10-16T16:52:37+08:00">2019-10-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-20 17:03:11" itemprop="dateModified" datetime="2019-10-20T17:03:11+08:00">2019-10-20</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019-10-16/前端性能优化/前端性能优化/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019-10-16/前端性能优化/前端性能优化/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="什么是前端性能优化"><a href="#什么是前端性能优化" class="headerlink" title="什么是前端性能优化"></a>什么是前端性能优化</h2><p>从用户访问资源到资源完整的展现在用户面前的过程中，通过技术手段和优化策略，缩短每个步骤的处理时间从而提升整个资源的访问和呈现速度。</p><h2 id="为什么要做前端性能优化"><a href="#为什么要做前端性能优化" class="headerlink" title="为什么要做前端性能优化"></a>为什么要做前端性能优化</h2><p>在构建web站点的过程中，任何一个细节都有可能影响网站的访问速度，如果不了解性能优化知识，很多不利网站访问速度的因素会形成累加，从而严重影响网站的性能，导致网站访问速度变慢，用户体验低下，最终导致用户流失。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019-10-16/前端性能优化/前端性能优化/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <div>
+    
+</div>
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-08/TypeScript/TypeScript装饰器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jkfhto">
+      <meta itemprop="description" content="ARE YOU READY TO DIE">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2020-04-08/TypeScript/TypeScript装饰器/" class="post-title-link" itemprop="url">TypeScript装饰器</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-08 15:06:44" itemprop="dateCreated datePublished" datetime="2020-04-08T15:06:44+08:00">2020-04-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-09 10:00:37" itemprop="dateModified" datetime="2020-04-09T10:00:37+08:00">2020-04-09</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/TypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020-04-08/TypeScript/TypeScript装饰器/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020-04-08/TypeScript/TypeScript装饰器/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="TypeScript装饰器"><a href="#TypeScript装饰器" class="headerlink" title="TypeScript装饰器"></a>TypeScript装饰器</h2><p>在 TS 中，装饰器仍然是一项实验性特性，未来可能有所改变，所以如果你要使用装饰器，需要在 <code>tsconfig.json</code> 的编译配置中开启<code>experimentalDecorators</code>，将它设为 <code>true</code>。</p><h3 id="装饰器定义"><a href="#装饰器定义" class="headerlink" title="装饰器定义"></a>装饰器定义</h3><p>装饰器是一种新的声明，它能够作用于 <code>类声明</code>、<code>方法</code>、<code>访问符</code>、<code>属性</code>和 <code>参数</code> 上。使用 <code>@</code> 符号加一个名字来定义，如 <code>@decorate</code>，这的 <code>decorate</code> 必须是一个函数或者求值后是一个函数，这个 <code>decorate</code> 命名不是写死的，是你自己定义的，这个函数在 <code>运行的时候被调用</code>，被装饰的声明作为 <code>参数</code> 会自动传入。要注意装饰器要紧挨着要修饰的内容的前面，而且所有的装饰器不能用在声明文件(.d.ts)中，和任何外部上下文中。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2020-04-08/TypeScript/TypeScript装饰器/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <div>
+    
+</div>
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-07/TypeScript/TypeScript配置文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -506,403 +935,6 @@
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-02/TypeScript/TypeScript泛型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jkfhto">
-      <meta itemprop="description" content="ARE YOU READY TO DIE">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2020-04-02/TypeScript/TypeScript泛型/" class="post-title-link" itemprop="url">TypeScript泛型</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-02 14:37:41 / 修改时间：17:48:55" itemprop="dateCreated datePublished" datetime="2020-04-02T14:37:41+08:00">2020-04-02</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/TypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">TypeScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020-04-02/TypeScript/TypeScript泛型/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020-04-02/TypeScript/TypeScript泛型/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>软件工程中，我们不仅要创建定义良好且一致的 API，同时也要考虑可重用性。 组件不仅能够支持当前的数据类型，同时也能支持未来的数据类型，这在创建大型系统时为你提供了十分灵活的功能。</p><p>在像 C# 和 Java 这样的语言中，可以使用泛型来创建可重用的组件，一个组件可以支持多种类型的数据。 这样用户就可以以自己的数据类型来使用组件。</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2020-04-02/TypeScript/TypeScript泛型/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <div>
-    
-</div>
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-02/TypeScript/TypeScript类型检查机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jkfhto">
-      <meta itemprop="description" content="ARE YOU READY TO DIE">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2020-04-02/TypeScript/TypeScript类型检查机制/" class="post-title-link" itemprop="url">TypeScript类型检查机制</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-02 13:29:13 / 修改时间：22:53:10" itemprop="dateCreated datePublished" datetime="2020-04-02T13:29:13+08:00">2020-04-02</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/TypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">TypeScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020-04-02/TypeScript/TypeScript类型检查机制/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020-04-02/TypeScript/TypeScript类型检查机制/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="类型检查机制"><a href="#类型检查机制" class="headerlink" title="类型检查机制"></a>类型检查机制</h2><p>TypeScript编译器在做类型检查时，所秉承的一些原则，以及表现出的一些行为。</p><p>作用：辅助开发，提高开发效率。</p><ul>
-<li>类型推断</li>
-<li>类型兼容性</li>
-<li>类型保护</li>
-</ul><h2 id="类型推断"><a href="#类型推断" class="headerlink" title="类型推断"></a>类型推断</h2><p>不需要指定变量的类型（函数返回值的类型），TypeScript可以根据某些规则自动的为其推断出一个类型。</p><ul>
-<li>基础类型推断</li>
-<li>最佳通用类型推断</li>
-<li>上下文类型推断</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2020-04-02/TypeScript/TypeScript类型检查机制/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <div>
-    
-</div>
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jkfhto.github.io/2020-04-02/TypeScript/TypeScript类/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jkfhto">
-      <meta itemprop="description" content="ARE YOU READY TO DIE">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2020-04-02/TypeScript/TypeScript类/" class="post-title-link" itemprop="url">TypeScript类</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-02 00:29:13 / 修改时间：01:57:06" itemprop="dateCreated datePublished" datetime="2020-04-02T00:29:13+08:00">2020-04-02</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/TypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">TypeScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020-04-02/TypeScript/TypeScript类/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020-04-02/TypeScript/TypeScript类/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>在TypeScript中，<code>类的成员属性</code> 都是 <code>实例</code> 属性，而不是原型属性，<code>类的成员方法</code> 都是 <code>原型</code> 方法。</p><h3 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h3><ul>
-<li>派生类的构造函数必须包含 <code>super</code> 调用。</li>
-<li>访问派生类的构造函数中的 <code>this</code> 前，必须调用 <code>super</code>。</li>
-<li><code>super</code> 代表父类的实例</li>
-<li>调用 <code>super()</code>，会执行基类的构造函数</li>
-</ul><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Dog &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">  run() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dog= <span class="keyword">new</span> Dog(<span class="string">'11'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dog);</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Husky <span class="keyword">extends</span> Dog &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span>,color: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="comment">// 报错 派生类的构造函数必须包含 "super" 调用。访问派生类的构造函数中的 "this" 前，必须调用 "super"。</span></span><br><span class="line">    <span class="comment">// super(name);</span></span><br><span class="line">    <span class="keyword">this</span>.color = color;</span><br><span class="line">  &#125;</span><br><span class="line">  color: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2020-04-02/TypeScript/TypeScript类/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <div>
-    
-</div>
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
@@ -955,7 +987,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
